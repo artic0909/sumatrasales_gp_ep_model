@@ -879,125 +879,212 @@
         <!-- HOW IT WORKS SECTION -->
         <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
             <!-- Header -->
-            <div class="mb-6">
-                <h2 class="text-xl sm:text-2xl font-extrabold text-[#0B1727] tracking-tight">How It Works</h2>
-                <p class="text-xs sm:text-sm font-semibold text-slate-500 mt-0.5">Simple Process • Clear Opportunity • Transparent System</p>
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-black text-[#0B1727] tracking-tight">How It Works</h2>
+                    <p class="text-xs sm:text-sm font-semibold text-slate-500 mt-0.5">Simple Process • Clear Opportunity • Transparent System</p>
+                </div>
+                <div class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-xs font-bold text-slate-600">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                    <span>5 Straightforward Steps to Earn</span>
+                </div>
             </div>
 
             <!-- Two-Column Container: 5 Steps & No Upfront Box -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
                 
                 <!-- Left: 5 Flowchart Steps (Span 8 Cols) -->
-                <div class="lg:col-span-8 bg-white border border-slate-200/90 rounded-xl p-4 sm:p-5 shadow-xs flex flex-col justify-center">
-                    <div class="grid grid-cols-1 sm:grid-cols-5 gap-3 sm:gap-2 items-center">
+                <div class="lg:col-span-8 bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-6 shadow-xs flex flex-col justify-between">
+                    
+                    <!-- Top Sub-header inside Card -->
+                    <div class="flex items-center justify-between pb-3.5 mb-2 border-b border-slate-100">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+                            <span class="text-xs font-black uppercase tracking-wider text-slate-700">Partner Workflow</span>
+                        </div>
+                        <span class="text-[11px] font-bold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200/60">
+                            Zero Technical Knowledge Required
+                        </span>
+                    </div>
+
+                    <!-- DESKTOP / TABLET: 5 Steps in ONE Single Seamless Horizontal Row -->
+                    <div class="hidden sm:flex items-center justify-between gap-1.5 sm:gap-2 my-auto py-3">
                         
                         <!-- Step 1 -->
-                        <div class="flex flex-col items-center text-center relative group">
-                            <!-- Number badge -->
-                            <div class="w-6 h-6 rounded-full bg-[#8B5CF6] text-white text-xs font-black flex items-center justify-center mb-2 shadow-xs">
+                        <div class="flex-1 flex flex-col items-center text-center group cursor-default">
+                            <div class="w-7 h-7 rounded-full bg-[#8B5CF6] text-white text-xs font-black flex items-center justify-center mb-2.5 shadow-xs group-hover:scale-110 transition-transform">
                                 1
                             </div>
-                            <!-- Icon -->
-                            <div class="w-12 h-12 rounded-xl bg-purple-50 border border-purple-200/60 flex items-center justify-center mb-2 text-purple-600">
+                            <div class="w-13 h-13 rounded-2xl bg-purple-50 border border-purple-200/70 flex items-center justify-center mb-2.5 text-purple-600 shadow-2xs group-hover:bg-purple-100 group-hover:shadow-md transition-all">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.33a4.126 4.126 0 0 0-6.338 0 .375.375 0 0 0 .26.67h5.818a.375.375 0 0 0 .26-.67Z" />
                                 </svg>
                             </div>
-                            <span class="text-xs font-bold text-slate-800 leading-tight">Register<br>as GP or EP</span>
+                            <span class="text-xs font-bold text-slate-800 leading-tight">
+                                Register<br><span class="text-slate-500 font-semibold text-[11px]">as GP or EP</span>
+                            </span>
                         </div>
 
-                        <!-- Arrow 1 (Desktop) -->
-                        <div class="hidden sm:flex justify-center text-slate-300">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+                        <!-- Connector 1 -->
+                        <div class="shrink-0 text-slate-300 -mt-7">
+                            <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                         </div>
 
                         <!-- Step 2 -->
-                        <div class="flex flex-col items-center text-center relative group">
-                            <!-- Number badge -->
-                            <div class="w-6 h-6 rounded-full bg-[#F59E0B] text-white text-xs font-black flex items-center justify-center mb-2 shadow-xs">
+                        <div class="flex-1 flex flex-col items-center text-center group cursor-default">
+                            <div class="w-7 h-7 rounded-full bg-[#F59E0B] text-white text-xs font-black flex items-center justify-center mb-2.5 shadow-xs group-hover:scale-110 transition-transform">
                                 2
                             </div>
-                            <!-- Icon -->
-                            <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200/60 flex items-center justify-center mb-2 text-amber-600">
+                            <div class="w-13 h-13 rounded-2xl bg-amber-50 border border-amber-200/70 flex items-center justify-center mb-2.5 text-amber-600 shadow-2xs group-hover:bg-amber-100 group-hover:shadow-md transition-all">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
                                 </svg>
                             </div>
-                            <span class="text-xs font-bold text-slate-800 leading-tight">Find & Introduce<br>Customers</span>
+                            <span class="text-xs font-bold text-slate-800 leading-tight">
+                                Find & Introduce<br><span class="text-slate-500 font-semibold text-[11px]">Customers</span>
+                            </span>
                         </div>
 
-                        <!-- Arrow 2 (Desktop) -->
-                        <div class="hidden sm:flex justify-center text-slate-300">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+                        <!-- Connector 2 -->
+                        <div class="shrink-0 text-slate-300 -mt-7">
+                            <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                         </div>
 
                         <!-- Step 3 -->
-                        <div class="flex flex-col items-center text-center relative group">
-                            <!-- Number badge -->
-                            <div class="w-6 h-6 rounded-full bg-[#6366F1] text-white text-xs font-black flex items-center justify-center mb-2 shadow-xs">
+                        <div class="flex-1 flex flex-col items-center text-center group cursor-default">
+                            <div class="w-7 h-7 rounded-full bg-[#6366F1] text-white text-xs font-black flex items-center justify-center mb-2.5 shadow-xs group-hover:scale-110 transition-transform">
                                 3
                             </div>
-                            <!-- Icon -->
-                            <div class="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-200/60 flex items-center justify-center mb-2 text-indigo-600">
+                            <div class="w-13 h-13 rounded-2xl bg-indigo-50 border border-indigo-200/70 flex items-center justify-center mb-2.5 text-indigo-600 shadow-2xs group-hover:bg-indigo-100 group-hover:shadow-md transition-all">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z" />
                                 </svg>
                             </div>
-                            <span class="text-xs font-bold text-slate-800 leading-tight">Our Team Handles<br>Conversion</span>
+                            <span class="text-xs font-bold text-slate-800 leading-tight">
+                                Our Team Handles<br><span class="text-indigo-600 font-bold text-[11px]">Conversion</span>
+                            </span>
                         </div>
 
-                    </div>
+                        <!-- Connector 3 -->
+                        <div class="shrink-0 text-slate-300 -mt-7">
+                            <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+                        </div>
 
-                    <!-- Flow Continuation on Next Line (or mobile friendly) -->
-                    <div class="mt-4 pt-3 border-t border-slate-100 flex flex-wrap sm:flex-nowrap items-center justify-center gap-6 sm:gap-10">
                         <!-- Step 4 -->
-                        <div class="flex items-center gap-3">
-                            <div class="w-6 h-6 rounded-full bg-[#10B981] text-white text-xs font-black flex items-center justify-center shadow-xs">
+                        <div class="flex-1 flex flex-col items-center text-center group cursor-default">
+                            <div class="w-7 h-7 rounded-full bg-[#10B981] text-white text-xs font-black flex items-center justify-center mb-2.5 shadow-xs group-hover:scale-110 transition-transform">
                                 4
                             </div>
-                            <div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200/60 flex items-center justify-center text-emerald-600">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <div class="w-13 h-13 rounded-2xl bg-emerald-50 border border-emerald-200/70 flex items-center justify-center mb-2.5 text-emerald-600 shadow-2xs group-hover:bg-emerald-100 group-hover:shadow-md transition-all">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6H2.25m0 0H3m1.5 0h13.5m-15 0v12.75a2.25 2.25 0 0 0 2.25 2.25h13.5a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 18 4.5H4.5Z" />
                                 </svg>
                             </div>
-                            <span class="text-xs font-bold text-slate-800 leading-tight">Customer Onboards<br>& Pays</span>
+                            <span class="text-xs font-bold text-slate-800 leading-tight">
+                                Customer Onboards<br><span class="text-slate-500 font-semibold text-[11px]">& Pays</span>
+                            </span>
                         </div>
 
-                        <div class="text-slate-300">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+                        <!-- Connector 4 -->
+                        <div class="shrink-0 text-slate-300 -mt-7">
+                            <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                         </div>
 
                         <!-- Step 5 -->
-                        <div class="flex items-center gap-3">
-                            <div class="w-6 h-6 rounded-full bg-[#F97316] text-white text-xs font-black flex items-center justify-center shadow-xs">
+                        <div class="flex-1 flex flex-col items-center text-center group cursor-default">
+                            <div class="w-7 h-7 rounded-full bg-[#F97316] text-white text-xs font-black flex items-center justify-center mb-2.5 shadow-xs group-hover:scale-110 transition-transform">
                                 5
                             </div>
-                            <div class="w-10 h-10 rounded-xl bg-orange-50 border border-orange-200/60 flex items-center justify-center text-orange-600">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <div class="w-13 h-13 rounded-2xl bg-orange-50 border border-orange-200/70 flex items-center justify-center mb-2.5 text-orange-600 shadow-2xs group-hover:bg-orange-100 group-hover:shadow-md transition-all">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                 </svg>
                             </div>
-                            <span class="text-xs font-bold text-slate-800 leading-tight">Get Your<br>Commission</span>
+                            <span class="text-xs font-bold text-slate-800 leading-tight">
+                                Get Your<br><span class="text-orange-600 font-bold text-[11px]">Commission</span>
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <!-- MOBILE ONLY: Connected Vertical Workflow -->
+                    <div class="flex sm:hidden flex-col gap-3 my-2">
+                        <!-- Mobile Step 1 -->
+                        <div class="flex items-center gap-3 p-2.5 rounded-xl bg-purple-50/50 border border-purple-100">
+                            <div class="w-6 h-6 rounded-full bg-[#8B5CF6] text-white text-xs font-black flex items-center justify-center shrink-0">1</div>
+                            <div class="w-9 h-9 rounded-lg bg-white border border-purple-200 flex items-center justify-center text-purple-600 shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" /></svg>
+                            </div>
+                            <span class="text-xs font-bold text-slate-800">Register as GP or EP</span>
+                        </div>
+                        <!-- Mobile Step 2 -->
+                        <div class="flex items-center gap-3 p-2.5 rounded-xl bg-amber-50/50 border border-amber-100">
+                            <div class="w-6 h-6 rounded-full bg-[#F59E0B] text-white text-xs font-black flex items-center justify-center shrink-0">2</div>
+                            <div class="w-9 h-9 rounded-lg bg-white border border-amber-200 flex items-center justify-center text-amber-600 shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
+                            </div>
+                            <span class="text-xs font-bold text-slate-800">Find & Introduce Customers</span>
+                        </div>
+                        <!-- Mobile Step 3 -->
+                        <div class="flex items-center gap-3 p-2.5 rounded-xl bg-indigo-50/50 border border-indigo-100">
+                            <div class="w-6 h-6 rounded-full bg-[#6366F1] text-white text-xs font-black flex items-center justify-center shrink-0">3</div>
+                            <div class="w-9 h-9 rounded-lg bg-white border border-indigo-200 flex items-center justify-center text-indigo-600 shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25" /></svg>
+                            </div>
+                            <span class="text-xs font-bold text-slate-800">Our Team Handles Conversion</span>
+                        </div>
+                        <!-- Mobile Step 4 -->
+                        <div class="flex items-center gap-3 p-2.5 rounded-xl bg-emerald-50/50 border border-emerald-100">
+                            <div class="w-6 h-6 rounded-full bg-[#10B981] text-white text-xs font-black flex items-center justify-center shrink-0">4</div>
+                            <div class="w-9 h-9 rounded-lg bg-white border border-emerald-200 flex items-center justify-center text-emerald-600 shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75" /></svg>
+                            </div>
+                            <span class="text-xs font-bold text-slate-800">Customer Onboards & Pays</span>
+                        </div>
+                        <!-- Mobile Step 5 -->
+                        <div class="flex items-center gap-3 p-2.5 rounded-xl bg-orange-50/50 border border-orange-100">
+                            <div class="w-6 h-6 rounded-full bg-[#F97316] text-white text-xs font-black flex items-center justify-center shrink-0">5</div>
+                            <div class="w-9 h-9 rounded-lg bg-white border border-orange-200 flex items-center justify-center text-orange-600 shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0" /></svg>
+                            </div>
+                            <span class="text-xs font-bold text-slate-800">Get Your Commission</span>
                         </div>
                     </div>
+
+                    <!-- Bottom reassurance info -->
+                    <div class="mt-3 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500 font-medium">
+                        <span class="flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                            Demos, technical closing & delivery handled entirely by SumatraSales
+                        </span>
+                        <span class="text-slate-600 font-bold bg-slate-50 px-2 py-0.5 rounded border border-slate-200">
+                            100% Transparent Tracking
+                        </span>
+                    </div>
+
                 </div>
 
                 <!-- Right: "No Upfront Investment" Box (Span 4 Cols) -->
-                <div class="lg:col-span-4 bg-emerald-50/50 border border-emerald-200 rounded-xl p-5 shadow-xs flex flex-col justify-between">
+                <div class="lg:col-span-4 bg-gradient-to-br from-emerald-50/70 via-white to-emerald-50/30 border border-emerald-200/90 rounded-2xl p-5 sm:p-6 shadow-xs flex flex-col justify-between">
                     <div>
-                        <!-- Header Green Checkmark -->
-                        <div class="flex items-center gap-1.5 text-emerald-700 font-extrabold text-sm sm:text-base">
-                            <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                            </svg>
-                            <span>No Upfront Investment</span>
+                        <!-- Header Green Badge -->
+                        <div class="flex items-center justify-between">
+                            <div class="inline-flex items-center gap-1.5 text-emerald-800 font-extrabold text-xs bg-emerald-100/80 px-2.5 py-1 rounded-full border border-emerald-300/80">
+                                <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                </svg>
+                                <span>Zero Risk Guarantee</span>
+                            </div>
+                            <span class="text-[10px] font-black uppercase tracking-wider text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                                100% Free
+                            </span>
                         </div>
 
-                        <!-- Rupee Prohibition Graphic & Heading -->
-                        <div class="flex items-center gap-3.5 my-4">
+                        <!-- Rupee Prohibition Graphic & Heading Card -->
+                        <div class="flex items-center gap-3.5 my-4 p-3.5 rounded-xl bg-white border border-emerald-200/80 shadow-2xs">
                             <!-- Red Slash Rupee Icon -->
-                            <div class="relative w-11 h-11 shrink-0 flex items-center justify-center">
-                                <svg viewBox="0 0 48 48" class="w-full h-full text-red-600" fill="none">
+                            <div class="relative w-12 h-12 shrink-0 flex items-center justify-center">
+                                <svg viewBox="0 0 48 48" class="w-full h-full text-red-600 drop-shadow-2xs" fill="none">
                                     <circle cx="24" cy="24" r="21" stroke="#DC2626" stroke-width="3.5" fill="#FEF2F2" />
                                     <!-- Rupee Symbol -->
                                     <text x="24" y="29" font-family="'Plus Jakarta Sans', sans-serif" font-size="20" font-weight="900" fill="#DC2626" text-anchor="middle">₹</text>
@@ -1006,102 +1093,190 @@
                                 </svg>
                             </div>
 
-                            <span class="font-bold text-xs sm:text-sm text-slate-900 leading-tight">
-                                No Investment Fee<br>to Start as a Partner
-                            </span>
+                            <div>
+                                <span class="font-extrabold text-xs sm:text-sm text-slate-900 leading-snug block">
+                                    No Investment Fee<br>to Start as a Partner
+                                </span>
+                                <span class="text-[11px] font-semibold text-emerald-700 block mt-0.5">
+                                    ₹0 Joining • ₹0 Security Deposit
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Value Points -->
+                        <div class="space-y-1.5 px-0.5">
+                            <div class="flex items-center gap-2 text-xs font-semibold text-slate-700">
+                                <svg class="w-3.5 h-3.5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+                                <span>Free sales collateral & demo access</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs font-semibold text-slate-700">
+                                <svg class="w-3.5 h-3.5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+                                <span>No sales target pressure or penalties</span>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Disclaimer text -->
-                    <p class="text-[11px] sm:text-xs text-slate-600 font-medium leading-relaxed border-t border-emerald-200/80 pt-3">
-                        Your income depends on your work, performance and approved commission structure.
-                    </p>
+                    <div class="border-t border-emerald-200/80 pt-3 mt-4">
+                        <p class="text-[11px] text-slate-600 font-medium leading-relaxed flex items-start gap-1.5">
+                            <svg class="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span>Your income depends on your work, performance and approved commission structure.</span>
+                        </p>
+                    </div>
                 </div>
 
             </div>
         </section>
 
         <!-- INVESTOR & PUBLIC TRUST SECTION -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-            <div class="bg-[#0B2144] rounded-xl p-4 sm:p-5 text-white shadow-lg flex flex-col lg:flex-row items-center justify-between gap-5">
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-7">
+            <div class="relative overflow-hidden bg-gradient-to-br from-[#2355DB] via-[#1F4ED0] to-[#173FAD] rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-blue-400/25">
                 
-                <!-- Title -->
-                <div class="shrink-0 text-center lg:text-left">
-                    <h3 class="text-base sm:text-lg font-extrabold tracking-tight text-white whitespace-nowrap">
-                        Investor & Public Trust
-                    </h3>
-                </div>
+                <!-- Subtle Decorative Background Glows -->
+                <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-white/10 blur-3xl pointer-events-none"></div>
+                <div class="absolute -bottom-24 -left-24 w-72 h-72 rounded-full bg-cyan-400/15 blur-3xl pointer-events-none"></div>
 
-                <!-- Navigation Links with Icons -->
-                <div class="flex items-center flex-wrap justify-center gap-x-4 sm:gap-x-6 gap-y-2 text-[11px] sm:text-xs font-semibold text-slate-200">
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
                     
-                    <!-- Link 1 -->
-                    <a href="#" class="inline-flex items-center gap-1.5 hover:text-white transition">
-                        <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="9" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 8v8M8 12h8" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span>Our Vision & Mission</span>
-                    </a>
+                    <!-- Left: Title, Trust Statement & CTA (Span 5) -->
+                    <div class="lg:col-span-5 flex flex-col justify-between">
+                        <div>
+                            <!-- Trust Badge -->
+                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 border border-white/20 text-white text-xs font-extrabold tracking-wide mb-3 backdrop-blur-xs">
+                                <svg class="w-3.5 h-3.5 text-cyan-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+                                </svg>
+                                <span>CORPORATE GOVERNANCE</span>
+                            </div>
 
-                    <!-- Link 2 -->
-                    <a href="#" class="inline-flex items-center gap-1.5 hover:text-white transition">
-                        <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-9h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.75c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12l1.5 3H3V3Z" />
-                        </svg>
-                        <span>Business Model</span>
-                    </a>
+                            <h3 class="text-2xl sm:text-3xl font-black tracking-tight text-white leading-tight">
+                                Investor & Public Trust
+                            </h3>
+                            
+                            <p class="text-xs sm:text-sm text-blue-100 font-medium leading-relaxed mt-2.5 pr-2">
+                                Complete operational transparency, verified technological intellectual property, and public corporate governance for all stakeholders.
+                            </p>
+                        </div>
 
-                    <!-- Link 3 -->
-                    <a href="#" class="inline-flex items-center gap-1.5 hover:text-white transition">
-                        <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 16.5V21m3.75-18v1.5m0 16.5V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z" />
-                        </svg>
-                        <span>Products & Technology</span>
-                    </a>
+                        <!-- CTA Action Button & Quick Trust Note -->
+                        <div class="mt-6 flex flex-wrap items-center gap-3">
+                            <a href="#" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white hover:bg-blue-50 text-[#2355DB] font-extrabold text-xs sm:text-sm rounded-xl shadow-md hover:shadow-lg hover:scale-[1.02] transition-all group">
+                                <span>Explore Investor Hub</span>
+                                <svg class="w-4 h-4 text-[#2355DB] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg>
+                            </a>
+                            <span class="text-[11px] font-semibold text-blue-200">
+                                Audited & Publicly Disclosed
+                            </span>
+                        </div>
+                    </div>
 
-                    <!-- Link 4 -->
-                    <a href="#" class="inline-flex items-center gap-1.5 hover:text-white transition">
-                        <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
-                        </svg>
-                        <span>Growth Strategy</span>
-                    </a>
+                    <!-- Right: The 7 Pillars in a Clean Interactive Grid (Span 7) -->
+                    <div class="lg:col-span-7">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                            
+                            <!-- Pillar 1: Vision & Mission -->
+                            <a href="#" class="flex items-center gap-3 p-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 hover:border-white/30 backdrop-blur-xs transition-all group">
+                                <div class="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center text-cyan-300 group-hover:scale-110 group-hover:bg-white group-hover:text-[#2355DB] transition-all shrink-0">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="9" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M12 8v8M8 12h8" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="text-xs font-bold text-white group-hover:text-cyan-200 transition-colors truncate">Our Vision & Mission</div>
+                                    <div class="text-[10px] text-blue-200 font-medium truncate">Long-term vision & purpose</div>
+                                </div>
+                            </a>
 
-                    <!-- Link 5 -->
-                    <a href="#" class="inline-flex items-center gap-1.5 hover:text-white transition">
-                        <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
-                        </svg>
-                        <span>Governance & Policies</span>
-                    </a>
+                            <!-- Pillar 2: Business Model -->
+                            <a href="#" class="flex items-center gap-3 p-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 hover:border-white/30 backdrop-blur-xs transition-all group">
+                                <div class="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center text-cyan-300 group-hover:scale-110 group-hover:bg-white group-hover:text-[#2355DB] transition-all shrink-0">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-9h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.75c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12l1.5 3H3V3Z" />
+                                    </svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="text-xs font-bold text-white group-hover:text-cyan-200 transition-colors truncate">Business Model</div>
+                                    <div class="text-[10px] text-blue-200 font-medium truncate">EP & GP partner economics</div>
+                                </div>
+                            </a>
 
-                    <!-- Link 6 -->
-                    <a href="#" class="inline-flex items-center gap-1.5 hover:text-white transition">
-                        <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
-                        </svg>
-                        <span>Business Transparency</span>
-                    </a>
+                            <!-- Pillar 3: Products & Technology -->
+                            <a href="#" class="flex items-center gap-3 p-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 hover:border-white/30 backdrop-blur-xs transition-all group">
+                                <div class="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center text-cyan-300 group-hover:scale-110 group-hover:bg-white group-hover:text-[#2355DB] transition-all shrink-0">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 16.5V21m3.75-18v1.5m0 16.5V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z" />
+                                    </svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="text-xs font-bold text-white group-hover:text-cyan-200 transition-colors truncate">Products & Technology</div>
+                                    <div class="text-[10px] text-blue-200 font-medium truncate">Doctorwala, Schoolwala & apps</div>
+                                </div>
+                            </a>
 
-                    <!-- Link 7 -->
-                    <a href="#" class="inline-flex items-center gap-1.5 hover:text-white transition">
-                        <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5m.75-9 3-3 2.148 2.148A12.061 12.061 0 0 1 16.5 7.605" />
-                        </svg>
-                        <span>Investor Information</span>
-                    </a>
+                            <!-- Pillar 4: Growth Strategy -->
+                            <a href="#" class="flex items-center gap-3 p-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 hover:border-white/30 backdrop-blur-xs transition-all group">
+                                <div class="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center text-cyan-300 group-hover:scale-110 group-hover:bg-white group-hover:text-[#2355DB] transition-all shrink-0">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+                                    </svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="text-xs font-bold text-white group-hover:text-cyan-200 transition-colors truncate">Growth Strategy</div>
+                                    <div class="text-[10px] text-blue-200 font-medium truncate">Scale & market expansion plan</div>
+                                </div>
+                            </a>
+
+                            <!-- Pillar 5: Governance & Policies -->
+                            <a href="#" class="flex items-center gap-3 p-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 hover:border-white/30 backdrop-blur-xs transition-all group">
+                                <div class="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center text-cyan-300 group-hover:scale-110 group-hover:bg-white group-hover:text-[#2355DB] transition-all shrink-0">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+                                    </svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="text-xs font-bold text-white group-hover:text-cyan-200 transition-colors truncate">Governance & Policies</div>
+                                    <div class="text-[10px] text-blue-200 font-medium truncate">Ethical code & partner charter</div>
+                                </div>
+                            </a>
+
+                            <!-- Pillar 6: Business Transparency -->
+                            <a href="#" class="flex items-center gap-3 p-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 hover:border-white/30 backdrop-blur-xs transition-all group">
+                                <div class="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center text-cyan-300 group-hover:scale-110 group-hover:bg-white group-hover:text-[#2355DB] transition-all shrink-0">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                                    </svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="text-xs font-bold text-white group-hover:text-cyan-200 transition-colors truncate">Business Transparency</div>
+                                    <div class="text-[10px] text-blue-200 font-medium truncate">Audit logs & open operations</div>
+                                </div>
+                            </a>
+
+                            <!-- Pillar 7: Investor Information -->
+                            <a href="#" class="sm:col-span-2 flex items-center justify-between p-3 rounded-xl bg-white/15 hover:bg-white/25 border border-white/25 hover:border-white/40 backdrop-blur-xs transition-all group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <div class="w-9 h-9 rounded-lg bg-white/20 flex items-center justify-center text-cyan-300 group-hover:scale-110 group-hover:bg-white group-hover:text-[#2355DB] transition-all shrink-0">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5m.75-9 3-3 2.148 2.148A12.061 12.061 0 0 1 16.5 7.605" />
+                                        </svg>
+                                    </div>
+                                    <div class="min-w-0">
+                                        <div class="text-xs font-bold text-white group-hover:text-cyan-200 transition-colors truncate">Investor Information & Filings</div>
+                                        <div class="text-[10px] text-blue-200 font-medium truncate">Shareholder structure, capital model & annual disclosure</div>
+                                    </div>
+                                </div>
+                                <svg class="w-4 h-4 text-white/70 group-hover:text-white group-hover:translate-x-1 transition-all shrink-0 ml-2" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg>
+                            </a>
+
+                        </div>
+                    </div>
 
                 </div>
-
-                <!-- Learn More Button -->
-                <div class="shrink-0">
-                    <a href="#" class="inline-flex items-center gap-1 px-4 py-1.5 bg-white hover:bg-slate-100 text-[#0B2144] font-bold text-xs rounded-md shadow-xs transition">
-                        <span>Learn More</span>
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
-                    </a>
-                </div>
-
             </div>
         </section>
 
