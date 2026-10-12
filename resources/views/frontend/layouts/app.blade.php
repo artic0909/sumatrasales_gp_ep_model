@@ -215,7 +215,7 @@
     </style>
     @stack('styles')
 </head>
-<body class="bg-[#F8FAFC] text-slate-800 antialiased selection:bg-blue-600 selection:text-white">
+<body class="bg-[#F8FAFC] text-slate-800 antialiased selection:bg-blue-600 selection:text-white overflow-x-hidden min-h-screen">
 
     <!-- TOP NAVIGATION HEADER -->
     @include('frontend.includes.header')

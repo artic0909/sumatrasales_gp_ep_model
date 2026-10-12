@@ -4,12 +4,12 @@
 <main class="w-full">
 
         <!-- HERO SECTION -->
-        <section id="about" class="relative w-full hero-bg-gradient overflow-hidden pt-12 sm:pt-16 lg:pt-20 pb-24 sm:pb-32 lg:pb-36 text-white">
+        <section id="about" class="relative w-full hero-bg-gradient overflow-hidden pt-10 sm:pt-16 lg:pt-20 pb-20 sm:pb-32 lg:pb-36 text-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
                     
                     <!-- Left Hero Content -->
-                    <div class="lg:col-span-7 xl:col-span-6 space-y-6">
+                    <div class="lg:col-span-7 xl:col-span-6 space-y-5 sm:space-y-6">
                         <!-- Pill Badge -->
                         <div class="inline-flex items-center gap-2 text-cyan-300 font-semibold text-xs sm:text-sm tracking-wide">
                             <span>Digital India</span>
@@ -37,10 +37,10 @@
                             Join Sumatra Sales and be a part of India's growing digital ecosystem. No upfront investment fee.
                         </p>
 
-                        <!-- CTA Action Buttons -->
-                        <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <!-- CTA Action Buttons (Stretch on mobile, row on tablet/desktop) -->
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
                             <!-- Yellow CTA Button -->
-                            <a href="{{ route('register') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-[#FABE28] hover:bg-[#E5AC20] text-slate-950 font-extrabold text-sm sm:text-base rounded-md shadow-md transition duration-150 transform hover:-translate-y-0.5">
+                            <a href="{{ route('register') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FABE28] hover:bg-[#E5AC20] text-slate-950 font-extrabold text-sm sm:text-base rounded-md shadow-md transition duration-150 transform hover:-translate-y-0.5 text-center">
                                 <span>Become a Partner</span>
                                 <svg class="w-4 h-4 text-slate-950 font-bold" fill="none" stroke="currentColor" stroke-width="2.8" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
@@ -48,7 +48,7 @@
                             </a>
 
                             <!-- Watch Video Button -->
-                            <button type="button" class="inline-flex items-center gap-2.5 px-5 py-3 bg-slate-900/60 hover:bg-slate-900/80 border border-white/60 text-white font-semibold text-sm sm:text-base rounded-md shadow-sm transition duration-150 backdrop-blur-xs">
+                            <button type="button" class="inline-flex items-center justify-center gap-2.5 px-5 py-3 bg-slate-900/60 hover:bg-slate-900/80 border border-white/60 text-white font-semibold text-sm sm:text-base rounded-md shadow-sm transition duration-150 backdrop-blur-xs text-center">
                                 <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M8 5v14l11-7z" />
                                 </svg>
@@ -58,13 +58,13 @@
                     </div>
 
                     <!-- Right Hero Area: Floating Handwriting Script Tagline -->
-                    <div class="lg:col-span-5 xl:col-span-6 relative flex flex-col items-end justify-center min-h-[140px] sm:min-h-[220px]">
+                    <div class="lg:col-span-5 xl:col-span-6 relative flex flex-col items-center sm:items-end justify-center min-h-[90px] sm:min-h-[220px]">
                         <!-- Handwriting Script overlay matching screenshot -->
-                        <div class="absolute -top-6 sm:top-0 right-4 sm:right-10 text-right transform -rotate-3 select-none pointer-events-none">
-                            <div class="flex items-center justify-end gap-1 text-white/90">
+                        <div class="relative sm:absolute mt-3 sm:mt-0 sm:top-0 sm:right-10 text-center sm:text-right transform -rotate-2 sm:-rotate-3 select-none pointer-events-none">
+                            <div class="inline-flex items-center justify-center sm:justify-end gap-1.5 text-white/90">
                                 <span class="text-amber-300 text-sm">✦</span>
                                 <span class="font-script text-2xl sm:text-3xl lg:text-4xl font-bold tracking-wide text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-                                    Let's Build<br>a Smarter<br>India Together
+                                    Let's Build<br class="hidden sm:inline"> a Smarter<br class="hidden sm:inline"> India Together
                                 </span>
                                 <span class="text-amber-300 text-xs self-start">✦</span>
                             </div>
@@ -76,7 +76,7 @@
         </section>
 
         <!-- FOUR PLATFORM CARDS SECTION (OVERLAPPING HERO SECTION) -->
-        <section id="platforms" class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 sm:-mt-28 lg:-mt-32 mb-10 sm:mb-14">
+        <section id="platforms" class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-14 sm:-mt-24 lg:-mt-32 mb-10 sm:mb-14">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
                 <!-- CARD 1: DOCTORwala (Theme: #4DCBDC) -->
@@ -1167,70 +1167,70 @@
         <!-- STATS & COUNTER METRICS BAR -->
         <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-12">
             <div class="bg-white rounded-xl border border-slate-200/90 p-5 shadow-xs">
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-6">
                     
                     <!-- Stat 1 -->
-                    <div class="flex items-center gap-3 pt-2 sm:pt-0 sm:px-3">
-                        <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="flex items-center gap-2.5 sm:gap-3 p-3 sm:p-0 sm:px-3 rounded-xl sm:rounded-none bg-slate-50/70 sm:bg-transparent border border-slate-100 sm:border-0">
+                        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
                             </svg>
                         </div>
                         <div>
-                            <div class="text-xl sm:text-2xl font-black text-slate-900 leading-none">4+</div>
-                            <div class="text-[11px] font-semibold text-slate-500 mt-1">Digital Platforms</div>
+                            <div class="text-lg sm:text-2xl font-black text-slate-900 leading-none">4+</div>
+                            <div class="text-[10px] sm:text-[11px] font-semibold text-slate-500 mt-1">Digital Platforms</div>
                         </div>
                     </div>
 
                     <!-- Stat 2 -->
-                    <div class="flex items-center gap-3 pt-2 sm:pt-0 sm:px-3">
-                        <div class="w-10 h-10 rounded-lg bg-cyan-50 text-cyan-600 flex items-center justify-center shrink-0">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="flex items-center gap-2.5 sm:gap-3 p-3 sm:p-0 sm:px-3 rounded-xl sm:rounded-none bg-slate-50/70 sm:bg-transparent border border-slate-100 sm:border-0">
+                        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-cyan-50 text-cyan-600 flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
                             </svg>
                         </div>
                         <div>
-                            <div class="text-xl sm:text-2xl font-black text-slate-900 leading-none">10+</div>
-                            <div class="text-[11px] font-semibold text-slate-500 mt-1">Business Solutions</div>
+                            <div class="text-lg sm:text-2xl font-black text-slate-900 leading-none">10+</div>
+                            <div class="text-[10px] sm:text-[11px] font-semibold text-slate-500 mt-1">Business Solutions</div>
                         </div>
                     </div>
 
                     <!-- Stat 3 -->
-                    <div class="flex items-center gap-3 pt-2 sm:pt-0 sm:px-3">
-                        <div class="w-10 h-10 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="flex items-center gap-2.5 sm:gap-3 p-3 sm:p-0 sm:px-3 rounded-xl sm:rounded-none bg-slate-50/70 sm:bg-transparent border border-slate-100 sm:border-0">
+                        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
                             </svg>
                         </div>
                         <div>
-                            <div class="text-xl sm:text-2xl font-black text-slate-900 leading-none">1000+</div>
-                            <div class="text-[11px] font-semibold text-slate-500 mt-1">Active Customers</div>
+                            <div class="text-lg sm:text-2xl font-black text-slate-900 leading-none">1000+</div>
+                            <div class="text-[10px] sm:text-[11px] font-semibold text-slate-500 mt-1">Active Customers</div>
                         </div>
                     </div>
 
                     <!-- Stat 4 -->
-                    <div class="flex items-center gap-3 pt-2 sm:pt-0 sm:px-3">
-                        <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="flex items-center gap-2.5 sm:gap-3 p-3 sm:p-0 sm:px-3 rounded-xl sm:rounded-none bg-slate-50/70 sm:bg-transparent border border-slate-100 sm:border-0">
+                        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
                             </svg>
                         </div>
                         <div>
-                            <div class="text-xl sm:text-2xl font-black text-slate-900 leading-none">500+</div>
-                            <div class="text-[11px] font-semibold text-slate-500 mt-1">Partners (GP & EP)</div>
+                            <div class="text-lg sm:text-2xl font-black text-slate-900 leading-none">500+</div>
+                            <div class="text-[10px] sm:text-[11px] font-semibold text-slate-500 mt-1">Partners (GP & EP)</div>
                         </div>
                     </div>
 
-                    <!-- Stat 5 -->
-                    <div class="flex items-center gap-3 pt-2 sm:pt-0 sm:px-3">
-                        <div class="w-10 h-10 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <!-- Stat 5 (Span 2 on mobile, 1 on larger) -->
+                    <div class="col-span-2 sm:col-span-1 flex items-center justify-center sm:justify-start gap-2.5 sm:gap-3 p-3 sm:p-0 sm:px-3 rounded-xl sm:rounded-none bg-slate-50/70 sm:bg-transparent border border-slate-100 sm:border-0">
+                        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-9h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.75c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12l1.5 3H3V3Z" />
                             </svg>
                         </div>
                         <div>
-                            <div class="text-xl sm:text-2xl font-black text-slate-900 leading-none">100+</div>
-                            <div class="text-[11px] font-semibold text-slate-500 mt-1">Cities & Growing</div>
+                            <div class="text-lg sm:text-2xl font-black text-slate-900 leading-none">100+</div>
+                            <div class="text-[10px] sm:text-[11px] font-semibold text-slate-500 mt-1">Cities & Growing</div>
                         </div>
                     </div>
 

@@ -28,7 +28,7 @@
             </div>
 
             <!-- Main 5-Column Navigation Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-10 border-b border-white/15">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-6 sm:gap-8 pb-10 border-b border-white/15">
                 
                 <!-- Col 1: Brand & Corporate Identity (Span 4) -->
                 <div class="lg:col-span-4 flex flex-col justify-between">

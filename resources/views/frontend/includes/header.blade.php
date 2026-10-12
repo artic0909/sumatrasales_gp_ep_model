@@ -1,33 +1,33 @@
 <header class="w-full bg-white border-b border-slate-200 sticky top-0 z-50 shadow-xs">
         <!-- Top Row: Logo & Action Buttons -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <div class="flex items-center justify-between gap-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3">
+            <div class="flex items-center justify-between gap-2.5 sm:gap-4">
                 
                 <!-- Logo & Brand Name -->
-                <a href="{{ route('home') }}" class="flex items-center gap-3 group shrink-0">
-                    <img src="/logo.png" alt="Sumatra Sales" class="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-102">
+                <a href="{{ route('home') }}" class="flex items-center gap-2 sm:gap-3 group shrink-0">
+                    <img src="/logo.png" alt="Sumatra Sales" class="h-9 sm:h-11 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-102">
                     <div class="flex flex-col">
-                        <span class="text-xs sm:text-sm font-bold text-[#1E293B] leading-none tracking-tight">Private Limited</span>
-                        <span class="text-[9px] sm:text-[10px] text-slate-500 font-medium tracking-tight mt-1 leading-tight">Technology for People. Solutions for a Better Tomorrow.</span>
+                        <span class="text-xs sm:text-sm font-black text-[#1E293B] leading-none tracking-tight">Private Limited</span>
+                        <span class="hidden sm:inline-block text-[9px] sm:text-[10px] text-slate-500 font-medium tracking-tight mt-1 leading-tight">Technology for People. Solutions for a Better Tomorrow.</span>
                     </div>
                 </a>
 
-                <!-- Right Header Actions: Search, Login, Become a Partner -->
-                <div class="flex items-center gap-2.5 sm:gap-3.5">
-                    <!-- Search Icon Button -->
-                    <button type="button" aria-label="Search" class="p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-full transition duration-150">
+                <!-- Right Header Actions: Search, Login, Become a Partner & Mobile Toggle -->
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <!-- Search Icon Button (Desktop / Tablet) -->
+                    <button type="button" aria-label="Search" class="hidden md:inline-flex p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-full transition duration-150">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                         </svg>
                     </button>
 
                     @auth
-                        <a href="{{ route('dashboard') }}" class="inline-flex items-center gap-1.5 px-4 py-1.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-md shadow-xs transition duration-150">
+                        <a href="{{ route('dashboard') }}" class="hidden md:inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-md shadow-xs transition duration-150">
                             Dashboard
                         </a>
                     @else
-                        <!-- Login Dropdown Button -->
-                        <div class="relative group">
+                        <!-- Login Button (Desktop / Tablet) -->
+                        <div class="hidden md:inline-block relative group">
                             <a href="{{ route('login') }}" class="inline-flex items-center gap-1 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-md shadow-xs transition duration-150">
                                 <span>Login</span>
                                 <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -38,15 +38,22 @@
                     @endauth
 
                     <!-- Become a Partner Primary CTA Button -->
-                    <a href="{{ route('register') }}" class="inline-flex items-center justify-center px-4 sm:px-5 py-2 text-xs sm:text-sm font-bold text-white bg-[#1D64F2] hover:bg-[#1853CA] active:bg-[#1546B0] rounded-lg shadow-sm hover:shadow transition duration-150 whitespace-nowrap">
-                        Become a Partner
+                    <a href="{{ route('register') }}" class="inline-flex items-center justify-center px-3 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-bold text-white bg-[#1D64F2] hover:bg-[#1853CA] active:bg-[#1546B0] rounded-lg shadow-sm hover:shadow transition duration-150 whitespace-nowrap">
+                        <span>Become a Partner</span>
                     </a>
+
+                    <!-- Mobile Hamburger Button (Visible only on < lg screens) -->
+                    <button type="button" id="mobile-menu-toggle" aria-label="Toggle navigation menu" class="lg:hidden p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition duration-150 focus:outline-hidden">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
 
-        <!-- Bottom Navigation Links Bar with Broad Mega Dropdowns -->
-        <div id="sub-header-bar" class="border-t border-slate-200/80 bg-white relative">
+        <!-- Bottom Navigation Links Bar with Broad Mega Dropdowns (Desktop >= lg only) -->
+        <div id="sub-header-bar" class="hidden lg:block border-t border-slate-200/80 bg-white relative">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <nav class="flex items-center space-x-1 sm:space-x-2 py-1.5 overflow-x-auto sm:overflow-visible text-xs sm:text-sm font-semibold text-slate-700 no-scrollbar">
                     <a href="{{ route('home') }}" class="px-3 py-1.5 rounded-lg text-[#1D64F2] hover:bg-blue-50 font-bold whitespace-nowrap transition">Home</a>
@@ -984,5 +991,262 @@
         </div></div>
 
             </div>
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- MOBILE NAVIGATION DRAWER & BACKDROP (Only on < lg screens)-->
+        <!-- ======================================================== -->
+        <!-- Backdrop Overlay -->
+        <div id="mobile-menu-backdrop" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden opacity-0 transition-opacity duration-300 lg:hidden" aria-hidden="true"></div>
+
+        <!-- Off-Canvas Drawer -->
+        <div id="mobile-menu-drawer" class="fixed inset-y-0 right-0 w-full max-w-[340px] xs:max-w-[380px] bg-white shadow-2xl z-50 translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between overflow-hidden lg:hidden" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
+            
+            <!-- 1. Drawer Header -->
+            <div class="px-4 py-3.5 border-b border-slate-200/90 flex items-center justify-between bg-slate-50/80 shrink-0">
+                <a href="{{ route('home') }}" class="mobile-nav-link flex items-center gap-2 group">
+                    <img src="/logo.png" alt="Sumatra Sales" class="h-8 w-auto object-contain">
+                    <div class="flex flex-col">
+                        <span class="text-xs font-black text-slate-900 leading-none">SumatraSales™</span>
+                        <span class="text-[9px] font-bold text-slate-500 mt-0.5">Private Limited</span>
+                    </div>
+                </a>
+                <button type="button" id="mobile-menu-close" aria-label="Close navigation menu" class="p-1.5 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-200/70 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+
+            <!-- 2. Drawer Body (Scrollable with Smooth Accordions) -->
+            <div class="flex-1 overflow-y-auto px-4 py-3.5 space-y-3.5">
+                
+                <!-- Quick Auth & Action Buttons -->
+                <div class="grid grid-cols-2 gap-2 pb-2 border-b border-slate-100">
+                    @auth
+                        <a href="{{ route('dashboard') }}" class="mobile-nav-link py-2 px-3 text-center text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition">
+                            Dashboard
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}" class="mobile-nav-link py-2 px-3 text-center text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition">
+                            Login
+                        </a>
+                    @endauth
+                    <a href="{{ route('register') }}" class="mobile-nav-link py-2 px-3 text-center text-xs font-bold text-white bg-[#1D64F2] hover:bg-[#1853CA] rounded-lg transition shadow-xs">
+                        Join Free
+                    </a>
+                </div>
+
+                <!-- Navigation Accordion List -->
+                <nav class="space-y-1.5 text-xs font-semibold text-slate-700">
+                    
+                    <!-- Direct Link: Home -->
+                    <a href="{{ route('home') }}" class="mobile-nav-link flex items-center justify-between px-3 py-2 rounded-lg text-blue-600 bg-blue-50/80 font-bold transition">
+                        <span>Home</span>
+                        <span class="text-[10px] text-blue-500 font-normal">Overview</span>
+                    </a>
+
+                    <!-- Direct Link: About Us -->
+                    <a href="#about" class="mobile-nav-link flex items-center justify-between px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-100 transition">
+                        <span>About Sumatra Sales</span>
+                        <span class="text-[10px] text-slate-400 font-normal">Mission</span>
+                    </a>
+
+                    <!-- Accordion 1: Our Platforms -->
+                    <div class="border border-slate-200/80 rounded-xl overflow-hidden bg-slate-50/30">
+                        <button type="button" class="mobile-accordion-trigger w-full flex items-center justify-between px-3.5 py-2.5 text-slate-900 font-bold text-xs text-left transition hover:bg-slate-100/70">
+                            <span class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
+                                <span>Our Platforms (4)</span>
+                            </span>
+                            <svg class="mobile-chevron w-4 h-4 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                        </button>
+                        <div class="mobile-accordion-panel hidden px-3 pb-3 pt-1 space-y-2 border-t border-slate-100 bg-white">
+                            <!-- DOCTORwala -->
+                            <div class="p-2.5 rounded-lg border border-cyan-100 bg-cyan-50/30 space-y-1.5">
+                                <div class="flex items-center justify-between">
+                                    <a href="#doctorwala" class="mobile-nav-link font-black text-slate-900 text-xs hover:text-cyan-700 flex items-center gap-1.5">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-500"></span>
+                                        <span>DOCTORwala</span>
+                                    </a>
+                                    <span class="text-[9px] font-bold text-cyan-800 bg-cyan-100 px-1.5 py-0.2 rounded">Healthcare</span>
+                                </div>
+                                <p class="text-[10px] text-slate-500">24/7 OPD, Verified Doctor Booking, Diagnostics & Records.</p>
+                                <div class="flex flex-wrap gap-1.5 pt-1">
+                                    <a href="https://www.doctorwala.info/" target="_blank" rel="noopener noreferrer" class="text-[10px] font-bold text-cyan-700 hover:underline">Website ↗</a>
+                                    <span class="text-slate-300">•</span>
+                                    <a href="https://play.google.com/store/apps/details?id=com.doctorwala.dochealth&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="text-[10px] font-bold text-slate-700 hover:underline">Patient App ↗</a>
+                                    <span class="text-slate-300">•</span>
+                                    <a href="https://play.google.com/store/apps/details?id=info.doctorwala.partner&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="text-[10px] font-bold text-slate-700 hover:underline">Partner App ↗</a>
+                                </div>
+                            </div>
+                            <!-- Schoolwala -->
+                            <div class="p-2.5 rounded-lg border border-amber-100 bg-amber-50/30 space-y-1.5">
+                                <div class="flex items-center justify-between">
+                                    <a href="#schoolwala" class="mobile-nav-link font-black text-slate-900 text-xs hover:text-amber-800 flex items-center gap-1.5">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                        <span>Schoolwala</span>
+                                    </a>
+                                    <span class="text-[9px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.2 rounded">WBBSE EdTech</span>
+                                </div>
+                                <p class="text-[10px] text-slate-500">Bengali Medium Class 8-10 Syllabus, Video Classes & Mock Tests.</p>
+                                <div class="flex flex-wrap gap-1.5 pt-1">
+                                    <a href="https://schoolwala.info/" target="_blank" rel="noopener noreferrer" class="text-[10px] font-bold text-amber-700 hover:underline">Website ↗</a>
+                                    <span class="text-slate-300">•</span>
+                                    <a href="https://play.google.com/store/apps/details?id=com.schoolwala.schoolwalaapp" target="_blank" rel="noopener noreferrer" class="text-[10px] font-bold text-slate-700 hover:underline">Android App ↗</a>
+                                </div>
+                            </div>
+                            <!-- Rani Matrimonial -->
+                            <div class="p-2.5 rounded-lg border border-rose-100 bg-rose-50/30 space-y-1.5">
+                                <div class="flex items-center justify-between">
+                                    <a href="#ranimatrimonial" class="mobile-nav-link font-black text-slate-900 text-xs hover:text-rose-700 flex items-center gap-1.5">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                                        <span>Rani Matrimonial</span>
+                                    </a>
+                                    <span class="text-[9px] font-bold text-rose-800 bg-rose-100 px-1.5 py-0.2 rounded">Matchmaking</span>
+                                </div>
+                                <p class="text-[10px] text-slate-500">Safe, Verified Biodatas with AI Matchmaking & Family Privacy.</p>
+                                <div class="flex flex-wrap gap-1.5 pt-1">
+                                    <a href="https://ranimatrimonial.com/" target="_blank" rel="noopener noreferrer" class="text-[10px] font-bold text-rose-700 hover:underline">Website ↗</a>
+                                    <span class="text-slate-300">•</span>
+                                    <span class="text-[10px] font-semibold text-slate-500">App coming soon</span>
+                                </div>
+                            </div>
+                            <!-- ProjectAttendance -->
+                            <div class="p-2.5 rounded-lg border border-orange-100 bg-orange-50/30 space-y-1.5">
+                                <div class="flex items-center justify-between">
+                                    <a href="#projectattendance" class="mobile-nav-link font-black text-slate-900 text-xs hover:text-orange-700 flex items-center gap-1.5">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
+                                        <span>ProjectAttendance</span>
+                                    </a>
+                                    <span class="text-[9px] font-bold text-orange-800 bg-orange-100 px-1.5 py-0.2 rounded">HRMS / GPS</span>
+                                </div>
+                                <p class="text-[10px] text-slate-500">GPS Geofence Mobile Attendance, Route Tracking & Payroll.</p>
+                                <div class="flex flex-wrap gap-1.5 pt-1">
+                                    <a href="https://projectattendance.com/" target="_blank" rel="noopener noreferrer" class="text-[10px] font-bold text-orange-700 hover:underline">Website ↗</a>
+                                    <span class="text-slate-300">•</span>
+                                    <a href="https://play.google.com/store/apps/details?id=smart.geofence.attendance&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="text-[10px] font-bold text-slate-700 hover:underline">Android App ↗</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Accordion 2: Business Solutions -->
+                    <div class="border border-slate-200/80 rounded-xl overflow-hidden bg-slate-50/30">
+                        <button type="button" class="mobile-accordion-trigger w-full flex items-center justify-between px-3.5 py-2.5 text-slate-900 font-bold text-xs text-left transition hover:bg-slate-100/70">
+                            <span class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                                <span>Business Solutions</span>
+                            </span>
+                            <svg class="mobile-chevron w-4 h-4 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                        </button>
+                        <div class="mobile-accordion-panel hidden px-3 pb-3 pt-1 space-y-1.5 border-t border-slate-100 bg-white">
+                            <a href="#solutions" class="mobile-nav-link block p-2 rounded hover:bg-slate-50 text-[11px] font-bold text-slate-800">
+                                <span>Readymade Software (ERP & CRM)</span>
+                                <span class="block text-[10px] text-slate-500 font-normal">Pre-configured turnkey business engines</span>
+                            </a>
+                            <a href="#solutions" class="mobile-nav-link block p-2 rounded hover:bg-slate-50 text-[11px] font-bold text-slate-800">
+                                <span>Custom Software & Mobile App Dev</span>
+                                <span class="block text-[10px] text-slate-500 font-normal">Tailored codebases for specific requirements</span>
+                            </a>
+                            <a href="#solutions" class="mobile-nav-link block p-2 rounded hover:bg-slate-50 text-[11px] font-bold text-slate-800">
+                                <span>Retail POS, Billing & GST Invoicing</span>
+                                <span class="block text-[10px] text-slate-500 font-normal">Barcode-ready checkout for retail outlets</span>
+                            </a>
+                            <a href="#solutions" class="mobile-nav-link block p-2 rounded hover:bg-slate-50 text-[11px] font-bold text-slate-800">
+                                <span>Healthcare & Hospital Management Suite</span>
+                                <span class="block text-[10px] text-slate-500 font-normal">Chamber scheduling, lab tests & pharmacy</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Accordion 3: Partner Program -->
+                    <div class="border border-slate-200/80 rounded-xl overflow-hidden bg-slate-50/30">
+                        <button type="button" class="mobile-accordion-trigger w-full flex items-center justify-between px-3.5 py-2.5 text-slate-900 font-bold text-xs text-left transition hover:bg-slate-100/70">
+                            <span class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                <span>Partner Program (EP & GP)</span>
+                            </span>
+                            <svg class="mobile-chevron w-4 h-4 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                        </button>
+                        <div class="mobile-accordion-panel hidden px-3 pb-3 pt-1 space-y-1.5 border-t border-slate-100 bg-white">
+                            <div class="p-2 rounded bg-emerald-50/60 border border-emerald-100 text-[11px]">
+                                <span class="font-bold text-emerald-900 block">₹0 Investment Required</span>
+                                <span class="text-[10px] text-emerald-700">No franchise fee, no security deposit, direct bank commissions.</span>
+                            </div>
+                            <a href="#partner-program" class="mobile-nav-link block p-2 rounded hover:bg-slate-50 text-[11px] font-bold text-slate-800">
+                                <span>Ground Partner (GP) Model</span>
+                                <span class="block text-[10px] text-slate-500 font-normal">Local market outreach & referrals</span>
+                            </a>
+                            <a href="#partner-program" class="mobile-nav-link block p-2 rounded hover:bg-slate-50 text-[11px] font-bold text-slate-800">
+                                <span>Executive Partner (EP) Model</span>
+                                <span class="block text-[10px] text-slate-500 font-normal">Territory leadership & business expansion</span>
+                            </a>
+                            <a href="#partner-program" class="mobile-nav-link block p-2 rounded hover:bg-slate-50 text-[11px] font-bold text-slate-800">
+                                <span>5-Step Workflow Process</span>
+                                <span class="block text-[10px] text-slate-500 font-normal">From referral to direct verified payout</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Accordion 4: Investor & Trust -->
+                    <div class="border border-slate-200/80 rounded-xl overflow-hidden bg-slate-50/30">
+                        <button type="button" class="mobile-accordion-trigger w-full flex items-center justify-between px-3.5 py-2.5 text-slate-900 font-bold text-xs text-left transition hover:bg-slate-100/70">
+                            <span class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                                <span>Investor & Trust</span>
+                            </span>
+                            <svg class="mobile-chevron w-4 h-4 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                        </button>
+                        <div class="mobile-accordion-panel hidden px-3 pb-3 pt-1 space-y-1.5 border-t border-slate-100 bg-white">
+                            <a href="#investor-trust" class="mobile-nav-link block p-2 rounded hover:bg-slate-50 text-[11px] font-bold text-slate-800">
+                                <span>Corporate Governance Charter</span>
+                                <span class="block text-[10px] text-slate-500 font-normal">Ethical conduct & partner policies</span>
+                            </a>
+                            <a href="#investor-trust" class="mobile-nav-link block p-2 rounded hover:bg-slate-50 text-[11px] font-bold text-slate-800">
+                                <span>Business Model & Financial Transparency</span>
+                                <span class="block text-[10px] text-slate-500 font-normal">Public disclosure & operational metrics</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Accordion 5: Resources & Support -->
+                    <div class="border border-slate-200/80 rounded-xl overflow-hidden bg-slate-50/30">
+                        <button type="button" class="mobile-accordion-trigger w-full flex items-center justify-between px-3.5 py-2.5 text-slate-900 font-bold text-xs text-left transition hover:bg-slate-100/70">
+                            <span class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-slate-500"></span>
+                                <span>Resources & Support</span>
+                            </span>
+                            <svg class="mobile-chevron w-4 h-4 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                        </button>
+                        <div class="mobile-accordion-panel hidden px-3 pb-3 pt-1 space-y-1.5 border-t border-slate-100 bg-white">
+                            <a href="#partner-program" class="mobile-nav-link block p-2 rounded hover:bg-slate-50 text-[11px] font-bold text-slate-800">
+                                <span>Partner FAQs & Guides</span>
+                            </a>
+                            <a href="#contact" class="mobile-nav-link block p-2 rounded hover:bg-slate-50 text-[11px] font-bold text-slate-800">
+                                <span>Partner Help Desk Helpline</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Direct Link: Contact -->
+                    <a href="#contact" class="mobile-nav-link flex items-center justify-between px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-100 transition">
+                        <span>Contact & Head Office</span>
+                        <span class="text-[10px] text-slate-400 font-normal">Help Desk</span>
+                    </a>
+
+                </nav>
+
+            </div>
+
+            <!-- 3. Drawer Footer -->
+            <div class="p-3.5 border-t border-slate-200 bg-slate-50 text-[10px] text-slate-500 space-y-2 shrink-0">
+                <div class="flex items-center justify-between">
+                    <span class="font-bold text-slate-700">Helpline:</span>
+                    <a href="mailto:partner@sumatrasales.com" class="text-blue-600 font-bold hover:underline">partner@sumatrasales.com</a>
+                </div>
+                <div class="text-[9px] text-slate-400">
+                    Mon-Sat (9:30 AM – 7:00 PM IST) • Zero Upfront Fees
+                </div>
+            </div>
+
         </div>
     </header>

@@ -313,5 +313,108 @@
                     });
                 });
             });
+
+            // ==========================================
+            // MOBILE NAVIGATION DRAWER & ACCORDION CONTROLLER
+            // ==========================================
+            const mobileToggle = document.getElementById('mobile-menu-toggle');
+            const mobileClose = document.getElementById('mobile-menu-close');
+            const mobileBackdrop = document.getElementById('mobile-menu-backdrop');
+            const mobileDrawer = document.getElementById('mobile-menu-drawer');
+
+            function openMobileMenu() {
+                if (!mobileDrawer || !mobileBackdrop) return;
+                mobileBackdrop.classList.remove('hidden');
+                void mobileBackdrop.offsetHeight;
+                mobileBackdrop.classList.remove('opacity-0');
+                mobileBackdrop.classList.add('opacity-100');
+
+                mobileDrawer.classList.remove('translate-x-full');
+                mobileDrawer.classList.add('translate-x-0');
+                document.body.classList.add('overflow-hidden');
+            }
+
+            function closeMobileMenu() {
+                if (!mobileDrawer || !mobileBackdrop) return;
+                mobileDrawer.classList.remove('translate-x-0');
+                mobileDrawer.classList.add('translate-x-full');
+
+                mobileBackdrop.classList.remove('opacity-100');
+                mobileBackdrop.classList.add('opacity-0');
+
+                setTimeout(() => {
+                    mobileBackdrop.classList.add('hidden');
+                }, 300);
+
+                document.body.classList.remove('overflow-hidden');
+            }
+
+            if (mobileToggle) {
+                mobileToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openMobileMenu();
+                });
+            }
+
+            if (mobileClose) {
+                mobileClose.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    closeMobileMenu();
+                });
+            }
+
+            if (mobileBackdrop) {
+                mobileBackdrop.addEventListener('click', () => {
+                    closeMobileMenu();
+                });
+            }
+
+            // Close on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && mobileDrawer && !mobileDrawer.classList.contains('translate-x-full')) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Close mobile menu when clicking internal page anchor links
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const href = link.getAttribute('href');
+                    if (href && (href.startsWith('#') || href.includes('#'))) {
+                        closeMobileMenu();
+                    }
+                });
+            });
+
+            // Accordion toggle behavior
+            const accordionTriggers = document.querySelectorAll('.mobile-accordion-trigger');
+            accordionTriggers.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const panel = btn.nextElementSibling;
+                    const chevron = btn.querySelector('.mobile-chevron');
+                    if (!panel) return;
+
+                    const isExpanded = !panel.classList.contains('hidden');
+
+                    // Close all other accordion panels for clean UX
+                    accordionTriggers.forEach(otherBtn => {
+                        if (otherBtn !== btn) {
+                            const otherPanel = otherBtn.nextElementSibling;
+                            const otherChevron = otherBtn.querySelector('.mobile-chevron');
+                            if (otherPanel) otherPanel.classList.add('hidden');
+                            if (otherChevron) otherChevron.classList.remove('rotate-180');
+                        }
+                    });
+
+                    if (isExpanded) {
+                        panel.classList.add('hidden');
+                        if (chevron) chevron.classList.remove('rotate-180');
+                    } else {
+                        panel.classList.remove('hidden');
+                        if (chevron) chevron.classList.add('rotate-180');
+                    }
+                });
+            });
         });
     </script>
