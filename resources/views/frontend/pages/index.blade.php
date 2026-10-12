@@ -80,22 +80,25 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
                 <!-- CARD 1: DOCTORwala (Theme: #4DCBDC) -->
-                <div id="doctorwala" class="bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_36px_-6px_rgba(0,0,0,0.14)] hover:shadow-[0_24px_50px_-8px_rgba(77,203,220,0.38)] transition-all duration-300 flex flex-col group hover:-translate-y-2 overflow-hidden relative">
+                <article id="doctorwala" itemscope itemtype="https://schema.org/SoftwareApplication" class="bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_36px_-6px_rgba(0,0,0,0.14)] hover:shadow-[0_24px_50px_-8px_rgba(77,203,220,0.38)] transition-all duration-300 flex flex-col group hover:-translate-y-2 overflow-hidden relative">
+                    <meta itemprop="applicationCategory" content="HealthApplication">
+                    <meta itemprop="operatingSystem" content="Android, Web">
+                    <meta itemprop="url" content="https://www.doctorwala.info/">
                     <!-- Top Luminous Accent Stripe -->
                     <div class="h-1.5 w-full bg-[#4DCBDC]"></div>
 
                     <!-- Header Area with Luminous Gradient Tint -->
                     <div class="px-5 pt-4 pb-3 bg-gradient-to-b from-[#4DCBDC]/20 via-[#4DCBDC]/5 to-white text-center flex flex-col items-center">
                         <!-- Brand Logo displayed crisply -->
-                        <div class="h-11 flex items-center justify-center">
-                            <img src="/img/doctorwala.png" alt="DOCTORwala" class="h-full w-auto max-w-[190px] object-contain group-hover:scale-105 transition-transform duration-300">
-                        </div>
-                        <p class="text-xs font-bold text-[#14727e] mt-1 tracking-tight">Healthcare for Everyone</p>
+                        <a href="https://www.doctorwala.info/" target="_blank" rel="noopener noreferrer" class="h-11 flex items-center justify-center">
+                            <img src="/img/doctorwala.png" alt="DOCTORwala Healthcare OPD Booking" itemprop="image" class="h-full w-auto max-w-[190px] object-contain group-hover:scale-105 transition-transform duration-300">
+                        </a>
+                        <h3 class="text-xs font-bold text-[#14727e] mt-1 tracking-tight" itemprop="name">Healthcare for Everyone</h3>
                     </div>
 
                     <!-- Edge-to-Edge Photo with Floating Badge -->
                     <div class="w-full h-44 sm:h-48 overflow-hidden relative bg-slate-100">
-                        <img src="/img/doctor-card.jpg" alt="Doctorwala Doctor" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="/img/doctor-card.jpg" alt="Doctorwala Verified Doctors and OPD Booking" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <!-- Dark vignette for high text contrast -->
                         <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-950/80 via-slate-950/30 to-transparent"></div>
                         <!-- Floating Pill Badge -->
@@ -110,67 +113,83 @@
 
                     <!-- Feature Checklist -->
                     <div class="p-5 flex-1 flex flex-col justify-between">
-                        <ul class="space-y-2.5 text-xs font-bold text-slate-800">
+                        <ul class="space-y-2.5 text-xs font-bold text-slate-800" itemprop="description">
                             <li class="flex items-center gap-2.5">
                                 <span class="w-4 h-4 rounded-full bg-[#4DCBDC] text-slate-950 flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
                                     <svg class="w-2.5 h-2.5 stroke-slate-950" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>Find Doctors</span>
+                                <span>Find Doctors & Specialists</span>
                             </li>
                             <li class="flex items-center gap-2.5">
                                 <span class="w-4 h-4 rounded-full bg-[#4DCBDC] text-slate-950 flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
                                     <svg class="w-2.5 h-2.5 stroke-slate-950" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>Appointment Booking</span>
+                                <span>OPD & Appointment Booking</span>
                             </li>
                             <li class="flex items-center gap-2.5">
                                 <span class="w-4 h-4 rounded-full bg-[#4DCBDC] text-slate-950 flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
                                     <svg class="w-2.5 h-2.5 stroke-slate-950" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>OPD, Pathology, Diagnostic</span>
+                                <span>Pathology & Diagnostic Tests</span>
                             </li>
                             <li class="flex items-center gap-2.5">
                                 <span class="w-4 h-4 rounded-full bg-[#4DCBDC] text-slate-950 flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
                                     <svg class="w-2.5 h-2.5 stroke-slate-950" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>Digital Health Records</span>
+                                <span>Digital Health Records (EHR)</span>
                             </li>
                             <li class="flex items-center gap-2.5">
                                 <span class="w-4 h-4 rounded-full bg-[#4DCBDC] text-slate-950 flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
                                     <svg class="w-2.5 h-2.5 stroke-slate-950" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>Medical Shops & More</span>
+                                <span>Pharmacy Directory & More</span>
                             </li>
                         </ul>
 
-                        <!-- Eye-Catchy Button -->
-                        <div class="mt-5 pt-1">
-                            <a href="#" class="w-full py-2.5 px-4 bg-[#4DCBDC] hover:bg-[#3bbacb] text-slate-950 text-xs sm:text-sm font-extrabold rounded-xl flex items-center justify-center gap-1.5 shadow-md hover:shadow-lg hover:shadow-[#4DCBDC]/35 transition-all duration-200 group/btn">
-                                <span>Visit Doctorwala</span>
-                                <svg class="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform stroke-slate-950" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+                        <!-- CTA & Links -->
+                        <div class="mt-5 pt-3 border-t border-slate-100 space-y-2">
+                            <!-- Official Website Button -->
+                            <a href="https://www.doctorwala.info/" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-3 bg-[#4DCBDC] hover:bg-[#3bbacb] text-slate-950 text-xs font-black rounded-xl flex items-center justify-center gap-1.5 shadow-md hover:shadow-lg hover:shadow-[#4DCBDC]/35 transition-all duration-200">
+                                <span>Visit doctorwala.info</span>
+                                <svg class="w-3.5 h-3.5 stroke-slate-950" fill="none" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m13.5 6 6 6m0 0-6 6m6-6H3.75" /></svg>
                             </a>
+
+                            <!-- Play Store App Links -->
+                            <div class="grid grid-cols-2 gap-1.5 pt-0.5">
+                                <a href="https://play.google.com/store/apps/details?id=com.doctorwala.dochealth&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="py-1.5 px-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold flex items-center justify-center gap-1 transition shadow-xs group/app" title="Doctorwala Patient App on Google Play">
+                                    <svg class="w-3 h-3 text-cyan-400 shrink-0 group-hover/app:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.793 12 3.61 22.186a2.03 2.03 0 0 1-.36-1.186V3a2.03 2.03 0 0 1 .359-1.186zm11.3 9.072l2.38-2.38-12.02-6.87 9.64 9.25zm0 2.228l-9.64 9.25 12.02-6.87-2.38-2.38zm1.114-1.114l2.96 1.69a1.5 1.5 0 0 0 0-2.614l-2.96 1.69z"/></svg>
+                                    <span>Patient App</span>
+                                </a>
+                                <a href="https://play.google.com/store/apps/details?id=info.doctorwala.partner&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="py-1.5 px-2 rounded-lg bg-cyan-50 hover:bg-cyan-100 text-[#0c5963] border border-cyan-200/80 text-[10px] font-bold flex items-center justify-center gap-1 transition group/part" title="Doctorwala Partner App (Doctors, OPD & Labs) on Google Play">
+                                    <svg class="w-3 h-3 text-cyan-600 shrink-0 group-hover/part:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.793 12 3.61 22.186a2.03 2.03 0 0 1-.36-1.186V3a2.03 2.03 0 0 1 .359-1.186zm11.3 9.072l2.38-2.38-12.02-6.87 9.64 9.25zm0 2.228l-9.64 9.25 12.02-6.87-2.38-2.38zm1.114-1.114l2.96 1.69a1.5 1.5 0 0 0 0-2.614l-2.96 1.69z"/></svg>
+                                    <span>Partner App</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </article>
 
                 <!-- CARD 2: Schoolwala (Theme: #F5DB3C) -->
-                <div id="schoolwala" class="bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_36px_-6px_rgba(0,0,0,0.14)] hover:shadow-[0_24px_50px_-8px_rgba(245,219,60,0.4)] transition-all duration-300 flex flex-col group hover:-translate-y-2 overflow-hidden relative">
+                <article id="schoolwala" itemscope itemtype="https://schema.org/SoftwareApplication" class="bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_36px_-6px_rgba(0,0,0,0.14)] hover:shadow-[0_24px_50px_-8px_rgba(245,219,60,0.4)] transition-all duration-300 flex flex-col group hover:-translate-y-2 overflow-hidden relative">
+                    <meta itemprop="applicationCategory" content="EducationalApplication">
+                    <meta itemprop="operatingSystem" content="Android, Web">
+                    <meta itemprop="url" content="https://schoolwala.info/">
                     <!-- Top Luminous Accent Stripe -->
                     <div class="h-1.5 w-full bg-[#F5DB3C]"></div>
 
                     <!-- Header Area with Luminous Gradient Tint -->
                     <div class="px-5 pt-4 pb-3 bg-gradient-to-b from-[#F5DB3C]/25 via-[#F5DB3C]/5 to-white text-center flex flex-col items-center">
                         <!-- Brand Logo displayed crisply -->
-                        <div class="h-11 flex items-center justify-center gap-2">
-                            <img src="/img/schoolwala.jpg" alt="Schoolwala" class="h-9 w-9 object-contain rounded-lg shadow-2xs group-hover:scale-105 transition-transform duration-300">
-                            <span class="text-2xl font-black text-slate-900 tracking-tight">School<span class="text-[#caad0c]">wala</span></span>
-                        </div>
-                        <p class="text-xs font-bold text-amber-900/80 mt-1 tracking-tight">Digital Education</p>
+                        <a href="https://schoolwala.info/" target="_blank" rel="noopener noreferrer" class="h-11 flex items-center justify-center gap-2">
+                            <img src="/img/schoolwala.jpg" alt="Schoolwala EdTech WBBSE Learning" itemprop="image" class="h-9 w-9 object-contain rounded-lg shadow-2xs group-hover:scale-105 transition-transform duration-300">
+                            <span class="text-2xl font-black text-slate-900 tracking-tight" itemprop="name">School<span class="text-[#caad0c]">wala</span></span>
+                        </a>
+                        <p class="text-xs font-bold text-amber-900/80 mt-1 tracking-tight">Digital Education (Bengali Medium)</p>
                     </div>
 
                     <!-- Edge-to-Edge Photo with Floating Badge -->
                     <div class="w-full h-44 sm:h-48 overflow-hidden relative bg-slate-100">
-                        <img src="/img/students-card.jpg" alt="Schoolwala Students" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="/img/students-card.jpg" alt="Schoolwala Bengali Medium WBBSE Students" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <!-- Dark vignette for high text contrast -->
                         <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-950/80 via-slate-950/30 to-transparent"></div>
                         <!-- Floating Pill Badge -->
@@ -185,67 +204,77 @@
 
                     <!-- Feature Checklist -->
                     <div class="p-5 flex-1 flex flex-col justify-between">
-                        <ul class="space-y-2.5 text-xs font-bold text-slate-800">
+                        <ul class="space-y-2.5 text-xs font-bold text-slate-800" itemprop="description">
                             <li class="flex items-center gap-2.5">
                                 <span class="w-4 h-4 rounded-full bg-[#F5DB3C] text-slate-950 flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
                                     <svg class="w-2.5 h-2.5 stroke-slate-950" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>Classes VIII, IX & X</span>
+                                <span>Classes VIII, IX & X Full Syllabus</span>
                             </li>
                             <li class="flex items-center gap-2.5">
                                 <span class="w-4 h-4 rounded-full bg-[#F5DB3C] text-slate-950 flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
                                     <svg class="w-2.5 h-2.5 stroke-slate-950" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>Video Classes & Study Material</span>
+                                <span>Video Classes & Study Notes</span>
                             </li>
                             <li class="flex items-center gap-2.5">
                                 <span class="w-4 h-4 rounded-full bg-[#F5DB3C] text-slate-950 flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
                                     <svg class="w-2.5 h-2.5 stroke-slate-950" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>Practice Tests & Revision</span>
+                                <span>Chapter Practice Tests & Instant Scores</span>
                             </li>
                             <li class="flex items-center gap-2.5">
                                 <span class="w-4 h-4 rounded-full bg-[#F5DB3C] text-slate-950 flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
                                     <svg class="w-2.5 h-2.5 stroke-slate-950" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>Bengali Medium Focus</span>
+                                <span>WBBSE Board Exam Preparation</span>
                             </li>
                             <li class="flex items-center gap-2.5">
                                 <span class="w-4 h-4 rounded-full bg-[#F5DB3C] text-slate-950 flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
                                     <svg class="w-2.5 h-2.5 stroke-slate-950" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>Career Guidance</span>
+                                <span>Career Mentorship & Guidance</span>
                             </li>
                         </ul>
 
-                        <!-- Eye-Catchy Button -->
-                        <div class="mt-5 pt-1">
-                            <a href="#" class="w-full py-2.5 px-4 bg-[#F5DB3C] hover:bg-[#ebd028] text-slate-950 text-xs sm:text-sm font-extrabold rounded-xl flex items-center justify-center gap-1.5 shadow-md hover:shadow-lg hover:shadow-[#F5DB3C]/40 transition-all duration-200 group/btn">
-                                <span>Visit Schoolwala</span>
-                                <svg class="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform stroke-slate-950" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+                        <!-- CTA & Links -->
+                        <div class="mt-5 pt-3 border-t border-slate-100 space-y-2">
+                            <!-- Official Website Button -->
+                            <a href="https://schoolwala.info/" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-3 bg-[#F5DB3C] hover:bg-[#ebd028] text-slate-950 text-xs font-black rounded-xl flex items-center justify-center gap-1.5 shadow-md hover:shadow-lg hover:shadow-[#F5DB3C]/40 transition-all duration-200">
+                                <span>Visit schoolwala.info</span>
+                                <svg class="w-3.5 h-3.5 stroke-slate-950" fill="none" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m13.5 6 6 6m0 0-6 6m6-6H3.75" /></svg>
+                            </a>
+
+                            <!-- Play Store App Link -->
+                            <a href="https://play.google.com/store/apps/details?id=com.schoolwala.schoolwalaapp" target="_blank" rel="noopener noreferrer" class="w-full py-1.5 px-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold flex items-center justify-center gap-1.5 transition shadow-xs group/swapp" title="Download Schoolwala App on Google Play">
+                                <svg class="w-3.5 h-3.5 text-amber-400 shrink-0 group-hover/swapp:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.793 12 3.61 22.186a2.03 2.03 0 0 1-.36-1.186V3a2.03 2.03 0 0 1 .359-1.186zm11.3 9.072l2.38-2.38-12.02-6.87 9.64 9.25zm0 2.228l-9.64 9.25 12.02-6.87-2.38-2.38zm1.114-1.114l2.96 1.69a1.5 1.5 0 0 0 0-2.614l-2.96 1.69z"/></svg>
+                                <span>Get Schoolwala on Google Play</span>
                             </a>
                         </div>
                     </div>
-                </div>
+                </article>
 
                 <!-- CARD 3: Rani Matrimonial (Theme: #3F0001) -->
-                <div id="ranimatrimonial" class="bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_36px_-6px_rgba(0,0,0,0.14)] hover:shadow-[0_24px_50px_-8px_rgba(63,0,1,0.35)] transition-all duration-300 flex flex-col group hover:-translate-y-2 overflow-hidden relative">
+                <article id="ranimatrimonial" itemscope itemtype="https://schema.org/SoftwareApplication" class="bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_36px_-6px_rgba(0,0,0,0.14)] hover:shadow-[0_24px_50px_-8px_rgba(63,0,1,0.35)] transition-all duration-300 flex flex-col group hover:-translate-y-2 overflow-hidden relative">
+                    <meta itemprop="applicationCategory" content="LifestyleApplication">
+                    <meta itemprop="operatingSystem" content="Web, Android">
+                    <meta itemprop="url" content="https://ranimatrimonial.com/">
                     <!-- Top Luminous Accent Stripe -->
                     <div class="h-1.5 w-full bg-[#3F0001]"></div>
 
                     <!-- Header Area with Luminous Gradient Tint -->
                     <div class="px-5 pt-4 pb-3 bg-gradient-to-b from-[#3F0001]/10 via-[#3F0001]/5 to-white text-center flex flex-col items-center">
                         <!-- Brand Logo displayed crisply -->
-                        <div class="h-11 flex items-center justify-center gap-2">
-                            <img src="/img/ranimatrimonial.png" alt="Rani Matrimonial" class="h-9 w-9 object-contain rounded-full shadow-2xs group-hover:scale-105 transition-transform duration-300">
-                            <span class="text-xl font-black text-[#3F0001] tracking-tight">Rani Matrimonial</span>
-                        </div>
+                        <a href="https://ranimatrimonial.com/" target="_blank" rel="noopener noreferrer" class="h-11 flex items-center justify-center gap-2">
+                            <img src="/img/ranimatrimonial.png" alt="Rani Matrimonial Verified Matchmaking" itemprop="image" class="h-9 w-9 object-contain rounded-full shadow-2xs group-hover:scale-105 transition-transform duration-300">
+                            <span class="text-xl font-black text-[#3F0001] tracking-tight" itemprop="name">Rani Matrimonial</span>
+                        </a>
                         <p class="text-xs font-bold text-[#3F0001]/80 mt-1 tracking-tight">Find Your Perfect Match</p>
                     </div>
 
                     <!-- Edge-to-Edge Photo with Floating Badge -->
                     <div class="w-full h-44 sm:h-48 overflow-hidden relative bg-slate-100">
-                        <img src="/img/matrimony-card.jpg" alt="Rani Matrimonial Couple" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                        <img src="/img/matrimony-card.jpg" alt="Rani Matrimonial Verified Couple Matchmaking" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
                         <!-- Dark vignette for high text contrast -->
                         <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-950/80 via-slate-950/30 to-transparent"></div>
                         <!-- Floating Pill Badge -->
@@ -260,67 +289,77 @@
 
                     <!-- Feature Checklist -->
                     <div class="p-5 flex-1 flex flex-col justify-between">
-                        <ul class="space-y-2.5 text-xs font-bold text-slate-800">
+                        <ul class="space-y-2.5 text-xs font-bold text-slate-800" itemprop="description">
                             <li class="flex items-center gap-2.5">
                                 <span class="w-4 h-4 rounded-full bg-[#3F0001] text-white flex items-center justify-center shrink-0 shadow-2xs">
                                     <svg class="w-2.5 h-2.5 stroke-white" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>Verified Profiles</span>
+                                <span>100% Verified Profiles & Biodatas</span>
                             </li>
                             <li class="flex items-center gap-2.5">
                                 <span class="w-4 h-4 rounded-full bg-[#3F0001] text-white flex items-center justify-center shrink-0 shadow-2xs">
                                     <svg class="w-2.5 h-2.5 stroke-white" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>Smart Matching</span>
+                                <span>Smart AI Compatibility Matching</span>
                             </li>
                             <li class="flex items-center gap-2.5">
                                 <span class="w-4 h-4 rounded-full bg-[#3F0001] text-white flex items-center justify-center shrink-0 shadow-2xs">
                                     <svg class="w-2.5 h-2.5 stroke-white" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>Secure & Private</span>
+                                <span>Family Privacy & Shielded Contacts</span>
                             </li>
                             <li class="flex items-center gap-2.5">
                                 <span class="w-4 h-4 rounded-full bg-[#3F0001] text-white flex items-center justify-center shrink-0 shadow-2xs">
                                     <svg class="w-2.5 h-2.5 stroke-white" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>Easy Communication</span>
+                                <span>Direct Safe In-App Communication</span>
                             </li>
                             <li class="flex items-center gap-2.5">
                                 <span class="w-4 h-4 rounded-full bg-[#3F0001] text-white flex items-center justify-center shrink-0 shadow-2xs">
                                     <svg class="w-2.5 h-2.5 stroke-white" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>For a Better Tomorrow</span>
+                                <span>Community & Profession Search</span>
                             </li>
                         </ul>
 
-                        <!-- Eye-Catchy Button -->
-                        <div class="mt-5 pt-1">
-                            <a href="#" class="w-full py-2.5 px-4 bg-[#3F0001] hover:bg-[#590002] text-white text-xs sm:text-sm font-extrabold rounded-xl flex items-center justify-center gap-1.5 shadow-md hover:shadow-lg hover:shadow-rose-950/40 transition-all duration-200 group/btn">
-                                <span>Visit Rani Matrimonial</span>
-                                <svg class="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+                        <!-- CTA & Links -->
+                        <div class="mt-5 pt-3 border-t border-slate-100 space-y-2">
+                            <!-- Official Website Button -->
+                            <a href="https://ranimatrimonial.com/" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-3 bg-[#3F0001] hover:bg-[#590002] text-white text-xs font-black rounded-xl flex items-center justify-center gap-1.5 shadow-md hover:shadow-lg hover:shadow-rose-950/40 transition-all duration-200">
+                                <span>Visit ranimatrimonial.com</span>
+                                <svg class="w-3.5 h-3.5 stroke-white" fill="none" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m13.5 6 6 6m0 0-6 6m6-6H3.75" /></svg>
                             </a>
+
+                            <!-- App Status Badge -->
+                            <div class="w-full py-1.5 px-2 rounded-lg bg-rose-50 border border-rose-200/80 text-rose-950 text-[10px] font-bold flex items-center justify-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-rose-600 animate-pulse"></span>
+                                <span>Android App Coming Soon</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </article>
 
                 <!-- CARD 4: ProjectAttendance.com (Theme: #E48121) -->
-                <div id="projectattendance" class="bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_36px_-6px_rgba(0,0,0,0.14)] hover:shadow-[0_24px_50px_-8px_rgba(228,129,33,0.38)] transition-all duration-300 flex flex-col group hover:-translate-y-2 overflow-hidden relative">
+                <article id="projectattendance" itemscope itemtype="https://schema.org/SoftwareApplication" class="bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_36px_-6px_rgba(0,0,0,0.14)] hover:shadow-[0_24px_50px_-8px_rgba(228,129,33,0.38)] transition-all duration-300 flex flex-col group hover:-translate-y-2 overflow-hidden relative">
+                    <meta itemprop="applicationCategory" content="BusinessApplication">
+                    <meta itemprop="operatingSystem" content="Android, Web">
+                    <meta itemprop="url" content="https://projectattendance.com/">
                     <!-- Top Luminous Accent Stripe -->
                     <div class="h-1.5 w-full bg-[#E48121]"></div>
 
                     <!-- Header Area with Luminous Gradient Tint -->
                     <div class="px-5 pt-4 pb-3 bg-gradient-to-b from-[#E48121]/15 via-[#E48121]/5 to-white text-center flex flex-col items-center">
                         <!-- Brand Logo displayed crisply -->
-                        <div class="h-11 flex items-center justify-center gap-2">
-                            <img src="/img/projectattendance.png" alt="ProjectAttendance" class="h-9 w-9 object-contain group-hover:scale-105 transition-transform duration-300">
-                            <span class="text-xl font-black text-[#E48121] tracking-tight">ProjectAttendance<span class="text-slate-600 font-bold text-xs">.com</span></span>
-                        </div>
-                        <p class="text-xs font-bold text-[#b8610f] mt-1 tracking-tight">Workforce & Admin Management</p>
+                        <a href="https://projectattendance.com/" target="_blank" rel="noopener noreferrer" class="h-11 flex items-center justify-center gap-2">
+                            <img src="/img/projectattendance.png" alt="ProjectAttendance GPS Attendance HRMS" itemprop="image" class="h-9 w-9 object-contain group-hover:scale-105 transition-transform duration-300">
+                            <span class="text-xl font-black text-[#E48121] tracking-tight" itemprop="name">ProjectAttendance<span class="text-slate-600 font-bold text-xs">.com</span></span>
+                        </a>
+                        <p class="text-xs font-bold text-[#b8610f] mt-1 tracking-tight">Workforce & Admin HRMS</p>
                     </div>
 
                     <!-- Edge-to-Edge Photo with Floating Badge -->
                     <div class="w-full h-44 sm:h-48 overflow-hidden relative bg-slate-100">
-                        <img src="/img/project-card.jpg" alt="ProjectAttendance Supervisors" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="/img/project-card.jpg" alt="ProjectAttendance Staff Location & Geofence" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <!-- Dark vignette for high text contrast -->
                         <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-950/80 via-slate-950/30 to-transparent"></div>
                         <!-- Floating Pill Badge -->
@@ -335,48 +374,55 @@
 
                     <!-- Feature Checklist -->
                     <div class="p-5 flex-1 flex flex-col justify-between">
-                        <ul class="space-y-2.5 text-xs font-bold text-slate-800">
+                        <ul class="space-y-2.5 text-xs font-bold text-slate-800" itemprop="description">
                             <li class="flex items-center gap-2.5">
                                 <span class="w-4 h-4 rounded-full bg-[#E48121] text-white flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
                                     <svg class="w-2.5 h-2.5 stroke-white" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>Attendance & Work Tracking</span>
+                                <span>GPS Geofenced Mobile Punch-In</span>
                             </li>
                             <li class="flex items-center gap-2.5">
                                 <span class="w-4 h-4 rounded-full bg-[#E48121] text-white flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
                                     <svg class="w-2.5 h-2.5 stroke-white" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>Staff & Worker Management</span>
+                                <span>Real-Time Field Route Tracking</span>
                             </li>
                             <li class="flex items-center gap-2.5">
                                 <span class="w-4 h-4 rounded-full bg-[#E48121] text-white flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
                                     <svg class="w-2.5 h-2.5 stroke-white" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>Real-Time Location & Reports</span>
+                                <span>Automated Shift & Overtime Reports</span>
                             </li>
                             <li class="flex items-center gap-2.5">
                                 <span class="w-4 h-4 rounded-full bg-[#E48121] text-white flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
                                     <svg class="w-2.5 h-2.5 stroke-white" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>Screen-Time Control</span>
+                                <span>Screen Time & Task Productivity</span>
                             </li>
                             <li class="flex items-center gap-2.5">
                                 <span class="w-4 h-4 rounded-full bg-[#E48121] text-white flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
                                     <svg class="w-2.5 h-2.5 stroke-white" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>Project & Task Management</span>
+                                <span>Payroll Timesheets & Leave Mgmt</span>
                             </li>
                         </ul>
 
-                        <!-- Eye-Catchy Button -->
-                        <div class="mt-5 pt-1">
-                            <a href="#" class="w-full py-2.5 px-4 bg-[#E48121] hover:bg-[#cb6f16] text-white text-xs sm:text-sm font-extrabold rounded-xl flex items-center justify-center gap-1.5 shadow-md hover:shadow-lg hover:shadow-[#E48121]/35 transition-all duration-200 group/btn">
-                                <span>Visit ProjectAttendance</span>
-                                <svg class="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+                        <!-- CTA & Links -->
+                        <div class="mt-5 pt-3 border-t border-slate-100 space-y-2">
+                            <!-- Official Website Button -->
+                            <a href="https://projectattendance.com/" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-3 bg-[#E48121] hover:bg-[#cb6f16] text-white text-xs font-black rounded-xl flex items-center justify-center gap-1.5 shadow-md hover:shadow-lg hover:shadow-[#E48121]/35 transition-all duration-200">
+                                <span>Visit projectattendance.com</span>
+                                <svg class="w-3.5 h-3.5 stroke-white" fill="none" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m13.5 6 6 6m0 0-6 6m6-6H3.75" /></svg>
+                            </a>
+
+                            <!-- Play Store App Link -->
+                            <a href="https://play.google.com/store/apps/details?id=smart.geofence.attendance&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="w-full py-1.5 px-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold flex items-center justify-center gap-1.5 transition shadow-xs group/paapp" title="Download ProjectAttendance App on Google Play">
+                                <svg class="w-3.5 h-3.5 text-orange-400 shrink-0 group-hover/paapp:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.793 12 3.61 22.186a2.03 2.03 0 0 1-.36-1.186V3a2.03 2.03 0 0 1 .359-1.186zm11.3 9.072l2.38-2.38-12.02-6.87 9.64 9.25zm0 2.228l-9.64 9.25 12.02-6.87-2.38-2.38zm1.114-1.114l2.96 1.69a1.5 1.5 0 0 0 0-2.614l-2.96 1.69z"/></svg>
+                                <span>Get App on Google Play</span>
                             </a>
                         </div>
                     </div>
-                </div>
+                </article>
 
             </div>
         </section>

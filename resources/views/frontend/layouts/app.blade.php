@@ -3,7 +3,34 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Sumatra Sales Private Limited - Technology for People')</title>
+    
+    <!-- Primary Static SEO Meta Tags -->
+    <title>@yield('title', 'Sumatra Sales Private Limited - Technology for People | Doctorwala, Schoolwala, Rani Matrimonial & ProjectAttendance')</title>
+    <meta name="description" content="@yield('meta_description', 'Sumatra Sales Private Limited is India\'s premier digital enterprise software ecosystem powering Doctorwala (Healthcare OPD Booking), Schoolwala (WBBSE EdTech), Rani Matrimonial (Safe Matchmaking), and ProjectAttendance (GPS Workforce HRMS). Explore our platforms and join the Executive Partner (EP) & Ground Partner (GP) programs.')">
+    <meta name="keywords" content="@yield('meta_keywords', 'Sumatra Sales, Sumatra Sales Private Limited, Doctorwala, doctorwala.info, doctor appointment booking app, OPD booking, pathology lab tests, Schoolwala, schoolwala.info, WBBSE Bengali medium education app, Rani Matrimonial, ranimatrimonial.com, trusted matrimony portal, verified matchmaking, ProjectAttendance, projectattendance.com, GPS geofence attendance, biometric staff tracking, Ground Partner GP, Executive Partner EP, software franchise India')">
+    <meta name="author" content="Sumatra Sales Private Limited">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <link rel="canonical" href="{{ url()->current() }}">
+
+    <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="@yield('og_title', 'Sumatra Sales Private Limited - Technology for People')">
+    <meta property="og:description" content="@yield('og_description', 'Discover proprietary software engines built and maintained by Sumatra Sales: Doctorwala, Schoolwala, Rani Matrimonial, and ProjectAttendance. Join as an Executive Partner (EP) or Ground Partner (GP).')">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:site_name" content="Sumatra Sales Private Limited">
+    <meta property="og:image" content="{{ asset('img/hero-bg.jpg') }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Sumatra Sales Digital Ecosystems">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="@yield('twitter_title', 'Sumatra Sales Private Limited - Technology for People')">
+    <meta name="twitter:description" content="@yield('twitter_description', 'Official portal for Sumatra Sales Private Limited and flagship platforms: Doctorwala, Schoolwala, Rani Matrimonial, and ProjectAttendance.')">
+    <meta name="twitter:image" content="{{ asset('img/hero-bg.jpg') }}">
+
+    <!-- Favicon & Icons -->
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -14,6 +41,120 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <!-- Rich Structured Data (JSON-LD) for Search Engines -->
+    <script type="application/ld+json">
+    {
+        "@@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Organization",
+                "@id": "{{ url('/') }}#organization",
+                "name": "Sumatra Sales Private Limited",
+                "legalName": "Sumatra Sales Private Limited",
+                "url": "{{ url('/') }}",
+                "logo": "{{ asset('logo.png') }}",
+                "description": "Technology for People. Proprietary software developer and operator of DOCTORwala, Schoolwala, Rani Matrimonial, and ProjectAttendance.",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressCountry": "IN",
+                    "addressRegion": "West Bengal"
+                },
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "email": "partner@sumatrasales.com",
+                    "contactType": "customer service"
+                },
+                "sameAs": [
+                    "https://www.doctorwala.info/",
+                    "https://schoolwala.info/",
+                    "https://ranimatrimonial.com/",
+                    "https://projectattendance.com/"
+                ]
+            },
+            {
+                "@type": "WebSite",
+                "@id": "{{ url('/') }}#website",
+                "url": "{{ url('/') }}",
+                "name": "Sumatra Sales Private Limited",
+                "publisher": {
+                    "@id": "{{ url('/') }}#organization"
+                }
+            },
+            {
+                "@type": "SoftwareApplication",
+                "@id": "https://www.doctorwala.info/#app",
+                "name": "DOCTORwala",
+                "url": "https://www.doctorwala.info/",
+                "applicationCategory": "HealthApplication",
+                "operatingSystem": "Android, Web",
+                "description": "Healthcare for Everyone. 24/7 Verified doctor bookings, OPD clinics, diagnostic lab tests, electronic health records, and local pharmacy directory.",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "INR"
+                },
+                "installUrl": "https://play.google.com/store/apps/details?id=com.doctorwala.dochealth&pcampaignid=web_share",
+                "publisher": {
+                    "@id": "{{ url('/') }}#organization"
+                }
+            },
+            {
+                "@type": "SoftwareApplication",
+                "@id": "https://schoolwala.info/#app",
+                "name": "Schoolwala",
+                "url": "https://schoolwala.info/",
+                "applicationCategory": "EducationalApplication",
+                "operatingSystem": "Android, Web",
+                "description": "Digital Education for Bengali Medium students following the WBBSE board syllabus (Classes VIII, IX, and X) with video lessons, study notes, and chapter tests.",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "INR"
+                },
+                "installUrl": "https://play.google.com/store/apps/details?id=com.schoolwala.schoolwalaapp",
+                "publisher": {
+                    "@id": "{{ url('/') }}#organization"
+                }
+            },
+            {
+                "@type": "SoftwareApplication",
+                "@id": "https://ranimatrimonial.com/#app",
+                "name": "Rani Matrimonial",
+                "url": "https://ranimatrimonial.com/",
+                "applicationCategory": "LifestyleApplication",
+                "operatingSystem": "Web (Android App Coming Soon)",
+                "description": "Find Your Perfect Match with 100% verified biodatas, strict family privacy, smart AI matchmaking, and secure in-app communications.",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "INR"
+                },
+                "publisher": {
+                    "@id": "{{ url('/') }}#organization"
+                }
+            },
+            {
+                "@type": "SoftwareApplication",
+                "@id": "https://projectattendance.com/#app",
+                "name": "ProjectAttendance",
+                "url": "https://projectattendance.com/",
+                "applicationCategory": "BusinessApplication",
+                "operatingSystem": "Android, Web",
+                "description": "Workforce & Admin HRMS management platform with GPS geofenced mobile attendance, field route logs, and automated payroll timesheets.",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "INR"
+                },
+                "installUrl": "https://play.google.com/store/apps/details?id=smart.geofence.attendance&pcampaignid=web_share",
+                "publisher": {
+                    "@id": "{{ url('/') }}#organization"
+                }
+            }
+        ]
+    }
+    </script>
 
     <style>
         body {

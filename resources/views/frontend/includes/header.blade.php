@@ -158,10 +158,22 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <a href="#doctorwala" class="w-full py-2 px-3 rounded-lg bg-cyan-50 hover:bg-[#4DCBDC] text-[#0d606b] hover:text-slate-950 font-bold text-xs transition-colors flex items-center justify-center gap-1.5 group-hover/card:bg-[#4DCBDC] group-hover/card:text-slate-950">
-                                    <span>Explore Doctorwala</span>
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
-                                </a>
+                                <div class="space-y-1.5 mt-3 pt-2.5 border-t border-slate-100">
+                                    <a href="https://www.doctorwala.info/" target="_blank" rel="noopener noreferrer" class="w-full py-2 px-3 rounded-lg bg-cyan-50 hover:bg-[#4DCBDC] text-[#0d606b] hover:text-slate-950 font-bold text-xs transition-colors flex items-center justify-center gap-1.5 group-hover/card:bg-[#4DCBDC] group-hover/card:text-slate-950">
+                                        <span>Visit doctorwala.info</span>
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+                                    </a>
+                                    <div class="grid grid-cols-2 gap-1 pt-0.5">
+                                        <a href="https://play.google.com/store/apps/details?id=com.doctorwala.dochealth&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="py-1 px-1.5 rounded-md bg-slate-900 hover:bg-slate-800 text-white text-[9.5px] font-bold flex items-center justify-center gap-1 transition" title="Patient App on Google Play">
+                                            <svg class="w-2.5 h-2.5 text-cyan-400 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.793 12 3.61 22.186a2.03 2.03 0 0 1-.36-1.186V3a2.03 2.03 0 0 1 .359-1.186zm11.3 9.072l2.38-2.38-12.02-6.87 9.64 9.25zm0 2.228l-9.64 9.25 12.02-6.87-2.38-2.38zm1.114-1.114l2.96 1.69a1.5 1.5 0 0 0 0-2.614l-2.96 1.69z"/></svg>
+                                            <span>Patient App</span>
+                                        </a>
+                                        <a href="https://play.google.com/store/apps/details?id=info.doctorwala.partner&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="py-1 px-1.5 rounded-md bg-cyan-50 hover:bg-cyan-100 text-[#0c5963] border border-cyan-200/80 text-[9.5px] font-bold flex items-center justify-center gap-1 transition" title="Partner App on Google Play">
+                                            <svg class="w-2.5 h-2.5 text-cyan-600 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.793 12 3.61 22.186a2.03 2.03 0 0 1-.36-1.186V3a2.03 2.03 0 0 1 .359-1.186zm11.3 9.072l2.38-2.38-12.02-6.87 9.64 9.25zm0 2.228l-9.64 9.25 12.02-6.87-2.38-2.38zm1.114-1.114l2.96 1.69a1.5 1.5 0 0 0 0-2.614l-2.96 1.69z"/></svg>
+                                            <span>Partner App</span>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- Platform Card 2: Schoolwala -->
@@ -196,10 +208,16 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <a href="#schoolwala" class="w-full py-2 px-3 rounded-lg bg-amber-50 hover:bg-[#F5DB3C] text-amber-950 font-bold text-xs transition-colors flex items-center justify-center gap-1.5 group-hover/card:bg-[#F5DB3C] group-hover/card:text-slate-950">
-                                    <span>Explore Schoolwala</span>
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
-                                </a>
+                                <div class="space-y-1.5 mt-3 pt-2.5 border-t border-slate-100">
+                                    <a href="https://schoolwala.info/" target="_blank" rel="noopener noreferrer" class="w-full py-2 px-3 rounded-lg bg-amber-50 hover:bg-[#F5DB3C] text-amber-950 font-bold text-xs transition-colors flex items-center justify-center gap-1.5 group-hover/card:bg-[#F5DB3C] group-hover/card:text-slate-950">
+                                        <span>Visit schoolwala.info</span>
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+                                    </a>
+                                    <a href="https://play.google.com/store/apps/details?id=com.schoolwala.schoolwalaapp" target="_blank" rel="noopener noreferrer" class="w-full py-1 px-2 rounded-md bg-slate-900 hover:bg-slate-800 text-white text-[9.5px] font-bold flex items-center justify-center gap-1.5 transition" title="Schoolwala App on Google Play">
+                                        <svg class="w-3 h-3 text-amber-400 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.793 12 3.61 22.186a2.03 2.03 0 0 1-.36-1.186V3a2.03 2.03 0 0 1 .359-1.186zm11.3 9.072l2.38-2.38-12.02-6.87 9.64 9.25zm0 2.228l-9.64 9.25 12.02-6.87-2.38-2.38zm1.114-1.114l2.96 1.69a1.5 1.5 0 0 0 0-2.614l-2.96 1.69z"/></svg>
+                                        <span>Download Android App</span>
+                                    </a>
+                                </div>
                             </div>
 
                             <!-- Platform Card 3: Rani Matrimonial -->
@@ -234,10 +252,16 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <a href="#ranimatrimonial" class="w-full py-2 px-3 rounded-lg bg-rose-50 hover:bg-[#3F0001] text-rose-950 hover:text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5 group-hover/card:bg-[#3F0001] group-hover/card:text-white">
-                                    <span>Explore Rani Matrimonial</span>
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
-                                </a>
+                                <div class="space-y-1.5 mt-3 pt-2.5 border-t border-slate-100">
+                                    <a href="https://ranimatrimonial.com/" target="_blank" rel="noopener noreferrer" class="w-full py-2 px-3 rounded-lg bg-rose-50 hover:bg-[#3F0001] text-rose-950 hover:text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5 group-hover/card:bg-[#3F0001] group-hover/card:text-white">
+                                        <span>Visit ranimatrimonial.com</span>
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+                                    </a>
+                                    <div class="w-full py-1 px-2 rounded-md bg-rose-50 border border-rose-200/80 text-rose-900 text-[9.5px] font-bold flex items-center justify-center gap-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-rose-600 animate-pulse"></span>
+                                        <span>Android App Coming Soon</span>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- Platform Card 4: ProjectAttendance -->
@@ -262,7 +286,7 @@
                                             <span class="w-1.5 h-1.5 rounded-full bg-[#E48121]"></span>
                                             <span>Real-time Field Staff Route Tracking</span>
                                         </li>
-                                        <li class="flex items-center gap-2">
+                                        <li class="flex items-center gap-2.5">
                                             <span class="w-1.5 h-1.5 rounded-full bg-[#E48121]"></span>
                                             <span>Automated Shift & Overtime Reports</span>
                                         </li>
@@ -272,10 +296,16 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <a href="#projectattendance" class="w-full py-2 px-3 rounded-lg bg-orange-50 hover:bg-[#E48121] text-orange-950 hover:text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5 group-hover/card:bg-[#E48121] group-hover/card:text-white">
-                                    <span>Explore ProjectAttendance</span>
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
-                                </a>
+                                <div class="space-y-1.5 mt-3 pt-2.5 border-t border-slate-100">
+                                    <a href="https://projectattendance.com/" target="_blank" rel="noopener noreferrer" class="w-full py-2 px-3 rounded-lg bg-orange-50 hover:bg-[#E48121] text-orange-950 hover:text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5 group-hover/card:bg-[#E48121] group-hover/card:text-white">
+                                        <span>Visit projectattendance.com</span>
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+                                    </a>
+                                    <a href="https://play.google.com/store/apps/details?id=smart.geofence.attendance&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="w-full py-1 px-2 rounded-md bg-slate-900 hover:bg-slate-800 text-white text-[9.5px] font-bold flex items-center justify-center gap-1.5 transition" title="ProjectAttendance App on Google Play">
+                                        <svg class="w-3 h-3 text-orange-400 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.793 12 3.61 22.186a2.03 2.03 0 0 1-.36-1.186V3a2.03 2.03 0 0 1 .359-1.186zm11.3 9.072l2.38-2.38-12.02-6.87 9.64 9.25zm0 2.228l-9.64 9.25 12.02-6.87-2.38-2.38zm1.114-1.114l2.96 1.69a1.5 1.5 0 0 0 0-2.614l-2.96 1.69z"/></svg>
+                                        <span>Download Android App</span>
+                                    </a>
+                                </div>
                             </div>
 
                         </div>
