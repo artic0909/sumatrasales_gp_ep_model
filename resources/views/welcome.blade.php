@@ -365,7 +365,7 @@
                                 <span>Looking to deploy these software platforms across your district, or need white-label distribution rights?</span>
                             </div>
                             <div class="flex items-center gap-3 shrink-0">
-                                <a href="#partner-program" class="font-bold text-blue-600 hover:text-blue-800 transition">Become a Growth Partner &rarr;</a>
+                                <a href="#partner-program" class="font-bold text-blue-600 hover:text-blue-800 transition">Become a Ground Partner &rarr;</a>
                                 <span class="text-slate-300">|</span>
                                 <a href="#contact" class="font-bold text-slate-700 hover:text-slate-900 transition">Schedule Live Demo &rarr;</a>
                             </div>
@@ -572,7 +572,7 @@
                                 </span>
                                 <div>
                                     <h3 class="text-sm sm:text-base font-extrabold text-slate-900">Sumatra Partner Program (EP & GP)</h3>
-                                    <p class="text-[11px] sm:text-xs text-slate-500 font-medium">Join 500+ active Executive Partners (EP) and Growth Partners (GP) earning monthly recurring commissions.</p>
+                                    <p class="text-[11px] sm:text-xs text-slate-500 font-medium">Join 500+ active Executive Partners (EP) and Ground Partners (GP) earning monthly recurring commissions.</p>
                                 </div>
                             </div>
                             <a href="#partner-program" class="text-xs font-bold text-amber-700 hover:text-amber-900 flex items-center gap-1 shrink-0 self-start sm:self-auto group/toplink">
@@ -604,12 +604,12 @@
 
                                     <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200/90 hover:border-amber-300 transition">
                                         <div class="flex items-center justify-between mb-1">
-                                            <span class="text-xs font-extrabold text-slate-900">Growth Partner (GP)</span>
+                                            <span class="text-xs font-extrabold text-slate-900">Ground Partner (GP)</span>
                                             <span class="text-[9px] font-bold text-amber-800 bg-amber-100/70 px-1.5 py-0.2 rounded">Territory Lead</span>
                                         </div>
                                         <p class="text-[11px] text-slate-600 leading-snug">Lead city expansion. Recruit and mentor a team of EPs while earning royalties on regional deployments.</p>
                                         <div class="mt-1.5 text-[11px] font-bold text-amber-700 hover:text-amber-900 flex items-center gap-1">
-                                            <a href="{{ route('register') }}">Apply for Growth Partner &rarr;</a>
+                                            <a href="{{ route('register') }}">Apply for Ground Partner &rarr;</a>
                                         </div>
                                     </div>
                                 </div>
@@ -978,7 +978,7 @@
                                             <span>Commission Rate Card</span>
                                             <span class="text-[9px] text-amber-800 bg-amber-100/70 px-1.5 py-0.2 rounded font-semibold">Ledger</span>
                                         </div>
-                                        <p class="text-[11px] text-slate-500 mt-0.5">Official commission schedule for Executive & Growth Partners.</p>
+                                        <p class="text-[11px] text-slate-500 mt-0.5">Official commission schedule for Executive & Ground Partners.</p>
                                     </a>
                                     <a href="{{ route('register') }}" class="group block p-2 rounded-lg hover:bg-amber-50/70 border border-transparent hover:border-amber-200/60 transition">
                                         <div class="text-xs font-bold text-slate-800 group-hover:text-amber-800 flex items-center justify-between">
@@ -2244,7 +2244,7 @@
                         Ready to Start Earning with SumatraSales?
                     </h3>
                     <p class="text-xs text-blue-100 mt-1 max-w-2xl font-medium">
-                        Join 500+ Executive Partners (EP) and Growth Partners (GP) across 100+ cities. Market ready-to-use software solutions with ₹0 investment fee.
+                        Join 500+ Executive Partners (EP) and Ground Partners (GP) across 100+ cities. Market ready-to-use software solutions with ₹0 investment fee.
                     </p>
                 </div>
                 <div class="flex flex-wrap items-center justify-center gap-3 shrink-0">
@@ -2278,7 +2278,7 @@
 
                         <!-- Company Description & SEO statement -->
                         <p class="text-xs text-blue-100 leading-relaxed font-normal mb-4">
-                            Sumatra Sales Private Limited is India’s premier digital enterprise software ecosystem. We empower Executive Partners (EP) and Growth Partners (GP) to market ready-to-deploy software, custom development, and AI solutions with transparent commissions and zero upfront fees.
+                            Sumatra Sales Private Limited is India’s premier digital enterprise software ecosystem. We empower Executive Partners (EP) and Ground Partners (GP) to market ready-to-deploy software, custom development, and AI solutions with transparent commissions and zero upfront fees.
                         </p>
 
                         <!-- Corporate Credential Badges -->
@@ -2356,7 +2356,7 @@
                         <span>Partner Network</span>
                     </h4>
                     <ul class="space-y-2 text-xs">
-                        <li><a href="#" class="text-white hover:text-amber-200 transition-colors block font-bold">Growth Partner (GP)</a></li>
+                        <li><a href="#" class="text-white hover:text-amber-200 transition-colors block font-bold">Ground Partner (GP)</a></li>
                         <li><a href="#" class="text-white hover:text-amber-200 transition-colors block font-bold">Executive Partner (EP)</a></li>
                         <li><a href="#" class="text-blue-100 hover:text-white transition-colors block">Commission Structure</a></li>
                         <li><a href="#" class="text-blue-100 hover:text-white transition-colors block">Zero Upfront Policy</a></li>
@@ -2442,7 +2442,7 @@
                         <span class="text-blue-300/60">•</span>
                         <a href="#" class="hover:text-white transition-colors">Executive Partner (EP) Model</a>
                         <span class="text-blue-300/60">•</span>
-                        <a href="#" class="hover:text-white transition-colors">Growth Partner (GP) Model</a>
+                        <a href="#" class="hover:text-white transition-colors">Ground Partner (GP) Model</a>
                         <span class="text-blue-300/60">•</span>
                         <a href="#" class="hover:text-white transition-colors">Zero Investment Work From Home</a>
                         <span class="text-blue-300/60">•</span>
@@ -2523,7 +2523,7 @@
 
                 <!-- Regulatory Disclaimer -->
                 <div class="max-w-xl text-[10px] text-blue-100/90 leading-normal font-normal">
-                    <strong class="text-white">Legal & Commission Disclaimer:</strong> SumatraSales is an enterprise technology provider. Executive Partner (EP) and Growth Partner (GP) programs are transparent referral sales frameworks. They do not constitute salaried employment or multi-level marketing (MLM). Earnings are contingent upon verified client acquisitions and agreed commission terms.
+                    <strong class="text-white">Legal & Commission Disclaimer:</strong> SumatraSales is an enterprise technology provider. Executive Partner (EP) and Ground Partner (GP) programs are transparent referral sales frameworks. They do not constitute salaried employment or multi-level marketing (MLM). Earnings are contingent upon verified client acquisitions and agreed commission terms.
                 </div>
 
             </div>
