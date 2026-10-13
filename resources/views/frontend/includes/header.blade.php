@@ -38,7 +38,7 @@
                     @endauth
 
                     <!-- Become a Partner Primary CTA Button -->
-                    <a href="{{ route('register') }}" class="inline-flex items-center justify-center px-3 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-bold text-white bg-[#1D64F2] hover:bg-[#1853CA] active:bg-[#1546B0] rounded-lg shadow-sm hover:shadow transition duration-150 whitespace-nowrap">
+                    <a href="{{ route('partner.register') }}" class="inline-flex items-center justify-center px-3 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-bold text-white bg-[#1D64F2] hover:bg-[#1853CA] active:bg-[#1546B0] rounded-lg shadow-sm hover:shadow transition duration-150 whitespace-nowrap">
                         <span>Become a Partner</span>
                     </a>
 
@@ -557,7 +557,7 @@
                                         </div>
                                         <p class="text-[11px] text-slate-600 leading-snug">Market ready software directly to local clinics, schools, and merchants. Earn high commission per sale.</p>
                                         <div class="mt-1.5 text-[11px] font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1">
-                                            <a href="{{ route('register') }}">Join as Executive Partner &rarr;</a>
+                                            <a href="{{ route('partner.register') }}">Join as Executive Partner &rarr;</a>
                                         </div>
                                     </div>
 
@@ -568,7 +568,7 @@
                                         </div>
                                         <p class="text-[11px] text-slate-600 leading-snug">Lead city expansion. Recruit and mentor a team of EPs while earning royalties on regional deployments.</p>
                                         <div class="mt-1.5 text-[11px] font-bold text-amber-700 hover:text-amber-900 flex items-center gap-1">
-                                            <a href="{{ route('register') }}">Apply for Ground Partner &rarr;</a>
+                                            <a href="{{ route('partner.register') }}">Apply for Ground Partner &rarr;</a>
                                         </div>
                                     </div>
                                 </div>
@@ -651,7 +651,7 @@
                                     </div>
 
                                     <div class="mt-4 pt-2.5 border-t border-slate-700/80 space-y-1.5">
-                                        <a href="{{ route('register') }}" class="w-full py-2 px-3 bg-[#FABE28] hover:bg-[#E5AC20] text-slate-950 font-black text-xs rounded-lg text-center shadow-sm transition-all flex items-center justify-center gap-1.5">
+                                        <a href="{{ route('partner.register') }}" class="w-full py-2 px-3 bg-[#FABE28] hover:bg-[#E5AC20] text-slate-950 font-black text-xs rounded-lg text-center shadow-sm transition-all flex items-center justify-center gap-1.5">
                                             <span>Register Free as Partner</span>
                                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                                         </a>
@@ -918,28 +918,28 @@
                                     <h4 class="text-xs font-black uppercase tracking-wider text-slate-800">Partner Toolkit</h4>
                                 </div>
                                 <div class="space-y-1.5">
-                                    <a href="{{ route('register') }}" class="group block p-2 rounded-lg hover:bg-amber-50/70 border border-transparent hover:border-amber-200/60 transition">
+                                    <a href="{{ route('partner.register') }}" class="group block p-2 rounded-lg hover:bg-amber-50/70 border border-transparent hover:border-amber-200/60 transition">
                                         <div class="text-xs font-bold text-slate-800 group-hover:text-amber-800 flex items-center justify-between">
                                             <span>Sales Pitch Decks</span>
                                             <span class="text-[9px] text-amber-800 bg-amber-100/70 px-1.5 py-0.2 rounded font-semibold">PPT/PDF</span>
                                         </div>
                                         <p class="text-[11px] text-slate-500 mt-0.5">Professional presentation decks ready for client meetings.</p>
                                     </a>
-                                    <a href="{{ route('register') }}" class="group block p-2 rounded-lg hover:bg-amber-50/70 border border-transparent hover:border-amber-200/60 transition">
+                                    <a href="{{ route('partner.register') }}" class="group block p-2 rounded-lg hover:bg-amber-50/70 border border-transparent hover:border-amber-200/60 transition">
                                         <div class="text-xs font-bold text-slate-800 group-hover:text-amber-800 flex items-center justify-between">
                                             <span>Printable Brochures & Flyers</span>
                                             <span class="text-[9px] text-amber-800 bg-amber-100/70 px-1.5 py-0.2 rounded font-semibold">Print</span>
                                         </div>
                                         <p class="text-[11px] text-slate-500 mt-0.5">High-resolution flyers customized with partner contact details.</p>
                                     </a>
-                                    <a href="{{ route('register') }}" class="group block p-2 rounded-lg hover:bg-amber-50/70 border border-transparent hover:border-amber-200/60 transition">
+                                    <a href="{{ route('partner.register') }}" class="group block p-2 rounded-lg hover:bg-amber-50/70 border border-transparent hover:border-amber-200/60 transition">
                                         <div class="text-xs font-bold text-slate-800 group-hover:text-amber-800 flex items-center justify-between">
                                             <span>Commission Rate Card</span>
                                             <span class="text-[9px] text-amber-800 bg-amber-100/70 px-1.5 py-0.2 rounded font-semibold">Ledger</span>
                                         </div>
                                         <p class="text-[11px] text-slate-500 mt-0.5">Official commission schedule for Executive & Ground Partners.</p>
                                     </a>
-                                    <a href="{{ route('register') }}" class="group block p-2 rounded-lg hover:bg-amber-50/70 border border-transparent hover:border-amber-200/60 transition">
+                                    <a href="{{ route('partner.register') }}" class="group block p-2 rounded-lg hover:bg-amber-50/70 border border-transparent hover:border-amber-200/60 transition">
                                         <div class="text-xs font-bold text-slate-800 group-hover:text-amber-800 flex items-center justify-between">
                                             <span>Standard Client Agreements</span>
                                             <span class="text-[9px] text-amber-800 bg-amber-100/70 px-1.5 py-0.2 rounded font-semibold">Legal</span>
@@ -1030,7 +1030,7 @@
                             Login
                         </a>
                     @endauth
-                    <a href="{{ route('register') }}" class="mobile-nav-link py-2 px-3 text-center text-xs font-bold text-white bg-[#1D64F2] hover:bg-[#1853CA] rounded-lg transition shadow-xs">
+                    <a href="{{ route('partner.register') }}" class="mobile-nav-link py-2 px-3 text-center text-xs font-bold text-white bg-[#1D64F2] hover:bg-[#1853CA] rounded-lg transition shadow-xs">
                         Join Free
                     </a>
                 </div>

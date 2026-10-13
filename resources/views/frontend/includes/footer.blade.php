@@ -16,7 +16,7 @@
                     </p>
                 </div>
                 <div class="flex flex-wrap items-center justify-center gap-3 shrink-0">
-                    <a href="#partner-register" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white hover:bg-blue-50 text-[#2150D5] font-black text-xs shadow-md hover:shadow-lg transition-all">
+                    <a href="{{ route('partner.register') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white hover:bg-blue-50 text-[#2150D5] font-black text-xs shadow-md hover:shadow-lg transition-all">
                         <span>Register Free as Partner</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                     </a>

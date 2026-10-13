@@ -40,7 +40,7 @@
                         <!-- CTA Action Buttons (Stretch on mobile, row on tablet/desktop) -->
                         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
                             <!-- Yellow CTA Button -->
-                            <a href="{{ route('register') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FABE28] hover:bg-[#E5AC20] text-slate-950 font-extrabold text-sm sm:text-base rounded-md shadow-md transition duration-150 transform hover:-translate-y-0.5 text-center">
+                            <a href="{{ route('partner.register') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FABE28] hover:bg-[#E5AC20] text-slate-950 font-extrabold text-sm sm:text-base rounded-md shadow-md transition duration-150 transform hover:-translate-y-0.5 text-center">
                                 <span>Become a Partner</span>
                                 <svg class="w-4 h-4 text-slate-950 font-bold" fill="none" stroke="currentColor" stroke-width="2.8" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
