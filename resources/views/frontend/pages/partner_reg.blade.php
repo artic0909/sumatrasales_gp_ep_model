@@ -6,6 +6,9 @@
 @section('content')
 <main class="w-full bg-[#F8FAFC] pb-24 pt-6 sm:pt-10">
 
+    <!-- Floating Real-time Duplicate Alert Toast Container -->
+    <div id="duplicate-alert-toast-container" class="fixed top-5 right-5 z-[9999] flex flex-col gap-3 pointer-events-none max-w-sm w-full px-4 sm:px-0"></div>
+
     <!-- Top Breadcrumb & Live Status Bar -->
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
         <div class="flex items-center justify-between">
@@ -23,7 +26,7 @@
     </div>
 
     <!-- 1. Hero Header Section with Brand Color #2964F2 -->
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-8" id="partner-hero-banner">
         <div class="relative overflow-hidden rounded-3xl bg-[#2964F2] text-white p-7 sm:p-10 shadow-[0_20px_45px_-10px_rgba(41,100,242,0.35)] border border-blue-400/30">
             <!-- Subtle Ambient Background Glows -->
             <div class="absolute -top-20 -right-20 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -44,7 +47,7 @@
 
                 <!-- Subtitle -->
                 <p class="mt-2.5 text-blue-50/95 text-xs sm:text-sm md:text-base max-w-2xl leading-relaxed font-normal">
-                    Join Sumatra Sales as an <strong class="text-white font-bold">Executive Partner (EP)</strong> or <strong class="text-white font-bold">Ground Partner (GP)</strong>. Follow the 4 easy steps below to complete your partner profile and upload verification documents.
+                    Join Sumatra Sales as an <strong class="text-white font-bold">Executive Partner (EP)</strong> or <strong class="text-white font-bold">Ground Partner (GP)</strong>. Follow the 5 easy steps below to complete your partner profile and upload verification documents.
                 </p>
 
                 <!-- Value Highlights Footer -->
@@ -76,11 +79,11 @@
         <!-- Mobile Compact Stepper (< md screens) -->
         <div class="block md:hidden bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4">
             <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-extrabold text-[#2964F2] uppercase tracking-wide" id="mobile-step-tag">Step 1 of 4</span>
-                <span class="text-xs font-bold text-slate-700" id="mobile-step-percent">25% Completed</span>
+                <span class="text-xs font-extrabold text-[#2964F2] uppercase tracking-wide" id="mobile-step-tag">Step 1 of 5</span>
+                <span class="text-xs font-bold text-slate-700" id="mobile-step-percent">20% Completed</span>
             </div>
             <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden mb-2.5">
-                <div id="mobile-progress-bar" class="bg-[#2964F2] h-2.5 rounded-full transition-all duration-300 w-1/4"></div>
+                <div id="mobile-progress-bar" class="bg-[#2964F2] h-2.5 rounded-full transition-all duration-300 w-1/5"></div>
             </div>
             <div class="text-sm font-extrabold text-slate-900" id="mobile-step-title">
                 Role & Personal Profile
@@ -89,7 +92,7 @@
 
         <!-- Desktop Full Stepper (>= md screens) -->
         <div class="hidden md:block bg-white rounded-2xl border border-slate-200/90 shadow-sm p-5">
-            <div class="grid grid-cols-4 gap-2 relative">
+            <div class="grid grid-cols-5 gap-2 relative">
                 
                 <!-- Step 1 -->
                 <div class="stepper-item group flex flex-col items-center text-center cursor-pointer transition-all" data-step="1">
@@ -117,14 +120,24 @@
                         <span class="step-num">3</span>
                         <svg class="step-check hidden w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                     </div>
-                    <span class="step-title mt-2 text-xs font-bold text-slate-600 transition">Bank Details</span>
-                    <span class="text-[10px] text-slate-400 font-medium">Payout Settlement</span>
+                    <span class="step-title mt-2 text-xs font-bold text-slate-600 transition">Working with</span>
+                    <span class="text-[10px] text-slate-400 font-medium">Project Selection</span>
                 </div>
 
                 <!-- Step 4 -->
                 <div class="stepper-item group flex flex-col items-center text-center cursor-pointer transition-all opacity-60" data-step="4">
                     <div class="step-circle w-10 h-10 rounded-full flex items-center justify-center font-black text-sm transition-all duration-300 bg-slate-100 text-slate-500 border border-slate-300">
                         <span class="step-num">4</span>
+                        <svg class="step-check hidden w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+                    </div>
+                    <span class="step-title mt-2 text-xs font-bold text-slate-600 transition">Bank Details</span>
+                    <span class="text-[10px] text-slate-400 font-medium">Payout Settlement</span>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="stepper-item group flex flex-col items-center text-center cursor-pointer transition-all opacity-60" data-step="5">
+                    <div class="step-circle w-10 h-10 rounded-full flex items-center justify-center font-black text-sm transition-all duration-300 bg-slate-100 text-slate-500 border border-slate-300">
+                        <span class="step-num">5</span>
                         <svg class="step-check hidden w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                     </div>
                     <span class="step-title mt-2 text-xs font-bold text-slate-600 transition">Photo & Review</span>
@@ -197,11 +210,11 @@
                 <!-- Section Header -->
                 <div class="flex items-center justify-between pb-5 border-b border-slate-100">
                     <div>
-                        <span class="inline-block px-2.5 py-0.5 rounded-md text-[11px] font-black uppercase bg-blue-100 text-[#2964F2] tracking-wider mb-1.5">Step 1 of 4</span>
+                        <span class="inline-block px-2.5 py-0.5 rounded-md text-[11px] font-black uppercase bg-blue-100 text-[#2964F2] tracking-wider mb-1.5">Step 1 of 5</span>
                         <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">Choose Partner Role & Personal Details</h2>
                         <p class="text-xs sm:text-sm text-slate-500 mt-1">Select your role as EP or GP and complete your address & contact details.</p>
                     </div>
-                    <span class="w-11 h-11 rounded-2xl bg-blue-50 text-[#2964F2] font-black text-sm hidden sm:flex items-center justify-center border border-blue-100">1/4</span>
+                    <span class="w-11 h-11 rounded-2xl bg-blue-50 text-[#2964F2] font-black text-sm hidden sm:flex items-center justify-center border border-blue-100">1/5</span>
                 </div>
 
                 <!-- 1. Role Selection Radio Cards -->
@@ -411,7 +424,7 @@
 
                 <!-- Step 1 Navigation Button -->
                 <div class="pt-6 border-t border-slate-100 flex items-center justify-end">
-                    <button type="button" class="btn-next-step inline-flex items-center gap-2 px-8 py-3.5 bg-[#2964F2] hover:bg-[#1E52D4] active:bg-[#1846BA] text-white font-extrabold text-sm sm:text-base rounded-xl shadow-md shadow-[#2964F2]/25 hover:shadow-lg hover:shadow-[#2964F2]/35 transition transform hover:-translate-y-0.5 cursor-pointer" data-target="2">
+                    <button type="button" class="btn-next-step w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 bg-[#2964F2] hover:bg-[#1E52D4] active:bg-[#1846BA] text-white font-extrabold text-xs sm:text-sm sm:text-base rounded-xl shadow-md shadow-[#2964F2]/25 hover:shadow-lg hover:shadow-[#2964F2]/35 transition transform hover:-translate-y-0.5 cursor-pointer" data-target="2">
                         <span>Continue to Document Verification</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                     </button>
@@ -427,11 +440,11 @@
                 <!-- Section Header -->
                 <div class="flex items-center justify-between pb-5 border-b border-slate-100">
                     <div>
-                        <span class="inline-block px-2.5 py-0.5 rounded-md text-[11px] font-black uppercase bg-blue-100 text-[#2964F2] tracking-wider mb-1.5">Step 2 of 4</span>
+                        <span class="inline-block px-2.5 py-0.5 rounded-md text-[11px] font-black uppercase bg-blue-100 text-[#2964F2] tracking-wider mb-1.5">Step 2 of 5</span>
                         <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">Official Identity Credentials & Verification</h2>
                         <p class="text-xs sm:text-sm text-slate-500 mt-1">Provide your government-issued identity cards to ensure verified onboarding.</p>
                     </div>
-                    <span class="w-11 h-11 rounded-2xl bg-blue-50 text-[#2964F2] font-black text-sm hidden sm:flex items-center justify-center border border-blue-100">2/4</span>
+                    <span class="w-11 h-11 rounded-2xl bg-blue-50 text-[#2964F2] font-black text-sm hidden sm:flex items-center justify-center border border-blue-100">2/5</span>
                 </div>
 
                 <!-- Aadhaar Identity Block -->
@@ -609,12 +622,139 @@
                 </div>
 
                 <!-- Step 2 Navigation Buttons -->
-                <div class="pt-6 border-t border-slate-100 flex items-center justify-between">
-                    <button type="button" class="btn-prev-step inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-bold transition cursor-pointer" data-target="1">
+                <div class="pt-6 border-t border-slate-100 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
+                    <button type="button" class="btn-prev-step w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-bold transition shadow-xs cursor-pointer order-2 sm:order-1" data-target="1">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>
                         <span>Previous Step</span>
                     </button>
-                    <button type="button" class="btn-next-step inline-flex items-center gap-2 px-8 py-3.5 bg-[#2964F2] hover:bg-[#1E52D4] active:bg-[#1846BA] text-white font-extrabold text-sm sm:text-base rounded-xl shadow-md shadow-[#2964F2]/25 hover:shadow-lg hover:shadow-[#2964F2]/35 transition transform hover:-translate-y-0.5 cursor-pointer" data-target="3">
+                    <button type="button" class="btn-next-step w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 bg-[#2964F2] hover:bg-[#1E52D4] active:bg-[#1846BA] text-white font-extrabold text-xs sm:text-sm sm:text-base rounded-xl shadow-md shadow-[#2964F2]/25 hover:shadow-lg hover:shadow-[#2964F2]/35 transition transform hover:-translate-y-0.5 cursor-pointer order-1 sm:order-2" data-target="3">
+                        <span>Continue to Working with</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- ============================================================= -->
+            <!-- STEP 3: WORKING WITH PROJECTS SELECTION                       -->
+            <!-- ============================================================= -->
+            <div class="form-step-panel bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 sm:p-10 transition-all space-y-8 hidden" id="step-panel-3">
+                
+                <!-- Section Header -->
+                <div class="flex items-center justify-between pb-5 border-b border-slate-100">
+                    <div>
+                        <span class="inline-block px-2.5 py-0.5 rounded-md text-[11px] font-black uppercase bg-blue-100 text-[#2964F2] tracking-wider mb-1.5">Step 3 of 5</span>
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">Working with Sumatra Sales Projects</h2>
+                        <p class="text-xs sm:text-sm text-slate-500 mt-1">Select the project(s) you would like to work with as an official partner.</p>
+                    </div>
+                    <span class="w-11 h-11 rounded-2xl bg-blue-50 text-[#2964F2] font-black text-sm hidden sm:flex items-center justify-center border border-blue-100">3/5</span>
+                </div>
+
+                <!-- Projects Selection Cards -->
+                <div class="space-y-4" id="interests-selection-group">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <label class="block text-xs font-black uppercase tracking-wider text-slate-700">
+                            Select Projects to Work With <span class="text-rose-500">*</span>
+                            <span class="text-[11px] font-normal text-slate-400 lowercase">(choose one or more)</span>
+                        </label>
+                        <button type="button" id="toggle-all-interests" class="text-xs font-bold text-[#2964F2] hover:text-[#1E52D4] hover:underline self-start sm:self-auto cursor-pointer">
+                            Select All Projects
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="interest-cards-grid">
+                        @php
+                            $oldInterests = old('interests', []);
+                            $isRani = in_array('Rani Matrimonial', (array)$oldInterests);
+                            $isSchool = in_array('Schoolwala', (array)$oldInterests);
+                            $isDoctor = in_array('Doctorwala', (array)$oldInterests);
+                        @endphp
+                        <!-- Project 1: Rani Matrimonial -->
+                        <div class="interest-card cursor-pointer relative rounded-2xl border-2 p-5 transition-all select-none {{ $isRani ? 'border-[#2964F2] bg-blue-50/50 shadow-sm ring-2 ring-[#2964F2]/10' : 'border-slate-200 hover:border-slate-300 bg-white' }}" data-interest="Rani Matrimonial">
+                            <label class="cursor-pointer block" for="interest_rani">
+                                <div class="flex items-start justify-between gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center shrink-0 shadow-2xs">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                        </svg>
+                                    </div>
+                                    <input type="checkbox" name="interests[]" id="interest_rani" value="Rani Matrimonial" {{ $isRani ? 'checked' : '' }} class="interest-checkbox h-5 w-5 text-[#2964F2] focus:ring-[#2964F2] border-slate-300 rounded cursor-pointer mt-0.5">
+                                </div>
+                                <div class="mt-3.5">
+                                    <h3 class="text-base font-extrabold text-slate-900">Rani Matrimonial</h3>
+                                    <p class="text-xs font-semibold text-[#2964F2] mt-0.5">Matrimonial Platform</p>
+                                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                                        Community matchmaking, verified bride & groom profiles, and matrimonial partnerships.
+                                    </p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Project 2: Schoolwala -->
+                        <div class="interest-card cursor-pointer relative rounded-2xl border-2 p-5 transition-all select-none {{ $isSchool ? 'border-[#2964F2] bg-blue-50/50 shadow-sm ring-2 ring-[#2964F2]/10' : 'border-slate-200 hover:border-slate-300 bg-white' }}" data-interest="Schoolwala">
+                            <label class="cursor-pointer block" for="interest_school">
+                                <div class="flex items-start justify-between gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center shrink-0 shadow-2xs">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-5.25 6.557c0 1.25.97 2.27 2.22 2.45m0 0a50.04 50.04 0 0 0 5.06 0m0 0c1.25-.18 2.22-1.2 2.22-2.45v-3.675" />
+                                        </svg>
+                                    </div>
+                                    <input type="checkbox" name="interests[]" id="interest_school" value="Schoolwala" {{ $isSchool ? 'checked' : '' }} class="interest-checkbox h-5 w-5 text-[#2964F2] focus:ring-[#2964F2] border-slate-300 rounded cursor-pointer mt-0.5">
+                                </div>
+                                <div class="mt-3.5">
+                                    <h3 class="text-base font-extrabold text-slate-900">Schoolwala</h3>
+                                    <p class="text-xs font-semibold text-[#2964F2] mt-0.5">Education & EdTech</p>
+                                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                                        Smart school management, digital education systems, admissions, and student learning solutions.
+                                    </p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Project 3: Doctorwala -->
+                        <div class="interest-card cursor-pointer relative rounded-2xl border-2 p-5 transition-all select-none {{ $isDoctor ? 'border-[#2964F2] bg-blue-50/50 shadow-sm ring-2 ring-[#2964F2]/10' : 'border-slate-200 hover:border-slate-300 bg-white' }}" data-interest="Doctorwala">
+                            <label class="cursor-pointer block" for="interest_doctor">
+                                <div class="flex items-start justify-between gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center shrink-0 shadow-2xs">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                        </svg>
+                                    </div>
+                                    <input type="checkbox" name="interests[]" id="interest_doctor" value="Doctorwala" {{ $isDoctor ? 'checked' : '' }} class="interest-checkbox h-5 w-5 text-[#2964F2] focus:ring-[#2964F2] border-slate-300 rounded cursor-pointer mt-0.5">
+                                </div>
+                                <div class="mt-3.5">
+                                    <h3 class="text-base font-extrabold text-slate-900">Doctorwala</h3>
+                                    <p class="text-xs font-semibold text-[#2964F2] mt-0.5">Healthcare & Clinic Services</p>
+                                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                                        Digital medical appointments, clinic booking networks, doctor consultations, and health services.
+                                    </p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="interests-error-box" class="hidden">
+                        <p class="text-xs font-semibold text-rose-600 flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" /></svg>
+                            <span>Please select at least one project you would like to work with.</span>
+                        </p>
+                    </div>
+
+                    @error('interests')
+                        <p class="text-xs font-semibold text-rose-600 flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" /></svg>
+                            <span>{{ $message }}</span>
+                        </p>
+                    @enderror
+                </div>
+
+                <!-- Step 3 Navigation Buttons -->
+                <div class="pt-6 border-t border-slate-100 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
+                    <button type="button" class="btn-prev-step w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-bold transition shadow-xs cursor-pointer order-2 sm:order-1" data-target="2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>
+                        <span>Previous Step</span>
+                    </button>
+                    <button type="button" class="btn-next-step w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 bg-[#2964F2] hover:bg-[#1E52D4] active:bg-[#1846BA] text-white font-extrabold text-xs sm:text-sm sm:text-base rounded-xl shadow-md shadow-[#2964F2]/25 hover:shadow-lg hover:shadow-[#2964F2]/35 transition transform hover:-translate-y-0.5 cursor-pointer order-1 sm:order-2" data-target="4">
                         <span>Continue to Bank Details</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                     </button>
@@ -623,18 +763,18 @@
             </div>
 
             <!-- ============================================================= -->
-            <!-- STEP 3: BANK SETTLEMENT & PAYOUT DETAILS                      -->
+            <!-- STEP 4: BANK SETTLEMENT & PAYOUT DETAILS                      -->
             <!-- ============================================================= -->
-            <div class="form-step-panel bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 sm:p-10 transition-all space-y-8 hidden" id="step-panel-3">
+            <div class="form-step-panel bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 sm:p-10 transition-all space-y-8 hidden" id="step-panel-4">
                 
                 <!-- Section Header -->
                 <div class="flex items-center justify-between pb-5 border-b border-slate-100">
                     <div>
-                        <span class="inline-block px-2.5 py-0.5 rounded-md text-[11px] font-black uppercase bg-blue-100 text-[#2964F2] tracking-wider mb-1.5">Step 3 of 4</span>
+                        <span class="inline-block px-2.5 py-0.5 rounded-md text-[11px] font-black uppercase bg-blue-100 text-[#2964F2] tracking-wider mb-1.5">Step 4 of 5</span>
                         <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">Bank Settlement & Payout Details</h2>
                         <p class="text-xs sm:text-sm text-slate-500 mt-1">All commissions and referral earnings will be transferred directly to this account.</p>
                     </div>
-                    <span class="w-11 h-11 rounded-2xl bg-blue-50 text-[#2964F2] font-black text-sm hidden sm:flex items-center justify-center border border-blue-100">3/4</span>
+                    <span class="w-11 h-11 rounded-2xl bg-blue-50 text-[#2964F2] font-black text-sm hidden sm:flex items-center justify-center border border-blue-100">4/5</span>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -695,13 +835,13 @@
                     <span><strong>Security Note:</strong> Account name must match the name on your Aadhaar and PAN card. Direct bank settlements (IMPS / NEFT) are automated weekly/monthly.</span>
                 </div>
 
-                <!-- Step 3 Navigation Buttons -->
-                <div class="pt-6 border-t border-slate-100 flex items-center justify-between">
-                    <button type="button" class="btn-prev-step inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-bold transition cursor-pointer" data-target="2">
+                <!-- Step 4 Navigation Buttons -->
+                <div class="pt-6 border-t border-slate-100 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
+                    <button type="button" class="btn-prev-step w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-bold transition shadow-xs cursor-pointer order-2 sm:order-1" data-target="3">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>
                         <span>Previous Step</span>
                     </button>
-                    <button type="button" class="btn-next-step inline-flex items-center gap-2 px-8 py-3.5 bg-[#2964F2] hover:bg-[#1E52D4] active:bg-[#1846BA] text-white font-extrabold text-sm sm:text-base rounded-xl shadow-md shadow-[#2964F2]/25 hover:shadow-lg hover:shadow-[#2964F2]/35 transition transform hover:-translate-y-0.5 cursor-pointer" data-target="4">
+                    <button type="button" class="btn-next-step w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 bg-[#2964F2] hover:bg-[#1E52D4] active:bg-[#1846BA] text-white font-extrabold text-xs sm:text-sm sm:text-base rounded-xl shadow-md shadow-[#2964F2]/25 hover:shadow-lg hover:shadow-[#2964F2]/35 transition transform hover:-translate-y-0.5 cursor-pointer order-1 sm:order-2" data-target="5">
                         <span>Continue to Photo & Review</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                     </button>
@@ -710,18 +850,18 @@
             </div>
 
             <!-- ============================================================= -->
-            <!-- STEP 4: SELF PHOTOGRAPH, SUMMARY REVIEW & FINAL DECLARATION   -->
+            <!-- STEP 5: SELF PHOTOGRAPH, SUMMARY REVIEW & FINAL DECLARATION   -->
             <!-- ============================================================= -->
-            <div class="form-step-panel bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 sm:p-10 transition-all space-y-8 hidden" id="step-panel-4">
+            <div class="form-step-panel bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 sm:p-10 transition-all space-y-8 hidden" id="step-panel-5">
                 
                 <!-- Section Header -->
                 <div class="flex items-center justify-between pb-5 border-b border-slate-100">
                     <div>
-                        <span class="inline-block px-2.5 py-0.5 rounded-md text-[11px] font-black uppercase bg-blue-100 text-[#2964F2] tracking-wider mb-1.5">Step 4 of 4</span>
+                        <span class="inline-block px-2.5 py-0.5 rounded-md text-[11px] font-black uppercase bg-blue-100 text-[#2964F2] tracking-wider mb-1.5">Step 5 of 5</span>
                         <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">Self Photograph & Final Review</h2>
                         <p class="text-xs sm:text-sm text-slate-500 mt-1">Upload your applicant portrait photo and review your application details.</p>
                     </div>
-                    <span class="w-11 h-11 rounded-2xl bg-blue-50 text-[#2964F2] font-black text-sm hidden sm:flex items-center justify-center border border-blue-100">4/4</span>
+                    <span class="w-11 h-11 rounded-2xl bg-blue-50 text-[#2964F2] font-black text-sm hidden sm:flex items-center justify-center border border-blue-100">5/5</span>
                 </div>
 
                 <!-- Portrait Photo Upload -->
@@ -777,9 +917,17 @@
                             <span class="text-slate-400 block text-[11px]">Email Address</span>
                             <span id="review-email" class="font-bold text-slate-900 truncate block">-</span>
                         </div>
+                        <div class="col-span-2">
+                            <span class="text-slate-400 block text-[11px]">Working With Projects</span>
+                            <span id="review-interests" class="font-bold text-[#2964F2]">-</span>
+                        </div>
                         <div>
                             <span class="text-slate-400 block text-[11px]">Location</span>
                             <span id="review-location" class="font-bold text-slate-900">-</span>
+                        </div>
+                        <div>
+                            <span class="text-slate-400 block text-[11px]">Settlement Bank</span>
+                            <span id="review-bank" class="font-bold text-slate-900">-</span>
                         </div>
                         <div>
                             <span class="text-slate-400 block text-[11px]">Aadhaar Number</span>
@@ -788,10 +936,6 @@
                         <div>
                             <span class="text-slate-400 block text-[11px]">PAN Card</span>
                             <span id="review-pan" class="font-bold text-slate-900 font-mono">-</span>
-                        </div>
-                        <div>
-                            <span class="text-slate-400 block text-[11px]">Settlement Bank</span>
-                            <span id="review-bank" class="font-bold text-slate-900">-</span>
                         </div>
                     </div>
                 </div>
@@ -806,14 +950,14 @@
                     </div>
                 </div>
 
-                <!-- Step 4 Navigation Buttons -->
-                <div class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <button type="button" class="btn-prev-step w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-bold transition cursor-pointer" data-target="3">
+                <!-- Step 5 Navigation Buttons -->
+                <div class="pt-6 border-t border-slate-100 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
+                    <button type="button" class="btn-prev-step w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs sm:text-sm font-bold transition shadow-xs cursor-pointer order-2 sm:order-1" data-target="4">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>
                         <span>Previous Step</span>
                     </button>
 
-                    <button type="submit" id="submit-btn" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-9 py-3.5 bg-[#2964F2] hover:bg-[#1E52D4] active:bg-[#1846BA] text-white font-black text-sm sm:text-base rounded-xl shadow-lg shadow-[#2964F2]/30 hover:shadow-xl hover:shadow-[#2964F2]/40 transition transform hover:-translate-y-0.5 cursor-pointer">
+                    <button type="submit" id="submit-btn" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 sm:px-9 py-3.5 bg-[#2964F2] hover:bg-[#1E52D4] active:bg-[#1846BA] text-white font-black text-xs sm:text-sm sm:text-base rounded-xl shadow-lg shadow-[#2964F2]/30 hover:shadow-xl hover:shadow-[#2964F2]/40 transition transform hover:-translate-y-0.5 cursor-pointer order-1 sm:order-2">
                         <span id="submit-text">Submit Official Partner Application</span>
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
@@ -841,13 +985,14 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     let currentStep = 1;
-    const totalSteps = 4;
+    const totalSteps = 5;
 
     const stepTitles = {
         1: 'Role & Personal Profile',
         2: 'Official Identity Credentials & Verification',
-        3: 'Bank Settlement & Payout Details',
-        4: 'Applicant Photograph & Review'
+        3: 'Working with Projects',
+        4: 'Bank Settlement & Payout Details',
+        5: 'Self Photograph & Final Review'
     };
 
     // 1. Role Selection & Visual Card Highlighting (No Popup)
@@ -890,6 +1035,54 @@ document.addEventListener('DOMContentLoaded', function () {
 
     syncRoleState();
 
+    // 1b. Working with Project Checkbox Cards Interactivity
+    const interestCheckboxes = document.querySelectorAll('.interest-checkbox');
+    function syncInterestCards() {
+        interestCheckboxes.forEach(cb => {
+            const card = cb.closest('.interest-card');
+            if (!card) return;
+            if (cb.checked) {
+                card.classList.remove('border-slate-200', 'hover:border-slate-300', 'bg-white');
+                card.classList.add('border-[#2964F2]', 'bg-blue-50/50', 'shadow-sm', 'ring-2', 'ring-[#2964F2]/10');
+            } else {
+                card.classList.remove('border-[#2964F2]', 'bg-blue-50/50', 'ring-2', 'ring-[#2964F2]/10');
+                card.classList.add('border-slate-200', 'hover:border-slate-300', 'bg-white');
+            }
+        });
+        const anyChecked = Array.from(interestCheckboxes).some(cb => cb.checked);
+        const errBox = document.getElementById('interests-error-box');
+        if (anyChecked && errBox) {
+            errBox.classList.add('hidden');
+        }
+    }
+
+    interestCheckboxes.forEach(cb => {
+        cb.addEventListener('change', syncInterestCards);
+    });
+
+    document.querySelectorAll('.interest-card').forEach(card => {
+        card.addEventListener('click', function (e) {
+            if (e.target.tagName.toLowerCase() === 'input') return;
+            const cb = this.querySelector('.interest-checkbox');
+            if (cb) {
+                cb.checked = !cb.checked;
+                syncInterestCards();
+            }
+        });
+    });
+
+    const toggleAllInterestsBtn = document.getElementById('toggle-all-interests');
+    if (toggleAllInterestsBtn) {
+        toggleAllInterestsBtn.addEventListener('click', function () {
+            const allChecked = Array.from(interestCheckboxes).every(cb => cb.checked);
+            interestCheckboxes.forEach(cb => { cb.checked = !allChecked; });
+            syncInterestCards();
+            this.textContent = allChecked ? 'Select All Projects' : 'Deselect All';
+        });
+    }
+
+    syncInterestCards();
+
     // 2. Multi-Step Navigation & Stepper UI Update
     function showStep(stepNumber) {
         if (stepNumber < 1 || stepNumber > totalSteps) return;
@@ -906,6 +1099,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         currentStep = stepNumber;
+
+        // Requirement: Hide top Hero Banner on all steps except Step 1
+        const heroBanner = document.getElementById('partner-hero-banner');
+        if (heroBanner) {
+            if (stepNumber === 1) {
+                heroBanner.classList.remove('hidden');
+            } else {
+                heroBanner.classList.add('hidden');
+            }
+        }
 
         // Update Desktop Stepper
         document.querySelectorAll('.stepper-item').forEach(item => {
@@ -957,8 +1160,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (mobileBar) mobileBar.style.width = `${pct}%`;
         if (mobileTitle) mobileTitle.textContent = stepTitles[currentStep] || '';
 
-        // If Step 4 is reached, populate review summary
-        if (currentStep === 4) {
+        // If Step 5 is reached, populate review summary
+        if (currentStep === 5) {
             updateReviewSummary();
         }
 
@@ -970,7 +1173,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // 3. Helper Functions for Field Validation Highlighting & Error Messages
-    function setFieldError(field, message) {
+    function setFieldError(field, message, isDuplicate = false) {
         if (!field) return;
 
         if (field.type === 'file') {
@@ -984,9 +1187,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 let err = zone.querySelector('.field-client-error');
                 if (!err) {
                     err = document.createElement('p');
-                    err.className = 'field-client-error mt-2 text-xs font-semibold text-rose-600 flex items-center gap-1.5';
                     zone.appendChild(err);
                 }
+                err.className = 'field-client-error mt-2 text-xs font-semibold text-rose-600 flex items-center gap-1.5';
                 err.innerHTML = `<svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" /></svg><span>${message}</span>`;
             }
         } else if (field.type === 'checkbox') {
@@ -998,9 +1201,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 let err = parent.querySelector('.field-client-error');
                 if (!err) {
                     err = document.createElement('p');
-                    err.className = 'field-client-error mt-2 text-xs font-semibold text-rose-600 flex items-center gap-1.5';
                     parent.appendChild(err);
                 }
+                err.className = 'field-client-error mt-2 text-xs font-semibold text-rose-600 flex items-center gap-1.5';
                 err.innerHTML = `<svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" /></svg><span>${message}</span>`;
             }
         } else {
@@ -1011,10 +1214,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 let err = container.querySelector('.field-client-error');
                 if (!err) {
                     err = document.createElement('p');
-                    err.className = 'field-client-error mt-1.5 text-xs font-semibold text-rose-600 flex items-center gap-1.5';
                     container.appendChild(err);
                 }
-                err.innerHTML = `<svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" /></svg><span>${message}</span>`;
+                if (isDuplicate) {
+                    err.className = 'field-client-error mt-2 text-xs font-bold text-rose-700 bg-rose-50 border border-rose-300 rounded-xl px-3 py-2 flex items-start gap-2 shadow-xs';
+                    err.innerHTML = `<svg class="w-4 h-4 text-rose-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg><span>${message}</span>`;
+                } else {
+                    err.className = 'field-client-error mt-1.5 text-xs font-semibold text-rose-600 flex items-center gap-1.5';
+                    err.innerHTML = `<svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" /></svg><span>${message}</span>`;
+                }
             }
         }
     }
@@ -1048,10 +1256,185 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Attach real-time input error clearing
+    // Floating Real-time Duplicate Alert Toast Notification
+    function showDuplicateAlertToast(title, message) {
+        let toastContainer = document.getElementById('duplicate-alert-toast-container');
+        if (!toastContainer) {
+            toastContainer = document.createElement('div');
+            toastContainer.id = 'duplicate-alert-toast-container';
+            toastContainer.className = 'fixed top-5 right-5 z-[9999] flex flex-col gap-3 pointer-events-none max-w-sm w-full px-4 sm:px-0';
+            document.body.appendChild(toastContainer);
+        }
+
+        const existing = Array.from(toastContainer.querySelectorAll('.toast-msg')).find(el => el.textContent === message);
+        if (existing) return;
+
+        if (navigator.vibrate) {
+            try { navigator.vibrate([100, 50, 100]); } catch (e) {}
+        }
+
+        const toast = document.createElement('div');
+        toast.className = 'pointer-events-auto bg-white border-2 border-rose-500 rounded-2xl shadow-[0_15px_35px_rgba(225,29,72,0.25)] p-4 flex items-start gap-3 transition-all duration-300 transform -translate-y-4 opacity-0';
+        toast.innerHTML = `
+            <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                </svg>
+            </div>
+            <div class="flex-1 min-w-0">
+                <h4 class="text-xs font-black text-rose-950 uppercase tracking-wider">${title}</h4>
+                <p class="toast-msg text-xs font-semibold text-rose-700 mt-1 leading-snug">${message}</p>
+            </div>
+            <button type="button" class="close-toast-btn text-slate-400 hover:text-rose-600 p-1 shrink-0 transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+            </button>
+        `;
+
+        toastContainer.appendChild(toast);
+
+        requestAnimationFrame(() => {
+            toast.classList.remove('-translate-y-4', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+        });
+
+        toast.querySelector('.close-toast-btn').addEventListener('click', () => {
+            toast.classList.add('opacity-0', '-translate-y-2');
+            setTimeout(() => toast.remove(), 250);
+        });
+
+        setTimeout(() => {
+            if (toast.parentElement) {
+                toast.classList.add('opacity-0', '-translate-y-2');
+                setTimeout(() => toast.remove(), 250);
+            }
+        }, 5000);
+    }
+
+    // Real-time Unique Constraints Tracking
+    const duplicateErrors = {
+        phone: '',
+        email: '',
+        aadhaar_number: '',
+        pancard_number: ''
+    };
+    const checkTimeouts = {};
+
+    async function checkFieldUniqueness(fieldId, isImmediate = false) {
+        const input = document.getElementById(fieldId);
+        if (!input) return true;
+
+        const val = input.value.trim();
+        if (!val) {
+            duplicateErrors[fieldId] = '';
+            return true;
+        }
+
+        // Avoid premature AJAX requests on incomplete inputs
+        if (fieldId === 'phone') {
+            const digits = val.replace(/\D/g, '');
+            if (digits.length < 10) {
+                duplicateErrors[fieldId] = '';
+                return true;
+            }
+        } else if (fieldId === 'email') {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(val)) {
+                duplicateErrors[fieldId] = '';
+                return true;
+            }
+        } else if (fieldId === 'aadhaar_number') {
+            const cleanAadhaar = val.replace(/\s+/g, '');
+            if (cleanAadhaar.length < 8) {
+                duplicateErrors[fieldId] = '';
+                return true;
+            }
+        } else if (fieldId === 'pancard_number') {
+            if (val.length < 5) {
+                duplicateErrors[fieldId] = '';
+                return true;
+            }
+        }
+
+        try {
+            const response = await fetch("{{ route('partner.check.unique') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    field: fieldId,
+                    value: val
+                })
+            });
+
+            if (!response.ok) return true;
+
+            const data = await response.json();
+            if (data.taken) {
+                duplicateErrors[fieldId] = data.message;
+                setFieldError(input, data.message, true);
+                const fieldTitles = {
+                    phone: 'Mobile Number Already Taken',
+                    email: 'Email Address Already Taken',
+                    aadhaar_number: 'Aadhaar Number Already Taken',
+                    pancard_number: 'PAN Card Already Taken'
+                };
+                showDuplicateAlertToast(fieldTitles[fieldId] || 'Already Registered!', data.message);
+                return false;
+            } else {
+                if (duplicateErrors[fieldId]) {
+                    duplicateErrors[fieldId] = '';
+                    clearFieldError(input);
+                }
+                return true;
+            }
+        } catch (e) {
+            console.error('Field unique check error:', e);
+            return true;
+        }
+    }
+
+    // Attach real-time input error clearing for standard fields
     document.querySelectorAll('#partner-registration-form input, #partner-registration-form select, #partner-registration-form textarea').forEach(el => {
-        el.addEventListener('input', () => clearFieldError(el));
-        el.addEventListener('change', () => clearFieldError(el));
+        el.addEventListener('input', () => {
+            if (!['phone', 'email', 'aadhaar_number', 'pancard_number'].includes(el.id)) {
+                clearFieldError(el);
+            }
+        });
+        el.addEventListener('change', () => {
+            if (!['phone', 'email', 'aadhaar_number', 'pancard_number'].includes(el.id)) {
+                clearFieldError(el);
+            }
+        });
+    });
+
+    // Real-time debounce and blur watchers for unique fields
+    ['phone', 'email', 'aadhaar_number', 'pancard_number'].forEach(fieldId => {
+        const input = document.getElementById(fieldId);
+        if (!input) return;
+
+        input.addEventListener('input', () => {
+            if (duplicateErrors[fieldId]) {
+                clearFieldError(input);
+                duplicateErrors[fieldId] = '';
+            }
+            clearTimeout(checkTimeouts[fieldId]);
+            checkTimeouts[fieldId] = setTimeout(() => {
+                checkFieldUniqueness(fieldId);
+            }, 350);
+        });
+
+        input.addEventListener('blur', () => {
+            clearTimeout(checkTimeouts[fieldId]);
+            checkFieldUniqueness(fieldId, true);
+        });
+
+        input.addEventListener('change', () => {
+            clearTimeout(checkTimeouts[fieldId]);
+            checkFieldUniqueness(fieldId, true);
+        });
     });
 
     // 4. Strict Step Validation (Including Images & Text Fields)
@@ -1059,8 +1442,8 @@ document.addEventListener('DOMContentLoaded', function () {
         let isValid = true;
         let firstInvalid = null;
 
-        function recordError(field, message) {
-            setFieldError(field, message);
+        function recordError(field, message, isDuplicate = false) {
+            setFieldError(field, message, isDuplicate);
             isValid = false;
             if (!firstInvalid) firstInvalid = field;
         }
@@ -1075,7 +1458,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const phone = document.getElementById('phone');
             const phoneDigits = phone ? phone.value.replace(/\D/g, '') : '';
-            if (!phone?.value.trim()) {
+            if (duplicateErrors.phone) {
+                recordError(phone, duplicateErrors.phone, true);
+            } else if (!phone?.value.trim()) {
                 recordError(phone, 'Mobile phone number is required.');
             } else if (phoneDigits.length < 10) {
                 recordError(phone, 'Please enter a valid 10-digit mobile number.');
@@ -1085,7 +1470,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const email = document.getElementById('email');
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!email?.value.trim()) {
+            if (duplicateErrors.email) {
+                recordError(email, duplicateErrors.email, true);
+            } else if (!email?.value.trim()) {
                 recordError(email, 'Email address is required.');
             } else if (!emailRegex.test(email.value.trim())) {
                 recordError(email, 'Please enter a valid email address.');
@@ -1125,7 +1512,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (stepNumber === 2) {
             const aadhaar = document.getElementById('aadhaar_number');
             const aadhaarVal = aadhaar ? aadhaar.value.trim() : '';
-            if (!aadhaarVal) {
+            if (duplicateErrors.aadhaar_number) {
+                recordError(aadhaar, duplicateErrors.aadhaar_number, true);
+            } else if (!aadhaarVal) {
                 recordError(aadhaar, 'Aadhaar card number is required.');
             } else if (aadhaarVal.length > 20) {
                 recordError(aadhaar, 'Aadhaar card number cannot exceed 20 characters.');
@@ -1149,7 +1538,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const pan = document.getElementById('pancard_number');
             const panVal = pan ? pan.value.trim().toUpperCase() : '';
-            if (!panVal) {
+            if (duplicateErrors.pancard_number) {
+                recordError(pan, duplicateErrors.pancard_number, true);
+            } else if (!panVal) {
                 recordError(pan, 'PAN card number is required.');
             } else if (panVal.length > 20) {
                 recordError(pan, 'PAN card number cannot exceed 20 characters.');
@@ -1173,6 +1564,18 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (stepNumber === 3) {
+            const checkedInterests = document.querySelectorAll('input[name="interests[]"]:checked');
+            const errBox = document.getElementById('interests-error-box');
+            if (checkedInterests.length === 0) {
+                if (errBox) errBox.classList.remove('hidden');
+                const group = document.getElementById('interests-selection-group');
+                recordError(group, 'Please select at least one project you would like to work with.');
+            } else {
+                if (errBox) errBox.classList.add('hidden');
+            }
+        }
+
+        if (stepNumber === 4) {
             const bankName = document.getElementById('bank_name');
             if (!bankName?.value.trim()) {
                 recordError(bankName, 'Bank name is required.');
@@ -1198,7 +1601,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        if (stepNumber === 4) {
+        if (stepNumber === 5) {
             const selfImage = document.getElementById('self_image');
             if (!selfImage || !selfImage.files || selfImage.files.length === 0) {
                 recordError(selfImage, 'Applicant portrait photo / self image is required. Please upload.');
@@ -1225,12 +1628,58 @@ document.addEventListener('DOMContentLoaded', function () {
         return isValid;
     }
 
+    // Strict Asynchronous Step Validation (with real-time unique checks)
+    async function validateStepAsync(stepNumber) {
+        if (!validateStep(stepNumber)) {
+            return false;
+        }
+
+        if (stepNumber === 1) {
+            const phoneOk = await checkFieldUniqueness('phone', true);
+            const emailOk = await checkFieldUniqueness('email', true);
+            if (!phoneOk || !emailOk) {
+                const phone = document.getElementById('phone');
+                const email = document.getElementById('email');
+                if (!phoneOk && phone) setFieldError(phone, duplicateErrors.phone, true);
+                if (!emailOk && email) setFieldError(email, duplicateErrors.email, true);
+                const first = !phoneOk ? phone : email;
+                first?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                first?.focus();
+                return false;
+            }
+        }
+
+        if (stepNumber === 2) {
+            const aadhaarOk = await checkFieldUniqueness('aadhaar_number', true);
+            const panOk = await checkFieldUniqueness('pancard_number', true);
+            if (!aadhaarOk || !panOk) {
+                const aadhaar = document.getElementById('aadhaar_number');
+                const pan = document.getElementById('pancard_number');
+                if (!aadhaarOk && aadhaar) setFieldError(aadhaar, duplicateErrors.aadhaar_number, true);
+                if (!panOk && pan) setFieldError(pan, duplicateErrors.pancard_number, true);
+                const first = !aadhaarOk ? aadhaar : pan;
+                first?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                first?.focus();
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     // Next Step Buttons
     document.querySelectorAll('.btn-next-step').forEach(btn => {
-        btn.addEventListener('click', function () {
+        btn.addEventListener('click', async function (e) {
+            e.preventDefault();
             const targetStep = parseInt(this.getAttribute('data-target'), 10);
-            if (validateStep(currentStep)) {
-                showStep(targetStep);
+            this.disabled = true;
+            try {
+                const isValid = await validateStepAsync(currentStep);
+                if (isValid) {
+                    showStep(targetStep);
+                }
+            } finally {
+                this.disabled = false;
             }
         });
     });
@@ -1245,14 +1694,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Desktop Stepper Item Clickable (Strict Sequential Progression)
     document.querySelectorAll('.stepper-item').forEach(item => {
-        item.addEventListener('click', function () {
+        item.addEventListener('click', async function () {
             const clickedStep = parseInt(this.getAttribute('data-step'), 10);
             if (clickedStep < currentStep) {
                 showStep(clickedStep);
             } else if (clickedStep > currentStep) {
-                // Must validate all previous steps
                 for (let s = 1; s < clickedStep; s++) {
-                    if (!validateStep(s)) {
+                    const valid = await validateStepAsync(s);
+                    if (!valid) {
                         showStep(s);
                         return;
                     }
@@ -1287,6 +1736,11 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('review-aadhaar').textContent = aadhaarVal;
         document.getElementById('review-pan').textContent = panVal;
         document.getElementById('review-bank').textContent = bankVal;
+
+        const checkedInterests = Array.from(document.querySelectorAll('input[name="interests[]"]:checked')).map(el => el.value);
+        const interestsStr = checkedInterests.length > 0 ? checkedInterests.join(', ') : '-';
+        const revInterests = document.getElementById('review-interests');
+        if (revInterests) revInterests.textContent = interestsStr;
     }
 
     // Helper function to automatically compress images before upload
@@ -1443,9 +1897,11 @@ document.addEventListener('DOMContentLoaded', function () {
         @php
             $errorKeys = $errors->keys();
             $stepToOpen = 1;
-            if (count(array_intersect($errorKeys, ['self_image'])) > 0) {
-                $stepToOpen = 4;
+            if (count(array_intersect($errorKeys, ['self_image', 'terms'])) > 0) {
+                $stepToOpen = 5;
             } elseif (count(array_intersect($errorKeys, ['bank_account_number', 'bank_name', 'ifsc_code'])) > 0) {
+                $stepToOpen = 4;
+            } elseif (count(array_intersect($errorKeys, ['interests', 'interests.*'])) > 0) {
                 $stepToOpen = 3;
             } elseif (count(array_intersect($errorKeys, ['aadhaar_number', 'aadhaar_front_image', 'aadhaar_back_image', 'pancard_number', 'pancard_front_image', 'pancard_back_image'])) > 0) {
                 $stepToOpen = 2;
@@ -1460,10 +1916,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const submitText = document.getElementById('submit-text');
 
     if (form && submitBtn) {
-        form.addEventListener('submit', function (e) {
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
             for (let s = 1; s <= totalSteps; s++) {
-                if (!validateStep(s)) {
-                    e.preventDefault();
+                const valid = await validateStepAsync(s);
+                if (!valid) {
                     showStep(s);
                     return false;
                 }
@@ -1471,6 +1928,7 @@ document.addEventListener('DOMContentLoaded', function () {
             submitBtn.disabled = true;
             submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
             submitText.textContent = 'Submitting Official Application...';
+            form.submit();
         });
     }
 });

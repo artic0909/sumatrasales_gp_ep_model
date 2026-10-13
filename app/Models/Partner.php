@@ -59,5 +59,15 @@ class Partner extends Model
         'bank_name',
         'ifsc_code',
         'self_image',
+        'interests',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'interests' => 'array',
     ];
 }

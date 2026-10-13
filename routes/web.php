@@ -7,6 +7,7 @@ Route::view('/', 'frontend.pages.index')->name('home');
 
 Route::get('/partner-register', [PartnerController::class, 'create'])->name('partner.register');
 Route::post('/partner-register', [PartnerController::class, 'store'])->name('partner.register.store');
+Route::post('/partner-check-unique', [PartnerController::class, 'checkUnique'])->name('partner.check.unique');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');

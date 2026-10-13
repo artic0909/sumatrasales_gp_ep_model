@@ -25,26 +25,69 @@ class PartnerController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // Check normalized uniqueness for phone, email, Aadhaar, and PAN
+        $duplicateErrors = [];
+        $phoneVal = trim((string) $request->input('phone'));
+        $cleanPhone = preg_replace('/\D/', '', $phoneVal);
+        $last10Phone = strlen($cleanPhone) >= 10 ? substr($cleanPhone, -10) : $cleanPhone;
+        if (!empty($last10Phone) && Partner::where(function ($q) use ($phoneVal, $cleanPhone, $last10Phone) {
+            $q->where('phone', $phoneVal)
+              ->orWhere('phone', $cleanPhone)
+              ->orWhereRaw("SUBSTR(REPLACE(REPLACE(REPLACE(phone, ' ', ''), '-', ''), '+', ''), -10) = ?", [$last10Phone]);
+        })->exists()) {
+            $duplicateErrors['phone'] = 'Already taken! This mobile number is already registered in our system.';
+        }
+
+        $cleanEmail = strtolower(trim((string) $request->input('email')));
+        if (!empty($cleanEmail) && Partner::whereRaw("LOWER(email) = ?", [$cleanEmail])->exists()) {
+            $duplicateErrors['email'] = 'Already taken! This email address is already registered in our system.';
+        }
+
+        $cleanAadhaar = preg_replace('/\s+/', '', (string) $request->input('aadhaar_number'));
+        if (!empty($cleanAadhaar) && Partner::where(function ($q) use ($cleanAadhaar) {
+            $q->where('aadhaar_number', $cleanAadhaar)
+              ->orWhereRaw("REPLACE(aadhaar_number, ' ', '') = ?", [$cleanAadhaar]);
+        })->exists()) {
+            $duplicateErrors['aadhaar_number'] = 'Already taken! This Aadhaar card number is already registered in our system.';
+        }
+
+        $cleanPan = strtoupper(preg_replace('/\s+/', '', (string) $request->input('pancard_number')));
+        if (!empty($cleanPan) && Partner::whereRaw("UPPER(REPLACE(pancard_number, ' ', '')) = ?", [$cleanPan])->exists()) {
+            $duplicateErrors['pancard_number'] = 'Already taken! This PAN card number is already registered in our system.';
+        }
+
+        if (!empty($duplicateErrors)) {
+            return redirect()->back()->withErrors($duplicateErrors)->withInput();
+        }
+
         $validated = $request->validate([
             'registration_type'   => ['required', 'in:EP,GP'],
             'name'                => ['required', 'string', 'max:255'],
-            'phone'               => ['required', 'string', 'max:20'],
-            'email'               => ['required', 'email', 'max:255'],
+            'phone'               => ['required', 'string', 'max:20', 'unique:partners,phone'],
+            'email'               => ['required', 'email', 'max:255', 'unique:partners,email'],
             'state'               => ['required', 'string', 'max:100'],
             'district'            => ['required', 'string', 'max:100'],
             'city'                => ['required', 'string', 'max:100'],
             'address'             => ['required', 'string', 'max:500'],
-            'aadhaar_number'      => ['required', 'string', 'max:20'],
+            'aadhaar_number'      => ['required', 'string', 'max:20', 'unique:partners,aadhaar_number'],
             'aadhaar_front_image' => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:20480'],
             'aadhaar_back_image'  => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:20480'],
-            'pancard_number'      => ['required', 'string', 'max:20'],
+            'pancard_number'      => ['required', 'string', 'max:20', 'unique:partners,pancard_number'],
             'pancard_front_image' => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:20480'],
             'pancard_back_image'  => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:20480'],
             'bank_account_number' => ['required', 'string', 'max:50'],
             'bank_name'           => ['required', 'string', 'max:255'],
             'ifsc_code'           => ['required', 'string', 'max:20'],
             'self_image'          => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:20480'],
+            'interests'           => ['required', 'array', 'min:1'],
+            'interests.*'         => ['string', 'in:Rani Matrimonial,Schoolwala,Doctorwala'],
         ], [
+            'phone.unique'                 => 'Already taken! This mobile number is already registered in our system.',
+            'email.unique'                 => 'Already taken! This email address is already registered in our system.',
+            'aadhaar_number.unique'        => 'Already taken! This Aadhaar card number is already registered in our system.',
+            'pancard_number.unique'        => 'Already taken! This PAN card number is already registered in our system.',
+            'interests.required'           => 'Please select at least one project you would like to work with (Rani Matrimonial, Schoolwala, or Doctorwala).',
+            'interests.min'                => 'Please select at least one project you would like to work with.',
             'aadhaar_front_image.required' => 'Please upload your Aadhaar card front side image.',
             'aadhaar_back_image.required'  => 'Please upload your Aadhaar card back side image.',
             'pancard_front_image.required' => 'Please upload your PAN card front image.',
@@ -171,5 +214,59 @@ class PartnerController extends Controller
         Storage::disk('public')->put($filePath, $compressedData);
 
         return $filePath;
+    }
+
+    /**
+     * Check if a field value is already taken in the partners table (Real-time AJAX check).
+     */
+    public function checkUnique(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $field = $request->input('field');
+        $value = trim((string) $request->input('value'));
+
+        $allowedFields = ['phone', 'email', 'aadhaar_number', 'pancard_number'];
+        if (!in_array($field, $allowedFields) || empty($value)) {
+            return response()->json(['taken' => false]);
+        }
+
+        $query = Partner::query();
+
+        if ($field === 'phone') {
+            $cleanPhone = preg_replace('/\D/', '', $value);
+            if (empty($cleanPhone)) {
+                return response()->json(['taken' => false]);
+            }
+            $last10 = strlen($cleanPhone) >= 10 ? substr($cleanPhone, -10) : $cleanPhone;
+            $query->where(function ($q) use ($value, $cleanPhone, $last10) {
+                $q->where('phone', $value)
+                  ->orWhere('phone', $cleanPhone)
+                  ->orWhereRaw("SUBSTR(REPLACE(REPLACE(REPLACE(phone, ' ', ''), '-', ''), '+', ''), -10) = ?", [$last10]);
+            });
+        } elseif ($field === 'email') {
+            $query->whereRaw("LOWER(email) = ?", [strtolower($value)]);
+        } elseif ($field === 'aadhaar_number') {
+            $cleanAadhaar = preg_replace('/\s+/', '', $value);
+            $query->where(function ($q) use ($value, $cleanAadhaar) {
+                $q->where('aadhaar_number', $value)
+                  ->orWhereRaw("REPLACE(aadhaar_number, ' ', '') = ?", [$cleanAadhaar]);
+            });
+        } elseif ($field === 'pancard_number') {
+            $cleanPan = strtoupper(preg_replace('/\s+/', '', $value));
+            $query->whereRaw("UPPER(REPLACE(pancard_number, ' ', '')) = ?", [$cleanPan]);
+        }
+
+        $exists = $query->exists();
+
+        $fieldLabels = [
+            'phone'          => 'mobile number',
+            'email'          => 'email address',
+            'aadhaar_number' => 'Aadhaar card number',
+            'pancard_number' => 'PAN card number',
+        ];
+
+        return response()->json([
+            'taken'   => $exists,
+            'message' => $exists ? "Already taken! This {$fieldLabels[$field]} is already registered in our system. Please use a different one." : '',
+        ]);
     }
 }
