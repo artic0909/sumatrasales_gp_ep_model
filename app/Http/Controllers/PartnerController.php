@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Partner;
+use App\Models\TermsCheck;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -60,7 +61,9 @@ class PartnerController extends Controller
             return redirect()->back()->withErrors($duplicateErrors)->withInput();
         }
 
-        $validated = $request->validate([
+        $isGp = $request->input('registration_type') === 'GP';
+
+        $rules = [
             'registration_type'   => ['required', 'in:EP,GP'],
             'name'                => ['required', 'string', 'max:255'],
             'phone'               => ['required', 'string', 'max:20', 'unique:partners,phone'],
@@ -81,7 +84,16 @@ class PartnerController extends Controller
             'self_image'          => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:20480'],
             'interests'           => ['required', 'array', 'min:1'],
             'interests.*'         => ['string', 'in:Rani Matrimonial,Schoolwala,Doctorwala'],
-        ], [
+            'terms_common'        => ['required', 'array', 'size:8'],
+        ];
+
+        if ($isGp) {
+            $rules['terms_gp'] = ['required', 'array', 'size:3'];
+        } else {
+            $rules['terms_ep'] = ['required', 'array', 'size:5'];
+        }
+
+        $messages = [
             'phone.unique'                 => 'Already taken! This mobile number is already registered in our system.',
             'email.unique'                 => 'Already taken! This email address is already registered in our system.',
             'aadhaar_number.unique'        => 'Already taken! This Aadhaar card number is already registered in our system.',
@@ -93,7 +105,15 @@ class PartnerController extends Controller
             'pancard_front_image.required' => 'Please upload your PAN card front image.',
             'pancard_back_image.required'  => 'Please upload your PAN card back image.',
             'self_image.required'          => 'Please upload your applicant passport photo / self image.',
-        ]);
+            'terms_common.required'        => 'Please read and accept all 8 common statutory declarations.',
+            'terms_common.size'            => 'Please check and accept all 8 common statutory declarations.',
+            'terms_gp.required'            => 'Please accept all 3 Ground Partner declarations.',
+            'terms_gp.size'                => 'Please check and accept all 3 Ground Partner declarations.',
+            'terms_ep.required'            => 'Please accept all 5 Executive Partner declarations.',
+            'terms_ep.size'                => 'Please check and accept all 5 Executive Partner declarations.',
+        ];
+
+        $validated = $request->validate($rules, $messages);
 
         $imageFields = [
             'aadhaar_front_image',
@@ -109,7 +129,75 @@ class PartnerController extends Controller
             }
         }
 
-        Partner::create($validated);
+        $partner = Partner::create($validated);
+
+        // Store structured statutory terms acceptance into terms_checks table
+        $commonDeclarations = [
+            'A1' => 'I am 18 years of age or older and competent to enter into a contract.',
+            'A2' => 'All information, documents and work experience I have submitted are true, complete and my own. I understand that false information leads to rejection, termination and legal action.',
+            'A3' => 'I have read, understood and agree to these Terms and Conditions, the Code of Conduct and the Commission Schedule for my selected Position.',
+            'A4' => 'I have read the Privacy Policy and consent to Sumatra Sales Private Limited processing my personal data, including KYC and bank details, for the purposes in Section 10.2.',
+            'A5' => 'I have paid no fee to register, and I understand that no income is guaranteed and commission is earned only on genuine, realised and verified sales.',
+            'A6' => 'I will never collect money from any Customer in cash or into my own account.',
+            'A7' => 'I agree to receive calls, SMS, WhatsApp and email from the Company about my account and the programme.',
+            'A8' => 'I accept this as a valid electronic contract under Section 10A of the Information Technology Act, 2000, and my OTP verification as my acceptance.',
+        ];
+
+        $gpDeclarations = [
+            'GP1' => 'I am registering as a Ground Partner on a commission-only basis under Schedule A.',
+            'GP2' => 'I understand that I am an independent referral partner and not an employee, agent or franchisee of the Company, and that I am not entitled to any salary or employment benefit.',
+            'GP3' => 'I will promote the Platforms only with Company-approved material and my own GP Code.',
+        ];
+
+        $epDeclarations = [
+            'EP1' => 'I am applying as an Executive Partner on a fixed monthly amount plus commission basis under Schedule B.',
+            'EP2' => 'I understand that this is an application only, and that my engagement, fixed amount, territory and engagement type will be stated in an Appointment Letter that I must accept separately.',
+            'EP3' => 'I agree to attend an interview and to provide references and proof of experience on request.',
+            'EP4' => 'I understand that the fixed amount depends on meeting the activity standards in my Appointment Letter and that targets may be set and reviewed.',
+            'EP5' => 'I will not promote any competing business in my territory without the Company\'s written consent.',
+        ];
+
+        $termsChecksArray = [];
+        $submittedCommon = (array) $request->input('terms_common', []);
+        foreach ($commonDeclarations as $code => $text) {
+            $termsChecksArray[] = [
+                'code'    => $code,
+                'section' => 'A. Common declarations',
+                'text'    => $text,
+                'checked' => in_array($code, $submittedCommon) ? 1 : 0,
+            ];
+        }
+
+        if ($partner->registration_type === 'GP') {
+            $submittedGp = (array) $request->input('terms_gp', []);
+            foreach ($gpDeclarations as $code => $text) {
+                $termsChecksArray[] = [
+                    'code'    => $code,
+                    'section' => 'B1. Ground Partner (GP)',
+                    'text'    => $text,
+                    'checked' => in_array($code, $submittedGp) ? 1 : 0,
+                ];
+            }
+        } else {
+            $submittedEp = (array) $request->input('terms_ep', []);
+            foreach ($epDeclarations as $code => $text) {
+                $termsChecksArray[] = [
+                    'code'    => $code,
+                    'section' => 'B2. Executive Partner (EP)',
+                    'text'    => $text,
+                    'checked' => in_array($code, $submittedEp) ? 1 : 0,
+                ];
+            }
+        }
+
+        TermsCheck::create([
+            'partner_id'          => $partner->id,
+            'terms_and_condition' => $termsChecksArray,
+            'terms_version'       => 'Version 2.0',
+            'ip_address'          => $request->ip(),
+            'user_agent'          => $request->userAgent(),
+            'accepted_at'         => now('Asia/Kolkata'),
+        ]);
 
         return redirect()->route('home')->with('submission_success', [
             'role'  => $validated['registration_type'],

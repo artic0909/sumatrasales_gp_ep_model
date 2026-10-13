@@ -70,4 +70,12 @@ class Partner extends Model
     protected $casts = [
         'interests' => 'array',
     ];
+
+    /**
+     * Get the terms check record associated with the partner.
+     */
+    public function termsCheck(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(TermsCheck::class);
+    }
 }

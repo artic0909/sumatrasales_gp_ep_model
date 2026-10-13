@@ -940,14 +940,191 @@
                     </div>
                 </div>
 
-                <!-- Legal Terms & Declaration -->
-                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200">
-                    <div class="flex items-start gap-3">
-                        <input type="checkbox" id="terms" name="terms" required class="h-4 w-4 mt-1 text-[#2964F2] focus:ring-[#2964F2] border-slate-300 rounded cursor-pointer">
-                        <label for="terms" class="text-xs text-slate-700 leading-relaxed cursor-pointer font-medium">
-                            I solemnly declare that all information entered and documents submitted (Aadhaar, PAN, Bank Details, and Photograph) are genuine, verified, and belong directly to me. I agree to Sumatra Sales Private Limited Partner Terms of Service and Code of Professional Conduct.
-                        </label>
+                <!-- ============================================================= -->
+                <!-- STATUTORY TERMS, DECLARATIONS & ELECTRONIC ACCEPTANCE         -->
+                <!-- ============================================================= -->
+                <div class="space-y-6 pt-2" id="terms-declarations-section">
+                    
+                    <!-- Section Title & Select All Bar -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 class="text-base sm:text-lg font-black text-slate-900 tracking-tight">Statutory Declarations & Acceptance of Terms</h3>
+                                <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase bg-blue-100 text-[#2964F2]">Version 2.0</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-0.5">Please check and confirm all required statutory declarations below.</p>
+                        </div>
+                        <button type="button" id="select-all-declarations-btn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-blue-200 bg-blue-50/70 hover:bg-blue-100 text-[#2964F2] text-xs font-bold transition cursor-pointer self-start sm:self-auto shadow-2xs">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+                            <span>Select All Required Declarations</span>
+                        </button>
                     </div>
+
+                    <!-- Validation error alert container for terms -->
+                    <div id="terms-validation-error-box" class="hidden p-3.5 rounded-xl bg-rose-50 border border-rose-300 text-xs font-semibold text-rose-700 flex items-start gap-2 shadow-xs">
+                        <svg class="w-4 h-4 text-rose-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>
+                        <span id="terms-error-message">Please check and accept all required declarations before submitting.</span>
+                    </div>
+
+                    <!-- A. Common Declarations (Shown to All) -->
+                    <div class="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-2xs" id="terms-group-common">
+                        <div class="px-5 py-3.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-md bg-[#2964F2] text-white flex items-center justify-center text-xs font-black">A</span>
+                                <h4 class="text-xs sm:text-sm font-extrabold text-slate-800 uppercase tracking-wider">Common Declarations (Shown to all)</h4>
+                            </div>
+                            <span class="text-[11px] font-bold text-slate-500">8 Required</span>
+                        </div>
+                        <div class="p-4 sm:p-5 space-y-3">
+                            @php
+                                $commonTerms = [
+                                    'A1' => 'I am 18 years of age or older and competent to enter into a contract.',
+                                    'A2' => 'All information, documents and work experience I have submitted are true, complete and my own. I understand that false information leads to rejection, termination and legal action.',
+                                    'A3' => 'I have read, understood and agree to these Terms and Conditions, the Code of Conduct and the Commission Schedule for my selected Position.',
+                                    'A4' => 'I have read the Privacy Policy and consent to Sumatra Sales Private Limited processing my personal data, including KYC and bank details, for the purposes in Section 10.2.',
+                                    'A5' => 'I have paid no fee to register, and I understand that no income is guaranteed and commission is earned only on genuine, realised and verified sales.',
+                                    'A6' => 'I will never collect money from any Customer in cash or into my own account.',
+                                    'A7' => 'I agree to receive calls, SMS, WhatsApp and email from the Company about my account and the programme.',
+                                    'A8' => 'I accept this as a valid electronic contract under Section 10A of the Information Technology Act, 2000, and my OTP verification as my acceptance.',
+                                ];
+                            @endphp
+                            @foreach ($commonTerms as $key => $termText)
+                                <label class="terms-checkbox-label flex items-start gap-3 p-3 rounded-xl border border-slate-100 hover:border-blue-200 hover:bg-blue-50/20 transition cursor-pointer group">
+                                    <input type="checkbox" name="terms_common[]" value="{{ $key }}" id="term_common_{{ $key }}" class="terms-cb terms-common-cb h-4 w-4 mt-0.5 text-[#2964F2] focus:ring-[#2964F2] border-slate-300 rounded cursor-pointer shrink-0" {{ in_array($key, old('terms_common', [])) ? 'checked' : '' }}>
+                                    <span class="text-xs text-slate-700 leading-relaxed font-medium group-hover:text-slate-900">{{ $termText }}</span>
+                                </label>
+                            @endforeach
+                            @error('terms_common')
+                                <p class="text-xs font-semibold text-rose-600 mt-2">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- B1. Shown only if "Ground Partner (GP)" is selected -->
+                    <div id="terms-group-gp" class="rounded-2xl border border-amber-200 bg-white overflow-hidden shadow-2xs hidden">
+                        <div class="px-5 py-3.5 bg-amber-50/70 border-b border-amber-200 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-md bg-amber-500 text-slate-950 flex items-center justify-center text-xs font-black">B1</span>
+                                <h4 class="text-xs sm:text-sm font-extrabold text-amber-950 uppercase tracking-wider">Ground Partner (GP) Specific Declarations</h4>
+                            </div>
+                            <span class="text-[11px] font-bold text-amber-800">3 Required for GP</span>
+                        </div>
+                        <div class="p-4 sm:p-5 space-y-3">
+                            @php
+                                $gpTerms = [
+                                    'GP1' => 'I am registering as a Ground Partner on a commission-only basis under Schedule A.',
+                                    'GP2' => 'I understand that I am an independent referral partner and not an employee, agent or franchisee of the Company, and that I am not entitled to any salary or employment benefit.',
+                                    'GP3' => 'I will promote the Platforms only with Company-approved material and my own GP Code.',
+                                ];
+                            @endphp
+                            @foreach ($gpTerms as $key => $termText)
+                                <label class="terms-checkbox-label flex items-start gap-3 p-3 rounded-xl border border-amber-100 hover:border-amber-300 hover:bg-amber-50/30 transition cursor-pointer group">
+                                    <input type="checkbox" name="terms_gp[]" value="{{ $key }}" id="term_gp_{{ $key }}" class="terms-cb terms-gp-cb h-4 w-4 mt-0.5 text-amber-600 focus:ring-amber-500 border-slate-300 rounded cursor-pointer shrink-0" {{ in_array($key, old('terms_gp', [])) ? 'checked' : '' }}>
+                                    <span class="text-xs text-slate-700 leading-relaxed font-medium group-hover:text-slate-900">{{ $termText }}</span>
+                                </label>
+                            @endforeach
+                            @error('terms_gp')
+                                <p class="text-xs font-semibold text-rose-600 mt-2">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- B2. Shown only if "Executive Partner (EP)" is selected -->
+                    <div id="terms-group-ep" class="rounded-2xl border border-blue-200 bg-white overflow-hidden shadow-2xs">
+                        <div class="px-5 py-3.5 bg-blue-50/70 border-b border-blue-200 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-md bg-[#2964F2] text-white flex items-center justify-center text-xs font-black">B2</span>
+                                <h4 class="text-xs sm:text-sm font-extrabold text-blue-950 uppercase tracking-wider">Executive Partner (EP) Specific Declarations</h4>
+                            </div>
+                            <span class="text-[11px] font-bold text-blue-800">5 Required for EP</span>
+                        </div>
+                        <div class="p-4 sm:p-5 space-y-3">
+                            @php
+                                $epTerms = [
+                                    'EP1' => 'I am applying as an Executive Partner on a fixed monthly amount plus commission basis under Schedule B.',
+                                    'EP2' => 'I understand that this is an application only, and that my engagement, fixed amount, territory and engagement type will be stated in an Appointment Letter that I must accept separately.',
+                                    'EP3' => 'I agree to attend an interview and to provide references and proof of experience on request.',
+                                    'EP4' => 'I understand that the fixed amount depends on meeting the activity standards in my Appointment Letter and that targets may be set and reviewed.',
+                                    'EP5' => 'I will not promote any competing business in my territory without the Company\'s written consent.',
+                                ];
+                            @endphp
+                            @foreach ($epTerms as $key => $termText)
+                                <label class="terms-checkbox-label flex items-start gap-3 p-3 rounded-xl border border-blue-100 hover:border-blue-300 hover:bg-blue-50/30 transition cursor-pointer group">
+                                    <input type="checkbox" name="terms_ep[]" value="{{ $key }}" id="term_ep_{{ $key }}" class="terms-cb terms-ep-cb h-4 w-4 mt-0.5 text-[#2964F2] focus:ring-[#2964F2] border-slate-300 rounded cursor-pointer shrink-0" {{ in_array($key, old('terms_ep', [])) ? 'checked' : '' }}>
+                                    <span class="text-xs text-slate-700 leading-relaxed font-medium group-hover:text-slate-900">{{ $termText }}</span>
+                                </label>
+                            @endforeach
+                            @error('terms_ep')
+                                <p class="text-xs font-semibold text-rose-600 mt-2">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Record of acceptance (captured automatically) -->
+                    <div class="rounded-2xl border border-slate-200 bg-slate-50/70 p-5 sm:p-6 space-y-4">
+                        <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" /></svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs sm:text-sm font-black text-slate-900 uppercase tracking-wide">Record of Acceptance (Captured Automatically)</h4>
+                                    <p class="text-[11px] text-slate-500">Legal audit trail timestamped under Section 10A of the IT Act, 2000</p>
+                                </div>
+                            </div>
+                            <span class="hidden sm:inline-block px-2.5 py-1 rounded-md text-[10px] font-black uppercase bg-emerald-100 text-emerald-800">Tamper-Proof Audit</span>
+                        </div>
+
+                        <!-- Table / Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 text-xs">
+                            <div class="p-3 bg-white rounded-xl border border-slate-200/80">
+                                <span class="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Applicant Name</span>
+                                <span id="terms-record-name" class="font-bold text-slate-900 mt-0.5 block">-</span>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-slate-200/80">
+                                <span class="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Position Selected</span>
+                                <span id="terms-record-role" class="font-extrabold text-[#2964F2] mt-0.5 block">Executive Partner (EP)</span>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-slate-200/80">
+                                <span class="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Declarations Ticked</span>
+                                <span id="terms-record-declarations" class="font-bold text-emerald-700 mt-0.5 block">Common + B2</span>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-slate-200/80">
+                                <span class="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Registered Mobile (OTP Verified)</span>
+                                <span id="terms-record-phone" class="font-bold text-slate-900 mt-0.5 block">-</span>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-slate-200/80">
+                                <span class="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Email Address</span>
+                                <span id="terms-record-email" class="font-bold text-slate-900 mt-0.5 block truncate">-</span>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-slate-200/80">
+                                <span class="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Date and Time (IST)</span>
+                                <span id="terms-record-timestamp" class="font-bold text-slate-900 mt-0.5 block font-mono">-</span>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-slate-200/80">
+                                <span class="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">IP Address & Device</span>
+                                <span id="terms-record-ip" class="font-medium text-slate-600 mt-0.5 block font-mono text-[11px]">[Captured automatically]</span>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-slate-200/80">
+                                <span class="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Terms Version Accepted</span>
+                                <span class="font-bold text-slate-900 mt-0.5 block">Version 2.0, effective 13 Oct 2026</span>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-slate-200/80">
+                                <span class="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Partner Code Issued</span>
+                                <span id="terms-record-code" class="font-bold text-slate-700 mt-0.5 block">EP-XXXXXXXX / GP-XXXXXXXX (after approval)</span>
+                            </div>
+                        </div>
+
+                        <!-- Footer Legal Notices -->
+                        <div class="pt-3 border-t border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] text-slate-500">
+                            <div class="flex items-center gap-1.5 text-blue-900 font-medium">
+                                <svg class="w-3.5 h-3.5 text-[#2964F2] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" /></svg>
+                                <span>A PDF copy of these Terms and the acceptance record is emailed to the Applicant and stays available on the Partner Dashboard.</span>
+                            </div>
+                            <span class="font-semibold text-slate-400 shrink-0">Version 2.0 · Sumatra Sales Private Limited, CIN U51909WB2020PTC237800</span>
+                        </div>
+                    </div>
+
                 </div>
 
                 <!-- Step 5 Navigation Buttons -->
@@ -958,7 +1135,7 @@
                     </button>
 
                     <button type="submit" id="submit-btn" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 sm:px-9 py-3.5 bg-[#2964F2] hover:bg-[#1E52D4] active:bg-[#1846BA] text-white font-black text-xs sm:text-sm sm:text-base rounded-xl shadow-lg shadow-[#2964F2]/30 hover:shadow-xl hover:shadow-[#2964F2]/40 transition transform hover:-translate-y-0.5 cursor-pointer order-1 sm:order-2">
-                        <span id="submit-text">Submit Official Partner Application</span>
+                        <span id="submit-text">I Agree and Submit</span>
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                         </svg>
@@ -1015,6 +1192,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 card.classList.add('border-slate-200', 'bg-white');
             }
         });
+
+        // Toggle B1 (GP) vs B2 (EP) Declarations Group
+        const currentRole = document.querySelector('input[name="registration_type"]:checked')?.value || 'EP';
+        const gpGroup = document.getElementById('terms-group-gp');
+        const epGroup = document.getElementById('terms-group-ep');
+
+        if (currentRole === 'GP') {
+            if (gpGroup) gpGroup.classList.remove('hidden');
+            if (epGroup) epGroup.classList.add('hidden');
+        } else {
+            if (epGroup) epGroup.classList.remove('hidden');
+            if (gpGroup) gpGroup.classList.add('hidden');
+        }
+
+        updateTermsAcceptanceRecord();
     }
 
     // Role radio change event
@@ -1030,6 +1222,81 @@ document.addEventListener('DOMContentLoaded', function () {
                 radio.checked = true;
                 syncRoleState();
             }
+        });
+    });
+
+    // 1b. Update Record of Acceptance (captured automatically)
+    function updateTermsAcceptanceRecord() {
+        const nameVal = document.getElementById('name')?.value.trim() || '-';
+        const phoneVal = document.getElementById('phone')?.value.trim() || '-';
+        const emailVal = document.getElementById('email')?.value.trim() || '-';
+        const currentRole = document.querySelector('input[name="registration_type"]:checked')?.value || 'EP';
+
+        const termsRecordName = document.getElementById('terms-record-name');
+        const termsRecordPhone = document.getElementById('terms-record-phone');
+        const termsRecordEmail = document.getElementById('terms-record-email');
+        const termsRecordRole = document.getElementById('terms-record-role');
+        const termsRecordDeclarations = document.getElementById('terms-record-declarations');
+        const termsRecordCode = document.getElementById('terms-record-code');
+        const termsRecordTimestamp = document.getElementById('terms-record-timestamp');
+
+        if (termsRecordName) termsRecordName.textContent = nameVal;
+        if (termsRecordPhone) termsRecordPhone.textContent = phoneVal !== '-' ? '+91 ' + phoneVal : '-';
+        if (termsRecordEmail) termsRecordEmail.textContent = emailVal;
+
+        if (currentRole === 'GP') {
+            if (termsRecordRole) termsRecordRole.textContent = 'Ground Partner (GP)';
+            if (termsRecordDeclarations) termsRecordDeclarations.textContent = 'Common (8) + B1 (3)';
+            if (termsRecordCode) termsRecordCode.textContent = 'GP-XXXXXXXX (after approval)';
+        } else {
+            if (termsRecordRole) termsRecordRole.textContent = 'Executive Partner (EP)';
+            if (termsRecordDeclarations) termsRecordDeclarations.textContent = 'Common (8) + B2 (5)';
+            if (termsRecordCode) termsRecordCode.textContent = 'EP-XXXXXXXX (after approval)';
+        }
+
+        if (termsRecordTimestamp) {
+            const now = new Date();
+            const options = {
+                day: '2-digit', month: 'short', year: 'numeric',
+                hour: '2-digit', minute: '2-digit', second: '2-digit',
+                hour12: true, timeZone: 'Asia/Kolkata'
+            };
+            try {
+                termsRecordTimestamp.textContent = new Intl.DateTimeFormat('en-IN', options).format(now) + ' IST';
+            } catch (e) {
+                termsRecordTimestamp.textContent = now.toLocaleString() + ' IST';
+            }
+        }
+    }
+
+    // Select All Declarations Helper Button
+    const selectAllTermsBtn = document.getElementById('select-all-declarations-btn');
+    if (selectAllTermsBtn) {
+        selectAllTermsBtn.addEventListener('click', function () {
+            const role = document.querySelector('input[name="registration_type"]:checked')?.value || 'EP';
+            const commonCheckboxes = Array.from(document.querySelectorAll('.terms-common-cb'));
+            const roleCheckboxes = role === 'GP' 
+                ? Array.from(document.querySelectorAll('.terms-gp-cb'))
+                : Array.from(document.querySelectorAll('.terms-ep-cb'));
+            
+            const allActive = [...commonCheckboxes, ...roleCheckboxes];
+            const allChecked = allActive.every(cb => cb.checked);
+
+            allActive.forEach(cb => { cb.checked = !allChecked; });
+
+            const errBox = document.getElementById('terms-validation-error-box');
+            if (errBox && !allChecked) errBox.classList.add('hidden');
+
+            const btnSpan = this.querySelector('span');
+            if (btnSpan) btnSpan.textContent = allChecked ? 'Select All Required Declarations' : 'Deselect All Declarations';
+        });
+    }
+
+    // Hide terms error on any checkbox change
+    document.querySelectorAll('.terms-cb').forEach(cb => {
+        cb.addEventListener('change', function () {
+            const errBox = document.getElementById('terms-validation-error-box');
+            if (errBox) errBox.classList.add('hidden');
         });
     });
 
@@ -1160,9 +1427,10 @@ document.addEventListener('DOMContentLoaded', function () {
         if (mobileBar) mobileBar.style.width = `${pct}%`;
         if (mobileTitle) mobileTitle.textContent = stepTitles[currentStep] || '';
 
-        // If Step 5 is reached, populate review summary
+        // If Step 5 is reached, populate review summary and record of acceptance
         if (currentStep === 5) {
             updateReviewSummary();
+            updateTermsAcceptanceRecord();
         }
 
         // Smooth scroll to top of form
@@ -1609,11 +1877,35 @@ document.addEventListener('DOMContentLoaded', function () {
                 clearFieldError(selfImage);
             }
 
-            const terms = document.getElementById('terms');
-            if (terms && !terms.checked) {
-                recordError(terms, 'You must accept the terms of service and declaration.');
-            } else if (terms) {
-                clearFieldError(terms);
+            // Statutory Declarations Validation (Common + Role Specific)
+            const role = document.querySelector('input[name="registration_type"]:checked')?.value || 'EP';
+            const commonCheckboxes = Array.from(document.querySelectorAll('.terms-common-cb'));
+            const roleCheckboxes = role === 'GP'
+                ? Array.from(document.querySelectorAll('.terms-gp-cb'))
+                : Array.from(document.querySelectorAll('.terms-ep-cb'));
+
+            const uncheckedCommon = commonCheckboxes.filter(cb => !cb.checked);
+            const uncheckedRole = roleCheckboxes.filter(cb => !cb.checked);
+
+            const termsErrBox = document.getElementById('terms-validation-error-box');
+            const termsErrMsg = document.getElementById('terms-error-message');
+
+            if (uncheckedCommon.length > 0 || uncheckedRole.length > 0) {
+                isValid = false;
+                const totalMissing = uncheckedCommon.length + uncheckedRole.length;
+                if (termsErrMsg) {
+                    termsErrMsg.textContent = `Please read and accept all statutory declarations before submitting (${totalMissing} declaration${totalMissing > 1 ? 's' : ''} pending: 8 Common + ${role === 'GP' ? '3 GP' : '5 EP'}).`;
+                }
+                if (termsErrBox) {
+                    termsErrBox.classList.remove('hidden');
+                }
+                if (!firstInvalid) {
+                    firstInvalid = uncheckedCommon[0] || uncheckedRole[0] || termsErrBox;
+                }
+            } else {
+                if (termsErrBox) {
+                    termsErrBox.classList.add('hidden');
+                }
             }
         }
 
@@ -1897,7 +2189,7 @@ document.addEventListener('DOMContentLoaded', function () {
         @php
             $errorKeys = $errors->keys();
             $stepToOpen = 1;
-            if (count(array_intersect($errorKeys, ['self_image', 'terms'])) > 0) {
+            if (count(array_intersect($errorKeys, ['self_image', 'terms', 'terms_common', 'terms_gp', 'terms_ep'])) > 0) {
                 $stepToOpen = 5;
             } elseif (count(array_intersect($errorKeys, ['bank_account_number', 'bank_name', 'ifsc_code'])) > 0) {
                 $stepToOpen = 4;
