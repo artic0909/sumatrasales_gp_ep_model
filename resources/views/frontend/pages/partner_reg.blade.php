@@ -834,36 +834,6 @@
 
     </div>
 
-    <!-- ============================================================= -->
-    <!-- SIMPLE ROLE INFO POPUP (Auto-dismisses in 2s, No buttons)    -->
-    <!-- ============================================================= -->
-    <div id="role-info-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/20 backdrop-blur-xs transition-opacity duration-300 opacity-0 pointer-events-none" aria-modal="true" role="dialog">
-        <div id="role-info-modal-container" class="relative w-full max-w-sm bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden transform scale-95 transition-all duration-300 p-6 text-center">
-            
-            <!-- Role Icon Circle -->
-            <div id="modal-role-icon-box" class="w-12 h-12 rounded-xl mx-auto flex items-center justify-center mb-3 text-white bg-[#2964F2] shadow-sm transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-            </div>
-
-            <!-- Role Title -->
-            <h3 id="modal-role-title" class="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
-                Executive Partner (EP)
-            </h3>
-
-            <!-- Simple 1-line description -->
-            <p id="modal-role-desc" class="text-xs sm:text-sm text-slate-500 mt-1.5 leading-relaxed font-normal">
-                Regional digital expansion & institutional partner onboardings.
-            </p>
-
-            <!-- 2-second countdown visual bar -->
-            <div class="w-full bg-slate-100 rounded-full h-1 mt-4 overflow-hidden">
-                <div id="modal-timer-bar" class="bg-[#2964F2] h-full rounded-full w-full"></div>
-            </div>
-        </div>
-    </div>
-
 </main>
 @endsection
 
@@ -880,109 +850,14 @@ document.addEventListener('DOMContentLoaded', function () {
         4: 'Applicant Photograph & Review'
     };
 
-    // Role Details Data for Simple 2s Auto Popup
-    const roleDetails = {
-        EP: {
-            title: 'Executive Partner (EP)',
-            desc: 'Regional digital expansion & institutional partner onboardings.',
-            iconBg: 'bg-[#2964F2]',
-            barBg: 'bg-[#2964F2]'
-        },
-        GP: {
-            title: 'Ground Partner (GP)',
-            desc: 'Direct consumer and local retail onboardings in your village or town.',
-            iconBg: 'bg-amber-600',
-            barBg: 'bg-amber-600'
-        }
-    };
-
-    // Modal elements
-    const roleModal = document.getElementById('role-info-modal');
-    const roleModalContainer = document.getElementById('role-info-modal-container');
-    const modalTitle = document.getElementById('modal-role-title');
-    const modalDesc = document.getElementById('modal-role-desc');
-    const modalIconBox = document.getElementById('modal-role-icon-box');
-    const modalTimerBar = document.getElementById('modal-timer-bar');
-
-    let roleModalTimer = null;
-
-    function openRoleModal(role) {
-        const data = roleDetails[role || 'EP'];
-        if (!data || !roleModal) return;
-
-        // Clear existing timer if any
-        if (roleModalTimer) {
-            clearTimeout(roleModalTimer);
-            roleModalTimer = null;
-        }
-
-        // Update content & styling
-        if (modalTitle) modalTitle.textContent = data.title;
-        if (modalDesc) modalDesc.textContent = data.desc;
-        if (modalIconBox) {
-            modalIconBox.className = `w-12 h-12 rounded-xl mx-auto flex items-center justify-center mb-3 text-white shadow-sm transition-colors ${data.iconBg}`;
-        }
-        if (modalTimerBar) {
-            modalTimerBar.className = `h-full rounded-full ${data.barBg}`;
-            modalTimerBar.style.transition = 'none';
-            modalTimerBar.style.width = '100%';
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    modalTimerBar.style.transition = 'width 2000ms linear';
-                    modalTimerBar.style.width = '0%';
-                });
-            });
-        }
-
-        // Show modal smoothly
-        roleModal.classList.remove('opacity-0', 'pointer-events-none');
-        roleModal.classList.add('opacity-100', 'pointer-events-auto');
-        if (roleModalContainer) {
-            roleModalContainer.classList.remove('scale-95');
-            roleModalContainer.classList.add('scale-100');
-        }
-
-        // Auto close after 2 seconds
-        roleModalTimer = setTimeout(function () {
-            closeRoleModal();
-        }, 2000);
-    }
-
-    function closeRoleModal() {
-        if (roleModalTimer) {
-            clearTimeout(roleModalTimer);
-            roleModalTimer = null;
-        }
-        if (!roleModal) return;
-
-        roleModal.classList.remove('opacity-100', 'pointer-events-auto');
-        roleModal.classList.add('opacity-0', 'pointer-events-none');
-        if (roleModalContainer) {
-            roleModalContainer.classList.remove('scale-100');
-            roleModalContainer.classList.add('scale-95');
-        }
-    }
-
-    // Dismiss early if backdrop clicked or Escape pressed
-    roleModal?.addEventListener('click', function (e) {
-        if (e.target === roleModal) closeRoleModal();
-    });
-
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && roleModal && !roleModal.classList.contains('pointer-events-none')) {
-            closeRoleModal();
-        }
-    });
-
-    // 1. Role Selection & Visual Sync
+    // 1. Role Selection & Visual Card Highlighting (No Popup)
     const roleRadios = document.querySelectorAll('input[name="registration_type"]');
 
-    function syncRoleState(triggerPopup = false) {
-        let selectedRole = 'EP';
+    function syncRoleState() {
         roleRadios.forEach(radio => {
             const card = radio.closest('.partner-role-card');
+            if (!card) return;
             if (radio.checked) {
-                selectedRole = radio.value;
                 if (radio.value === 'EP') {
                     card.classList.remove('border-slate-200', 'bg-white', 'border-amber-500', 'bg-amber-50/50', 'ring-amber-500/10');
                     card.classList.add('border-[#2964F2]', 'bg-blue-50/50', 'shadow-sm', 'ring-2', 'ring-[#2964F2]/10');
@@ -995,32 +870,25 @@ document.addEventListener('DOMContentLoaded', function () {
                 card.classList.add('border-slate-200', 'bg-white');
             }
         });
-
-        if (triggerPopup) {
-            openRoleModal(selectedRole);
-        }
     }
 
-    // Role radio change -> open popup
+    // Role radio change event
     roleRadios.forEach(radio => {
-        radio.addEventListener('change', function () {
-            syncRoleState(true);
-        });
+        radio.addEventListener('change', syncRoleState);
     });
 
-    // Clicking anywhere on card triggers selection & popup
+    // Clicking anywhere on card triggers selection
     document.querySelectorAll('.partner-role-card').forEach(card => {
-        card.addEventListener('click', function (e) {
+        card.addEventListener('click', function () {
             const radio = this.querySelector('input[name="registration_type"]');
             if (radio) {
-                const wasChecked = radio.checked;
                 radio.checked = true;
-                syncRoleState(true);
+                syncRoleState();
             }
         });
     });
 
-    syncRoleState(false);
+    syncRoleState();
 
     // 2. Multi-Step Navigation & Stepper UI Update
     function showStep(stepNumber) {
