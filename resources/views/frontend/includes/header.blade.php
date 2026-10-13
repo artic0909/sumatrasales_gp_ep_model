@@ -134,51 +134,45 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
 
                             <!-- Platform Card 1: DOCTORwala -->
-                            <div class="bg-white rounded-xl border border-slate-200 border-t-4 border-t-[#4DCBDC] hover:border-[#4DCBDC] p-4 flex flex-col justify-between transition-all duration-200 hover:shadow-lg hover:-translate-y-1 group/card">
+                            <div class="bg-white rounded-xl border border-slate-200 border-t-4 border-t-[#881337] hover:border-rose-300 p-4 flex flex-col justify-between transition-all duration-200 hover:shadow-lg hover:-translate-y-1 group/card">
                                 <div>
                                     <div class="flex items-center justify-between mb-2">
                                         <div class="h-8 flex items-center gap-1.5">
-                                            <img src="/img/doctorwala.png" alt="DOCTORwala" class="h-7 w-7 object-contain rounded-md shadow-2xs bg-cyan-50 p-0.5 border border-[#4DCBDC]/40">
-                                            <span class="text-base font-black text-slate-900 tracking-tight">DOCTOR<span class="text-[#0ea5b7]">wala</span></span>
+                                            <img src="/img/ranimatrimonial.png" alt="Rani Matrimonial" class="h-7 w-7 object-contain rounded-full shadow-2xs border border-rose-200">
+                                            <span class="text-sm font-black text-[#3F0001] tracking-tight">Rani Matrimonial</span>
                                         </div>
-                                        <span class="text-[10px] font-bold text-[#14727e] bg-cyan-50 px-2 py-0.5 rounded-md border border-cyan-200/60">Healthcare</span>
+                                        <span class="text-[10px] font-bold text-rose-800 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200/60">Matrimony</span>
                                     </div>
-                                    <p class="text-xs font-bold text-slate-800 mb-1">Healthcare for Everyone</p>
-                                    <p class="text-[11px] text-slate-500 leading-snug mb-3">Complete OPD, verified doctor bookings, diagnostics, lab tests & local medicine delivery.</p>
+                                    <p class="text-xs font-bold text-slate-800 mb-1">Find Your Perfect Match</p>
+                                    <p class="text-[11px] text-slate-500 leading-snug mb-3">Safe, family-verified matchmaking portal with stringent privacy and authentic profiles.</p>
                                     
                                     <ul class="space-y-1.5 text-[11px] text-slate-700 font-medium border-t border-slate-100 pt-2.5 mb-4">
                                         <li class="flex items-center gap-2">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-[#4DCBDC]"></span>
-                                            <span>24/7 Verified Doctor & OPD Booking</span>
+                                            <span class="w-1.5 h-1.5 rounded-full bg-rose-700"></span>
+                                            <span>100% Verified Profiles & Biodatas</span>
                                         </li>
                                         <li class="flex items-center gap-2">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-[#4DCBDC]"></span>
-                                            <span>Pathology & Diagnostic Lab Tests</span>
+                                            <span class="w-1.5 h-1.5 rounded-full bg-rose-700"></span>
+                                            <span>Smart AI Compatibility Matching</span>
                                         </li>
                                         <li class="flex items-center gap-2">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-[#4DCBDC]"></span>
-                                            <span>Digital Health Records (EHR)</span>
+                                            <span class="w-1.5 h-1.5 rounded-full bg-rose-700"></span>
+                                            <span>Family Privacy & Shielded Contacts</span>
                                         </li>
                                         <li class="flex items-center gap-2">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-[#4DCBDC]"></span>
-                                            <span>Local Medical Store Directory</span>
+                                            <span class="w-1.5 h-1.5 rounded-full bg-rose-700"></span>
+                                            <span>Direct Safe In-App Communication</span>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="space-y-1.5 mt-3 pt-2.5 border-t border-slate-100">
-                                    <a href="https://www.doctorwala.info/" target="_blank" rel="noopener noreferrer" class="w-full py-2 px-3 rounded-lg bg-cyan-50 hover:bg-[#4DCBDC] text-[#0d606b] hover:text-slate-950 font-bold text-xs transition-colors flex items-center justify-center gap-1.5 group-hover/card:bg-[#4DCBDC] group-hover/card:text-slate-950">
-                                        <span>Visit doctorwala.info</span>
+                                    <a href="https://ranimatrimonial.com/" target="_blank" rel="noopener noreferrer" class="w-full py-2 px-3 rounded-lg bg-rose-50 hover:bg-[#3F0001] text-rose-950 hover:text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5 group-hover/card:bg-[#3F0001] group-hover/card:text-white">
+                                        <span>Visit ranimatrimonial.com</span>
                                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                                     </a>
-                                    <div class="grid grid-cols-2 gap-1 pt-0.5">
-                                        <a href="https://play.google.com/store/apps/details?id=com.doctorwala.dochealth&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="py-1 px-1.5 rounded-md bg-slate-900 hover:bg-slate-800 text-white text-[9.5px] font-bold flex items-center justify-center gap-1 transition" title="Patient App on Google Play">
-                                            <svg class="w-2.5 h-2.5 text-cyan-400 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.793 12 3.61 22.186a2.03 2.03 0 0 1-.36-1.186V3a2.03 2.03 0 0 1 .359-1.186zm11.3 9.072l2.38-2.38-12.02-6.87 9.64 9.25zm0 2.228l-9.64 9.25 12.02-6.87-2.38-2.38zm1.114-1.114l2.96 1.69a1.5 1.5 0 0 0 0-2.614l-2.96 1.69z"/></svg>
-                                            <span>Patient App</span>
-                                        </a>
-                                        <a href="https://play.google.com/store/apps/details?id=info.doctorwala.partner&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="py-1 px-1.5 rounded-md bg-cyan-50 hover:bg-cyan-100 text-[#0c5963] border border-cyan-200/80 text-[9.5px] font-bold flex items-center justify-center gap-1 transition" title="Partner App on Google Play">
-                                            <svg class="w-2.5 h-2.5 text-cyan-600 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.793 12 3.61 22.186a2.03 2.03 0 0 1-.36-1.186V3a2.03 2.03 0 0 1 .359-1.186zm11.3 9.072l2.38-2.38-12.02-6.87 9.64 9.25zm0 2.228l-9.64 9.25 12.02-6.87-2.38-2.38zm1.114-1.114l2.96 1.69a1.5 1.5 0 0 0 0-2.614l-2.96 1.69z"/></svg>
-                                            <span>Partner App</span>
-                                        </a>
+                                    <div class="w-full py-1 px-2 rounded-md bg-rose-50 border border-rose-200/80 text-rose-900 text-[9.5px] font-bold flex items-center justify-center gap-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-rose-600 animate-pulse"></span>
+                                        <span>Android App Coming Soon</span>
                                     </div>
                                 </div>
                             </div>
@@ -228,45 +222,51 @@
                             </div>
 
                             <!-- Platform Card 3: Rani Matrimonial -->
-                            <div class="bg-white rounded-xl border border-slate-200 border-t-4 border-t-[#881337] hover:border-rose-300 p-4 flex flex-col justify-between transition-all duration-200 hover:shadow-lg hover:-translate-y-1 group/card">
+                            <div class="bg-white rounded-xl border border-slate-200 border-t-4 border-t-[#4DCBDC] hover:border-[#4DCBDC] p-4 flex flex-col justify-between transition-all duration-200 hover:shadow-lg hover:-translate-y-1 group/card">
                                 <div>
                                     <div class="flex items-center justify-between mb-2">
                                         <div class="h-8 flex items-center gap-1.5">
-                                            <img src="/img/ranimatrimonial.png" alt="Rani Matrimonial" class="h-7 w-7 object-contain rounded-full shadow-2xs border border-rose-200">
-                                            <span class="text-sm font-black text-[#3F0001] tracking-tight">Rani Matrimonial</span>
+                                            <img src="/img/doctorwala.png" alt="DOCTORwala" class="h-7 w-7 object-contain rounded-md shadow-2xs bg-cyan-50 p-0.5 border border-[#4DCBDC]/40">
+                                            <span class="text-base font-black text-slate-900 tracking-tight">DOCTOR<span class="text-[#0ea5b7]">wala</span></span>
                                         </div>
-                                        <span class="text-[10px] font-bold text-rose-800 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200/60">Matrimony</span>
+                                        <span class="text-[10px] font-bold text-[#14727e] bg-cyan-50 px-2 py-0.5 rounded-md border border-cyan-200/60">Healthcare</span>
                                     </div>
-                                    <p class="text-xs font-bold text-slate-800 mb-1">Find Your Perfect Match</p>
-                                    <p class="text-[11px] text-slate-500 leading-snug mb-3">Safe, family-verified matchmaking portal with stringent privacy and authentic profiles.</p>
+                                    <p class="text-xs font-bold text-slate-800 mb-1">Healthcare for Everyone</p>
+                                    <p class="text-[11px] text-slate-500 leading-snug mb-3">Complete OPD, verified doctor bookings, diagnostics, lab tests & local medicine delivery.</p>
                                     
                                     <ul class="space-y-1.5 text-[11px] text-slate-700 font-medium border-t border-slate-100 pt-2.5 mb-4">
                                         <li class="flex items-center gap-2">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-rose-700"></span>
-                                            <span>100% Verified Profiles & Biodatas</span>
+                                            <span class="w-1.5 h-1.5 rounded-full bg-[#4DCBDC]"></span>
+                                            <span>24/7 Verified Doctor & OPD Booking</span>
                                         </li>
                                         <li class="flex items-center gap-2">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-rose-700"></span>
-                                            <span>Smart AI Compatibility Matching</span>
+                                            <span class="w-1.5 h-1.5 rounded-full bg-[#4DCBDC]"></span>
+                                            <span>Pathology & Diagnostic Lab Tests</span>
                                         </li>
                                         <li class="flex items-center gap-2">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-rose-700"></span>
-                                            <span>Family Privacy & Shielded Contacts</span>
+                                            <span class="w-1.5 h-1.5 rounded-full bg-[#4DCBDC]"></span>
+                                            <span>Digital Health Records (EHR)</span>
                                         </li>
                                         <li class="flex items-center gap-2">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-rose-700"></span>
-                                            <span>Direct Safe In-App Communication</span>
+                                            <span class="w-1.5 h-1.5 rounded-full bg-[#4DCBDC]"></span>
+                                            <span>Local Medical Store Directory</span>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="space-y-1.5 mt-3 pt-2.5 border-t border-slate-100">
-                                    <a href="https://ranimatrimonial.com/" target="_blank" rel="noopener noreferrer" class="w-full py-2 px-3 rounded-lg bg-rose-50 hover:bg-[#3F0001] text-rose-950 hover:text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5 group-hover/card:bg-[#3F0001] group-hover/card:text-white">
-                                        <span>Visit ranimatrimonial.com</span>
+                                    <a href="https://www.doctorwala.info/" target="_blank" rel="noopener noreferrer" class="w-full py-2 px-3 rounded-lg bg-cyan-50 hover:bg-[#4DCBDC] text-[#0d606b] hover:text-slate-950 font-bold text-xs transition-colors flex items-center justify-center gap-1.5 group-hover/card:bg-[#4DCBDC] group-hover/card:text-slate-950">
+                                        <span>Visit doctorwala.info</span>
                                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                                     </a>
-                                    <div class="w-full py-1 px-2 rounded-md bg-rose-50 border border-rose-200/80 text-rose-900 text-[9.5px] font-bold flex items-center justify-center gap-1">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-rose-600 animate-pulse"></span>
-                                        <span>Android App Coming Soon</span>
+                                    <div class="grid grid-cols-2 gap-1 pt-0.5">
+                                        <a href="https://play.google.com/store/apps/details?id=com.doctorwala.dochealth&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="py-1 px-1.5 rounded-md bg-slate-900 hover:bg-slate-800 text-white text-[9.5px] font-bold flex items-center justify-center gap-1 transition" title="Patient App on Google Play">
+                                            <svg class="w-2.5 h-2.5 text-cyan-400 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.793 12 3.61 22.186a2.03 2.03 0 0 1-.36-1.186V3a2.03 2.03 0 0 1 .359-1.186zm11.3 9.072l2.38-2.38-12.02-6.87 9.64 9.25zm0 2.228l-9.64 9.25 12.02-6.87-2.38-2.38zm1.114-1.114l2.96 1.69a1.5 1.5 0 0 0 0-2.614l-2.96 1.69z"/></svg>
+                                            <span>Patient App</span>
+                                        </a>
+                                        <a href="https://play.google.com/store/apps/details?id=info.doctorwala.partner&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="py-1 px-1.5 rounded-md bg-cyan-50 hover:bg-cyan-100 text-[#0c5963] border border-cyan-200/80 text-[9.5px] font-bold flex items-center justify-center gap-1 transition" title="Partner App on Google Play">
+                                            <svg class="w-2.5 h-2.5 text-cyan-600 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.793 12 3.61 22.186a2.03 2.03 0 0 1-.36-1.186V3a2.03 2.03 0 0 1 .359-1.186zm11.3 9.072l2.38-2.38-12.02-6.87 9.64 9.25zm0 2.228l-9.64 9.25 12.02-6.87-2.38-2.38zm1.114-1.114l2.96 1.69a1.5 1.5 0 0 0 0-2.614l-2.96 1.69z"/></svg>
+                                            <span>Partner App</span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
