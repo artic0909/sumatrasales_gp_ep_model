@@ -32,15 +32,21 @@ class PartnerController extends Controller
             'city'                => ['required', 'string', 'max:100'],
             'address'             => ['required', 'string', 'max:500'],
             'aadhaar_number'      => ['required', 'string', 'max:30'],
-            'aadhaar_front_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
-            'aadhaar_back_image'  => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
+            'aadhaar_front_image' => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
+            'aadhaar_back_image'  => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
             'pancard_number'      => ['required', 'string', 'max:30'],
-            'pancard_front_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
-            'pancard_back_image'  => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
+            'pancard_front_image' => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
+            'pancard_back_image'  => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
             'bank_account_number' => ['required', 'string', 'max:50'],
             'bank_name'           => ['required', 'string', 'max:255'],
             'ifsc_code'           => ['required', 'string', 'max:20'],
-            'self_image'          => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
+            'self_image'          => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
+        ], [
+            'aadhaar_front_image.required' => 'Please upload your Aadhaar card front side image.',
+            'aadhaar_back_image.required'  => 'Please upload your Aadhaar card back side image.',
+            'pancard_front_image.required' => 'Please upload your PAN card front image.',
+            'pancard_back_image.required'  => 'Please upload your PAN card back image.',
+            'self_image.required'          => 'Please upload your applicant passport photo / self image.',
         ]);
 
         $imageFields = [
@@ -54,8 +60,6 @@ class PartnerController extends Controller
         foreach ($imageFields as $field) {
             if ($request->hasFile($field)) {
                 $validated[$field] = $request->file($field)->store('partner_documents', 'public');
-            } else {
-                $validated[$field] = null;
             }
         }
 
