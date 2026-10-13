@@ -444,7 +444,7 @@
                     <div>
                         <label for="aadhaar_number" class="block text-xs font-bold text-slate-700 mb-1.5">
                             Aadhaar Card Number <span class="text-rose-500">*</span>
-                            <span class="text-[11px] font-normal text-slate-400 lowercase">(12 digits)</span>
+                            <span class="text-[11px] font-normal text-slate-400 lowercase">(max 20 characters)</span>
                         </label>
                         <div class="relative w-full">
                             <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -452,10 +452,10 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.33a2.625 2.625 0 0 0-5.088 0A1.5 1.5 0 0 0 7.875 17h4.25a1.5 1.5 0 0 0 1.169-1.295Z" />
                                 </svg>
                             </div>
-                            <input type="text" name="aadhaar_number" id="aadhaar_number" value="{{ old('aadhaar_number') }}" required placeholder="XXXX XXXX XXXX" maxlength="14"
+                            <input type="text" name="aadhaar_number" id="aadhaar_number" value="{{ old('aadhaar_number') }}" required placeholder="Enter Aadhaar number" maxlength="20"
                                 class="step-required-input w-full h-11 sm:h-12 pl-11 pr-24 rounded-xl border {{ isset($errors) && $errors->has('aadhaar_number') ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-200' : 'border-slate-200 hover:border-slate-300 focus:border-[#2964F2] focus:ring-4 focus:ring-[#2964F2]/10' }} text-slate-800 text-sm font-mono tracking-wider focus:outline-hidden transition bg-slate-50/40 hover:bg-white focus:bg-white">
                             <div class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none">
-                                <span class="px-2.5 py-1 rounded-md text-[10px] font-bold bg-slate-100 text-slate-500 border border-slate-200">12 Digits</span>
+                                <span class="px-2.5 py-1 rounded-md text-[10px] font-bold bg-slate-100 text-slate-500 border border-slate-200">Max 20</span>
                             </div>
                         </div>
                         @error('aadhaar_number')
@@ -477,7 +477,7 @@
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" /></svg>
                                     </div>
                                     <p class="text-xs font-bold text-slate-800">Upload Front Side</p>
-                                    <p class="text-[10px] text-slate-400 mt-0.5">JPG, PNG, WebP (Max 5MB)</p>
+                                    <p class="text-[10px] text-slate-400 mt-0.5">JPG, PNG, WebP (Auto-Compressed)</p>
                                 </div>
                                 <div class="upload-preview hidden w-full">
                                     <img src="" alt="Aadhaar Front Preview" class="w-full h-32 object-contain rounded-lg mx-auto bg-white p-1 border border-slate-200">
@@ -504,7 +504,7 @@
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" /></svg>
                                     </div>
                                     <p class="text-xs font-bold text-slate-800">Upload Back Side</p>
-                                    <p class="text-[10px] text-slate-400 mt-0.5">JPG, PNG, WebP (Max 5MB)</p>
+                                    <p class="text-[10px] text-slate-400 mt-0.5">JPG, PNG, WebP (Auto-Compressed)</p>
                                 </div>
                                 <div class="upload-preview hidden w-full">
                                     <img src="" alt="Aadhaar Back Preview" class="w-full h-32 object-contain rounded-lg mx-auto bg-white p-1 border border-slate-200">
@@ -531,7 +531,7 @@
                     <div>
                         <label for="pancard_number" class="block text-xs font-bold text-slate-700 mb-1.5">
                             PAN Card Number <span class="text-rose-500">*</span>
-                            <span class="text-[11px] font-normal text-slate-400 lowercase">(10-character alphanumeric, e.g. ABCDE1234F)</span>
+                            <span class="text-[11px] font-normal text-slate-400 lowercase">(max 20 characters)</span>
                         </label>
                         <div class="relative w-full">
                             <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -539,10 +539,10 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 2.25 19.5Z" />
                                 </svg>
                             </div>
-                            <input type="text" name="pancard_number" id="pancard_number" value="{{ old('pancard_number') }}" required placeholder="ABCDE1234F" maxlength="10"
+                            <input type="text" name="pancard_number" id="pancard_number" value="{{ old('pancard_number') }}" required placeholder="Enter PAN number" maxlength="20"
                                 class="step-required-input w-full h-11 sm:h-12 pl-11 pr-24 rounded-xl border {{ isset($errors) && $errors->has('pancard_number') ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-200' : 'border-slate-200 hover:border-slate-300 focus:border-[#2964F2] focus:ring-4 focus:ring-[#2964F2]/10' }} text-slate-800 text-sm font-mono tracking-wider uppercase focus:outline-hidden transition bg-slate-50/40 hover:bg-white focus:bg-white">
                             <div class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none">
-                                <span class="px-2.5 py-1 rounded-md text-[10px] font-bold bg-slate-100 text-slate-500 border border-slate-200">10 Chars</span>
+                                <span class="px-2.5 py-1 rounded-md text-[10px] font-bold bg-slate-100 text-slate-500 border border-slate-200">Max 20</span>
                             </div>
                         </div>
                         @error('pancard_number')
@@ -564,7 +564,7 @@
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" /></svg>
                                     </div>
                                     <p class="text-xs font-bold text-slate-800">Upload PAN Front</p>
-                                    <p class="text-[10px] text-slate-400 mt-0.5">JPG, PNG, WebP (Max 5MB)</p>
+                                    <p class="text-[10px] text-slate-400 mt-0.5">JPG, PNG, WebP (Auto-Compressed)</p>
                                 </div>
                                 <div class="upload-preview hidden w-full">
                                     <img src="" alt="PAN Front Preview" class="w-full h-32 object-contain rounded-lg mx-auto bg-white p-1 border border-slate-200">
@@ -591,7 +591,7 @@
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" /></svg>
                                     </div>
                                     <p class="text-xs font-bold text-slate-800">Upload PAN Back</p>
-                                    <p class="text-[10px] text-slate-400 mt-0.5">JPG, PNG, WebP (Max 5MB)</p>
+                                    <p class="text-[10px] text-slate-400 mt-0.5">JPG, PNG, WebP (Auto-Compressed)</p>
                                 </div>
                                 <div class="upload-preview hidden w-full">
                                     <img src="" alt="PAN Back Preview" class="w-full h-32 object-contain rounded-lg mx-auto bg-white p-1 border border-slate-200">
@@ -740,7 +740,7 @@
                                 </svg>
                             </div>
                             <p class="text-sm font-bold text-slate-800">Click or Drag to Upload Self Image</p>
-                            <p class="text-xs text-slate-400 mt-0.5">Clear portrait photo facing forward (Max 5MB)</p>
+                            <p class="text-xs text-slate-400 mt-0.5">Clear portrait photo facing forward (Auto-Compressed)</p>
                             <span class="inline-block mt-2.5 px-3 py-1 bg-white border border-slate-200 rounded-md text-[11px] font-semibold text-slate-600 shadow-2xs">Browse Image</span>
                         </div>
 
@@ -1124,11 +1124,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (stepNumber === 2) {
             const aadhaar = document.getElementById('aadhaar_number');
-            const aDigits = aadhaar ? aadhaar.value.replace(/\D/g, '') : '';
-            if (!aadhaar?.value.trim()) {
+            const aadhaarVal = aadhaar ? aadhaar.value.trim() : '';
+            if (!aadhaarVal) {
                 recordError(aadhaar, 'Aadhaar card number is required.');
-            } else if (aDigits.length !== 12) {
-                recordError(aadhaar, 'Aadhaar card number must be exactly 12 digits.');
+            } else if (aadhaarVal.length > 20) {
+                recordError(aadhaar, 'Aadhaar card number cannot exceed 20 characters.');
             } else {
                 clearFieldError(aadhaar);
             }
@@ -1151,8 +1151,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const panVal = pan ? pan.value.trim().toUpperCase() : '';
             if (!panVal) {
                 recordError(pan, 'PAN card number is required.');
-            } else if (panVal.length !== 10) {
-                recordError(pan, 'PAN card number must be exactly 10 alphanumeric characters.');
+            } else if (panVal.length > 20) {
+                recordError(pan, 'PAN card number cannot exceed 20 characters.');
             } else {
                 clearFieldError(pan);
             }
@@ -1289,32 +1289,105 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('review-bank').textContent = bankVal;
     }
 
-    // 5. Real-time Image Previews for File Inputs
+    // Helper function to automatically compress images before upload
+    function compressImageFile(file, maxDimension = 1600, quality = 0.82) {
+        return new Promise((resolve) => {
+            if (!file || !file.type.startsWith('image/')) {
+                resolve(file);
+                return;
+            }
+
+            const img = new Image();
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                img.onload = function () {
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > maxDimension || height > maxDimension) {
+                        if (width > height) {
+                            height = Math.round((height * maxDimension) / width);
+                            width = maxDimension;
+                        } else {
+                            width = Math.round((width * maxDimension) / height);
+                            height = maxDimension;
+                        }
+                    }
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const mimeType = 'image/jpeg';
+                    canvas.toBlob((blob) => {
+                        if (blob && blob.size < file.size) {
+                            const cleanName = file.name.replace(/\.[^/.]+$/, "") + ".jpg";
+                            const compressedFile = new File([blob], cleanName, {
+                                type: mimeType,
+                                lastModified: Date.now()
+                            });
+                            resolve(compressedFile);
+                        } else {
+                            resolve(file);
+                        }
+                    }, mimeType, quality);
+                };
+
+                img.onerror = function () {
+                    resolve(file);
+                };
+
+                img.src = e.target.result;
+            };
+
+            reader.onerror = function () {
+                resolve(file);
+            };
+
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // 5. Real-time Image Previews & Automatic Client-side Compression
     const fileInputs = document.querySelectorAll('.file-input-preview');
     fileInputs.forEach(input => {
-        input.addEventListener('change', function () {
-            const file = this.files[0];
+        input.addEventListener('change', async function () {
+            const originalFile = this.files[0];
             const zone = this.closest('.file-upload-zone');
             const placeholder = zone.querySelector('.upload-placeholder');
             const preview = zone.querySelector('.upload-preview');
             const previewImg = preview.querySelector('img');
             const fileNameSpan = preview.querySelector('.file-name');
 
-            if (file) {
-                if (file.size > 5 * 1024 * 1024) {
-                    alert('File is too large! Maximum allowed file size is 5MB.');
-                    this.value = '';
-                    return;
-                }
-
+            if (originalFile) {
+                // Show immediate preview
                 const reader = new FileReader();
                 reader.onload = function (event) {
                     previewImg.src = event.target.result;
-                    fileNameSpan.textContent = file.name;
+                    fileNameSpan.textContent = 'Optimizing ' + originalFile.name + '...';
                     placeholder.classList.add('hidden');
                     preview.classList.remove('hidden');
                 };
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(originalFile);
+
+                // Auto compress file
+                try {
+                    const compressed = await compressImageFile(originalFile);
+                    if (window.DataTransfer && compressed) {
+                        const dt = new DataTransfer();
+                        dt.items.add(compressed);
+                        input.files = dt.files;
+                    }
+                    const sizeKb = Math.round(compressed.size / 1024);
+                    fileNameSpan.textContent = compressed.name + ' (' + sizeKb + ' KB)';
+                } catch (e) {
+                    fileNameSpan.textContent = originalFile.name;
+                }
+
+                clearFieldError(input);
             }
         });
     });
@@ -1340,21 +1413,21 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // 6. Aadhaar Number Auto-Spacing (4-4-4)
+    // 6. Aadhaar Number (Max 20 characters)
     const aadhaarInput = document.getElementById('aadhaar_number');
     if (aadhaarInput) {
         aadhaarInput.addEventListener('input', function () {
-            let val = this.value.replace(/\D/g, '').substring(0, 12);
-            let formatted = val.match(/.{1,4}/g)?.join(' ') || val;
-            this.value = formatted;
+            if (this.value.length > 20) {
+                this.value = this.value.substring(0, 20);
+            }
         });
     }
 
-    // 7. PAN Card & IFSC Auto-Uppercase
+    // 7. PAN Card (Max 20 uppercase alphanumeric) & IFSC Auto-Uppercase
     const panInput = document.getElementById('pancard_number');
     if (panInput) {
         panInput.addEventListener('input', function () {
-            this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '').substring(0, 10);
+            this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '').substring(0, 20);
         });
     }
 

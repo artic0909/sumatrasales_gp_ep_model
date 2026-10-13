@@ -230,5 +230,8 @@
     @include('frontend.includes.scripts')
     @stack('scripts')
 
+    <!-- BOOM CELEBRATION MODAL (ON SUCCESSFUL SUBMISSION) -->
+    @include('frontend.includes.celebration_modal')
+
 </body>
 </html>
