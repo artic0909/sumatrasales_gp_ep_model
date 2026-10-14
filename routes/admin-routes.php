@@ -1,0 +1,34 @@
+<?php
+
+use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\EpController;
+use App\Http\Controllers\admin\GpController;
+use App\Http\Controllers\admin\InvestorController;
+use App\Http\Controllers\admin\ContactController;
+use App\Http\Controllers\admin\ProfileController;
+use Illuminate\Support\Facades\Route;
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Dashboard Overview
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Executive Partners (EP) Management
+    Route::get('/ep', [EpController::class, 'index'])->name('ep.index');
+    Route::get('/ep/{id}', [EpController::class, 'show'])->name('ep.show');
+    Route::delete('/ep/{id}', [EpController::class, 'destroy'])->name('ep.destroy');
+
+    // Ground Partners (GP) Management
+    Route::get('/gp', [GpController::class, 'index'])->name('gp.index');
+    Route::get('/gp/{id}', [GpController::class, 'show'])->name('gp.show');
+    Route::delete('/gp/{id}', [GpController::class, 'destroy'])->name('gp.destroy');
+
+    // Investor Portal
+    Route::get('/investor', [InvestorController::class, 'index'])->name('investor.index');
+
+    // Contact Inquiries
+    Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+
+    // Admin Profile & Settings
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+});
