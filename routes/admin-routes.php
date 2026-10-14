@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\GpController;
 use App\Http\Controllers\admin\InvestorController;
 use App\Http\Controllers\admin\ContactController;
 use App\Http\Controllers\admin\ProfileController;
+use App\Http\Controllers\admin\SettingController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -22,6 +23,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/gp', [GpController::class, 'index'])->name('gp.index');
     Route::get('/gp/{id}', [GpController::class, 'show'])->name('gp.show');
     Route::delete('/gp/{id}', [GpController::class, 'destroy'])->name('gp.destroy');
+
+    // Dynamic Website Content Settings (Phone, Email, Support, Investor Liaison)
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
 
     // Investor Portal
     Route::get('/investor', [InvestorController::class, 'index'])->name('investor.index');

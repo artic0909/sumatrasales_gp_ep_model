@@ -20,9 +20,9 @@
                         <span>Register Free as Partner</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                     </a>
-                    <a href="mailto:partner@sumatrasales.com" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 border border-white/25 text-white font-bold text-xs backdrop-blur-xs transition-all">
+                    <a href="mailto:{{ site_setting('email', 'partner@sumatrasales.com') }}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 border border-white/25 text-white font-bold text-xs backdrop-blur-xs transition-all">
                         <svg class="w-4 h-4 text-cyan-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>
-                        <span>partner@sumatrasales.com</span>
+                        <span>{{ site_setting('email', 'partner@sumatrasales.com') }}</span>
                     </a>
                 </div>
             </div>
@@ -143,7 +143,8 @@
                         <span>Trust & Governance</span>
                     </h4>
                     <ul class="space-y-2 text-xs">
-                        <li><a href="#" class="text-blue-100 hover:text-white transition-colors block">Investor Relations Hub</a></li>
+                        <li><a href="{{ route('investor.trust') }}" class="text-white hover:text-cyan-200 transition-colors block font-bold">Investor Relations Hub ↗</a></li>
+                        <li><a href="{{ route('contact') }}" class="text-white hover:text-cyan-200 transition-colors block font-bold">Contact Helpdesk ↗</a></li>
                         <li><a href="#" class="text-blue-100 hover:text-white transition-colors block">Vision, Mission & Goals</a></li>
                         <li><a href="#" class="text-blue-100 hover:text-white transition-colors block">Business Model Economics</a></li>
                         <li><a href="#" class="text-blue-100 hover:text-white transition-colors block">Corporate Governance</a></li>
@@ -151,7 +152,6 @@
                         <li><a href="#" class="text-blue-100 hover:text-white transition-colors block">Privacy Policy</a></li>
                         <li><a href="#" class="text-blue-100 hover:text-white transition-colors block">Terms of Service</a></li>
                         <li><a href="#" class="text-blue-100 hover:text-white transition-colors block">Partner Charter & Ethics</a></li>
-                        <li><a href="#" class="text-blue-100 hover:text-white transition-colors block">Grievance Redressal Cell</a></li>
                     </ul>
                 </div>
 
@@ -285,7 +285,7 @@
                         © {{ date('Y') }} <strong class="text-white font-bold">Sumatra Sales Private Limited</strong>. All rights reserved.
                     </div>
                     <div class="text-[10px] text-blue-200 mt-1">
-                        Corporate Headquarters: West Bengal, India • Support Helpline: partner@sumatrasales.com
+                        Corporate Headquarters: {{ site_setting('office_address', 'West Bengal, India') }} • Support Helpline: {{ site_setting('phone', '+91 98765 43210') }} | {{ site_setting('email', 'partner@sumatrasales.com') }}
                     </div>
                 </div>
 

@@ -24,6 +24,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+
+        require_once app_path('helpers.php');
+
+        \Illuminate\Support\Facades\View::composer('*', function ($view) {
+            $view->with('siteSettings', \App\Models\Setting::getAllCached());
+        });
     }
 
     /**

@@ -1044,7 +1044,7 @@
 
                         <!-- CTA Action Button & Quick Trust Note -->
                         <div class="mt-6 flex flex-wrap items-center gap-3">
-                            <a href="#" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white hover:bg-blue-50 text-[#2355DB] font-extrabold text-xs sm:text-sm rounded-xl shadow-md hover:shadow-lg hover:scale-[1.02] transition-all group">
+                            <a href="{{ route('investor.trust') }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white hover:bg-blue-50 text-[#2355DB] font-extrabold text-xs sm:text-sm rounded-xl shadow-md hover:shadow-lg hover:scale-[1.02] transition-all group">
                                 <span>Explore Investor Hub</span>
                                 <svg class="w-4 h-4 text-[#2355DB] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />

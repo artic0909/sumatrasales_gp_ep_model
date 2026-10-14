@@ -826,7 +826,7 @@
                                     <p class="text-[11px] sm:text-xs text-slate-500 font-medium">Explore live interactive demos, user manuals, partner pitch kits, and support documentation.</p>
                                 </div>
                             </div>
-                            <a href="mailto:partner@sumatrasales.com" class="text-xs font-bold text-cyan-700 hover:text-cyan-900 flex items-center gap-1 shrink-0 self-start sm:self-auto group/toplink">
+                            <a href="{{ route('contact') }}" class="text-xs font-bold text-cyan-700 hover:text-cyan-900 flex items-center gap-1 shrink-0 self-start sm:self-auto group/toplink">
                                 <span>Contact Support Desk</span>
                                 <svg class="w-3.5 h-3.5 group-hover/toplink:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                             </a>
@@ -964,17 +964,17 @@
                                         <div class="mt-3 p-2.5 rounded-lg bg-white border border-slate-200/80 text-xs space-y-1">
                                             <div class="flex items-center gap-2 text-slate-700">
                                                 <svg class="w-3.5 h-3.5 text-blue-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>
-                                                <span class="font-bold text-[11px] truncate">partner@sumatrasales.com</span>
+                                                <span class="font-bold text-[11px] truncate">{{ site_setting('support_email', 'support@sumatrasales.com') }}</span>
                                             </div>
                                             <div class="flex items-center gap-2 text-slate-700">
                                                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
-                                                <span class="text-[10px] text-slate-500">Avg. Response Time: &lt; 2 Hours</span>
+                                                <span class="text-[10px] text-slate-500">Helpline: {{ site_setting('support_phone', '+91 98765 43210') }}</span>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="mt-4 pt-2.5 border-t border-slate-200">
-                                        <a href="mailto:partner@sumatrasales.com" class="w-full py-2 px-3 bg-blue-600 hover:bg-blue-700 text-white font-black text-xs rounded-lg text-center shadow-sm transition-all flex items-center justify-center gap-1.5">
+                                        <a href="mailto:{{ site_setting('support_email', 'support@sumatrasales.com') }}" class="w-full py-2 px-3 bg-blue-600 hover:bg-blue-700 text-white font-black text-xs rounded-lg text-center shadow-sm transition-all flex items-center justify-center gap-1.5">
                                             <span>Send Support Inquiry</span>
                                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                                         </a>
@@ -1241,10 +1241,11 @@
             <div class="p-3.5 border-t border-slate-200 bg-slate-50 text-[10px] text-slate-500 space-y-2 shrink-0">
                 <div class="flex items-center justify-between">
                     <span class="font-bold text-slate-700">Helpline:</span>
-                    <a href="mailto:partner@sumatrasales.com" class="text-blue-600 font-bold hover:underline">partner@sumatrasales.com</a>
+                    <a href="tel:{{ preg_replace('/[^0-9+]/', '', site_setting('phone', '+91 98765 43210')) }}" class="text-blue-600 font-bold hover:underline">{{ site_setting('phone', '+91 98765 43210') }}</a>
                 </div>
-                <div class="text-[9px] text-slate-400">
-                    Mon-Sat (9:30 AM – 7:00 PM IST) • Zero Upfront Fees
+                <div class="flex items-center justify-between text-[9px] text-slate-500">
+                    <span>Email:</span>
+                    <a href="mailto:{{ site_setting('email', 'partner@sumatrasales.com') }}" class="font-bold text-slate-700 hover:underline">{{ site_setting('email', 'partner@sumatrasales.com') }}</a>
                 </div>
             </div>
 

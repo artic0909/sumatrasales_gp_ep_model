@@ -11,6 +11,9 @@ Route::post('/partner-check-unique', [PartnerController::class, 'checkUnique'])-
 Route::get('/partner-application/pdf/{code}', [PartnerController::class, 'downloadApplicationPdf'])->name('partner.application.pdf');
 Route::get('/partner-application/view-pdf/{code}', [PartnerController::class, 'viewApplicationPdf'])->name('partner.application.view_pdf');
 
+Route::view('/contact', 'frontend.pages.contact')->name('contact');
+Route::view('/investor-trust', 'frontend.pages.investor_trust')->name('investor.trust');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
 });
