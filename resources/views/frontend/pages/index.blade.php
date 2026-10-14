@@ -60,22 +60,13 @@
                                 </svg>
                             </a>
 
-                            <!-- Watch Video / Secondary Button -->
-                            @if($secondaryBtnLink && $secondaryBtnLink !== '#')
-                                <a href="{{ $secondaryBtnLink }}" @if(str_starts_with($secondaryBtnLink, 'http')) target="_blank" @endif class="inline-flex items-center justify-center gap-2.5 px-5 py-3 bg-slate-900/60 hover:bg-slate-900/80 border border-white/60 text-white font-semibold text-sm sm:text-base rounded-md shadow-sm transition duration-150 backdrop-blur-xs text-center">
-                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z" />
-                                    </svg>
-                                    <span>{{ site_setting('hero_btn_secondary_text', 'Watch Video') }}</span>
-                                </a>
-                            @else
-                                <button type="button" onclick="alert('Introductory platform walkthrough video is being updated. Contact our support desk for an instant live demo.')" class="inline-flex items-center justify-center gap-2.5 px-5 py-3 bg-slate-900/60 hover:bg-slate-900/80 border border-white/60 text-white font-semibold text-sm sm:text-base rounded-md shadow-sm transition duration-150 backdrop-blur-xs text-center cursor-pointer">
-                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z" />
-                                    </svg>
-                                    <span>{{ site_setting('hero_btn_secondary_text', 'Watch Video') }}</span>
-                                </button>
-                            @endif
+                            <!-- Watch Video / Secondary Button (Opens YouTube Modal, non-autoplay) -->
+                            <button type="button" onclick="openVideoModal()" class="inline-flex items-center justify-center gap-2.5 px-5 py-3 bg-slate-900/60 hover:bg-slate-900/80 border border-white/60 text-white font-semibold text-sm sm:text-base rounded-md shadow-sm transition duration-150 backdrop-blur-xs text-center cursor-pointer group">
+                                <svg class="w-5 h-5 text-white group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                                <span>{{ site_setting('hero_btn_secondary_text', 'Watch Video') }}</span>
+                            </button>
                         </div>
                     </div>
 
@@ -1260,4 +1251,83 @@
         </section>
 
     </main>
+
+    <!-- YOUTUBE VIDEO EMBED MODAL (NON-AUTOPLAY) -->
+    <div id="yt-video-modal" class="fixed inset-0 z-50 hidden bg-slate-950/85 backdrop-blur-md overflow-y-auto p-4 sm:p-6 flex items-center justify-center transition-all duration-300" data-video-url="{{ site_setting('hero_btn_secondary_link', 'https://www.youtube.com/watch?v=kJQP7kiw5Fk') }}" onclick="if(event.target === this) closeVideoModal()">
+        <div class="relative w-full max-w-4xl bg-slate-900 rounded-3xl shadow-2xl border border-slate-700/80 overflow-hidden text-left flex flex-col transform transition-all duration-300">
+            <!-- Modal Top Bar -->
+            <div class="flex items-center justify-between px-5 py-3.5 border-b border-slate-800 bg-slate-950/80">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 animate-pulse"></span>
+                    <span class="text-xs font-black uppercase tracking-wider text-slate-200">Sumatra Sales Platform Overview</span>
+                </div>
+                <button type="button" onclick="closeVideoModal()" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition cursor-pointer" title="Close Video">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+
+            <!-- 16:9 Responsive Video Container -->
+            <div class="relative w-full aspect-video bg-black flex items-center justify-center">
+                <iframe id="yt-video-iframe" class="w-full h-full" src="" title="Sumatra Sales Platform Overview" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+
+            <!-- Modal Bottom Bar -->
+            <div class="px-5 py-3.5 bg-slate-950/80 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+                <p class="text-slate-400 text-[11px] text-center sm:text-left">
+                    Explore how Sumatra Sales empowers EP & GP partners across 100+ cities in India.
+                </p>
+                <div class="flex items-center gap-2 shrink-0">
+                    <a href="{{ $primaryBtnLink }}" class="px-4 py-2 rounded-xl bg-[#FABE28] hover:bg-[#E5AC20] text-slate-950 font-black text-xs transition shadow-sm">
+                        Become a Partner ↗
+                    </a>
+                    <button type="button" onclick="closeVideoModal()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition cursor-pointer">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function parseYouTubeEmbedUrl(url) {
+            if (!url || url.trim() === '' || url === '#') {
+                url = 'https://www.youtube.com/watch?v=kJQP7kiw5Fk';
+            }
+            // Parse YouTube formats (standard watch?v=, youtu.be, embed, shorts)
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            const videoId = (match && match[2].length === 11) ? match[2] : 'kJQP7kiw5Fk';
+            // Non-autoplay: autoplay=0
+            return 'https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=0&rel=0&modestbranding=1';
+        }
+
+        function openVideoModal() {
+            const modal = document.getElementById('yt-video-modal');
+            const iframe = document.getElementById('yt-video-iframe');
+            if (!modal || !iframe) return;
+            const rawUrl = modal.getAttribute('data-video-url');
+            iframe.src = parseYouTubeEmbedUrl(rawUrl);
+            modal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('yt-video-modal');
+            const iframe = document.getElementById('yt-video-iframe');
+            if (!modal || !iframe) return;
+            iframe.src = ''; // immediately stops playback and audio
+            modal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('yt-video-modal');
+                if (modal && !modal.classList.contains('hidden')) {
+                    closeVideoModal();
+                }
+            }
+        });
+    </script>
 @endsection
