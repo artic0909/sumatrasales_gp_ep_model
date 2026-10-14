@@ -60,6 +60,7 @@ class Partner extends Model
         'ifsc_code',
         'self_image',
         'interests',
+        'application_code',
     ];
 
     /**

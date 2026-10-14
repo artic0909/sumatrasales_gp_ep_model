@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Partner;
 use App\Models\TermsCheck;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -129,6 +130,9 @@ class PartnerController extends Controller
             }
         }
 
+        $applicationCode = $this->generateApplicationCode($validated['registration_type']);
+        $validated['application_code'] = $applicationCode;
+
         $partner = Partner::create($validated);
 
         // Store structured statutory terms acceptance into terms_checks table
@@ -199,10 +203,21 @@ class PartnerController extends Controller
             'accepted_at'         => now('Asia/Kolkata'),
         ]);
 
+        $fullAddress = trim(implode(', ', array_filter([
+            $validated['address'] ?? null,
+            $validated['city'] ?? null,
+            $validated['district'] ?? null,
+            $validated['state'] ?? null,
+        ])));
+
         return redirect()->route('home')->with('submission_success', [
-            'role'  => $validated['registration_type'],
-            'email' => $validated['email'],
-            'name'  => $validated['name'],
+            'role'             => $validated['registration_type'],
+            'email'            => $validated['email'],
+            'name'             => $validated['name'],
+            'phone'            => $validated['phone'] ?? '',
+            'address'          => $fullAddress,
+            'application_code' => $applicationCode,
+            'partner_id'       => $partner->id,
         ])->with(
             'success',
             'Your form is successfully submitted, wait for approval, after approve it your ' . ($validated['registration_type'] === 'GP' ? 'GP' : 'EP') . ' code will be send in you this email'
@@ -357,4 +372,60 @@ class PartnerController extends Controller
             'message' => $exists ? "Already taken! This {$fieldLabels[$field]} is already registered in our system. Please use a different one." : '',
         ]);
     }
+
+    /**
+     * Generate a unique, professional Application Reference Code.
+     * Format: SSPL-{YEAR}-{ROLE}-{RANDOM_6} (e.g. SSPL-2026-EP-8K9N2P)
+     */
+    protected function generateApplicationCode(string $role): string
+    {
+        $prefix = $role === 'GP' ? 'GP' : 'EP';
+        $year = date('Y');
+
+        do {
+            $random = strtoupper(substr(str_shuffle('23456789ABCDEFGHJKLMNPQRSTUVWXYZ'), 0, 6));
+            $code = "SSPL-{$year}-{$prefix}-{$random}";
+        } while (Partner::where('application_code', $code)->exists());
+
+        return $code;
+    }
+
+    /**
+     * Download official Partner Application & Statutory Terms PDF.
+     */
+    public function downloadApplicationPdf(string $code)
+    {
+        $partner = Partner::with('termsCheck')->where('application_code', $code)->firstOrFail();
+
+        $pdf = Pdf::loadView('frontend.pages.partner_application_pdf', compact('partner'))
+            ->setPaper('a4', 'portrait')
+            ->setOption([
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled'      => true,
+                'defaultFont'          => 'sans-serif',
+            ]);
+
+        $safeCode = preg_replace('/[^A-Za-z0-9_-]/', '_', $partner->application_code);
+        return $pdf->download("SumatraSales_Application_{$safeCode}.pdf");
+    }
+
+    /**
+     * View/Stream official Partner Application & Statutory Terms PDF in browser tab.
+     */
+    public function viewApplicationPdf(string $code)
+    {
+        $partner = Partner::with('termsCheck')->where('application_code', $code)->firstOrFail();
+
+        $pdf = Pdf::loadView('frontend.pages.partner_application_pdf', compact('partner'))
+            ->setPaper('a4', 'portrait')
+            ->setOption([
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled'      => true,
+                'defaultFont'          => 'sans-serif',
+            ]);
+
+        $safeCode = preg_replace('/[^A-Za-z0-9_-]/', '_', $partner->application_code);
+        return $pdf->stream("SumatraSales_Application_{$safeCode}.pdf");
+    }
 }
+
