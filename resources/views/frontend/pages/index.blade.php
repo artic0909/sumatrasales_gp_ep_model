@@ -4,7 +4,24 @@
 <main class="w-full">
 
         <!-- HERO SECTION -->
-        <section id="about" class="relative w-full hero-bg-gradient overflow-hidden pt-10 sm:pt-16 lg:pt-20 pb-20 sm:pb-32 lg:pb-36 text-white">
+        @php
+            $heroBg = site_setting('hero_bg_image');
+            if ($heroBg && !str_starts_with($heroBg, 'http')) {
+                $heroBg = asset($heroBg);
+            }
+            $primaryBtnLink = site_setting('hero_btn_primary_link', route('partner.register'));
+            if (!str_starts_with($primaryBtnLink, 'http') && !str_starts_with($primaryBtnLink, '/')) {
+                $primaryBtnLink = '/' . $primaryBtnLink;
+            }
+            $secondaryBtnLink = site_setting('hero_btn_secondary_link', '#');
+            $scriptTagline = site_setting('hero_script_tagline', "Let's Build\na Smarter\nIndia Together");
+        @endphp
+
+        <section id="about" class="relative w-full hero-bg-gradient overflow-hidden pt-10 sm:pt-16 lg:pt-20 pb-20 sm:pb-32 lg:pb-36 text-white"
+            @if($heroBg)
+                style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.88) 0%, rgba(30, 58, 138, 0.82) 50%, rgba(15, 23, 42, 0.90) 100%), url('{{ $heroBg }}') center/cover no-repeat;"
+            @endif
+        >
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
                     
@@ -12,59 +29,63 @@
                     <div class="lg:col-span-7 xl:col-span-6 space-y-5 sm:space-y-6">
                         <!-- Pill Badge -->
                         <div class="inline-flex items-center gap-2 text-cyan-300 font-semibold text-xs sm:text-sm tracking-wide">
-                            <span>Digital India</span>
-                            <span class="text-cyan-400">•</span>
-                            <span>New Opportunity</span>
-                            <span class="text-cyan-400">•</span>
-                            <span>For Everyone</span>
+                            <span>{{ site_setting('hero_badge_text', 'Digital India • New Opportunity • For Everyone') }}</span>
                         </div>
 
                         <!-- Big Bold Headline -->
                         <div class="space-y-1">
                             <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-tight text-white leading-[1.12]">
-                                Your Network
+                                {{ site_setting('hero_title_1', 'Your Network') }}
                             </h1>
                             <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-tight text-white leading-[1.12]">
-                                Our Technology
+                                {{ site_setting('hero_title_2', 'Our Technology') }}
                             </h2>
                             <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold tracking-tight text-white leading-[1.12]">
-                                Your Opportunity
+                                {{ site_setting('hero_title_3', 'Your Opportunity') }}
                             </h2>
                         </div>
 
                         <!-- Subtext Description -->
                         <p class="text-slate-200 text-sm sm:text-base leading-relaxed max-w-xl font-normal">
-                            Join Sumatra Sales and be a part of India's growing digital ecosystem. No upfront investment fee.
+                            {{ site_setting('hero_subtitle', "Join Sumatra Sales and be a part of India's growing digital ecosystem. No upfront investment fee.") }}
                         </p>
 
                         <!-- CTA Action Buttons (Stretch on mobile, row on tablet/desktop) -->
                         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
                             <!-- Yellow CTA Button -->
-                            <a href="{{ route('partner.register') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FABE28] hover:bg-[#E5AC20] text-slate-950 font-extrabold text-sm sm:text-base rounded-md shadow-md transition duration-150 transform hover:-translate-y-0.5 text-center">
-                                <span>Become a Partner</span>
+                            <a href="{{ $primaryBtnLink }}" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FABE28] hover:bg-[#E5AC20] text-slate-950 font-extrabold text-sm sm:text-base rounded-md shadow-md transition duration-150 transform hover:-translate-y-0.5 text-center">
+                                <span>{{ site_setting('hero_btn_primary_text', 'Become a Partner') }}</span>
                                 <svg class="w-4 h-4 text-slate-950 font-bold" fill="none" stroke="currentColor" stroke-width="2.8" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                                 </svg>
                             </a>
 
-                            <!-- Watch Video Button -->
-                            <button type="button" class="inline-flex items-center justify-center gap-2.5 px-5 py-3 bg-slate-900/60 hover:bg-slate-900/80 border border-white/60 text-white font-semibold text-sm sm:text-base rounded-md shadow-sm transition duration-150 backdrop-blur-xs text-center">
-                                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M8 5v14l11-7z" />
-                                </svg>
-                                <span>Watch Video</span>
-                            </button>
+                            <!-- Watch Video / Secondary Button -->
+                            @if($secondaryBtnLink && $secondaryBtnLink !== '#')
+                                <a href="{{ $secondaryBtnLink }}" @if(str_starts_with($secondaryBtnLink, 'http')) target="_blank" @endif class="inline-flex items-center justify-center gap-2.5 px-5 py-3 bg-slate-900/60 hover:bg-slate-900/80 border border-white/60 text-white font-semibold text-sm sm:text-base rounded-md shadow-sm transition duration-150 backdrop-blur-xs text-center">
+                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z" />
+                                    </svg>
+                                    <span>{{ site_setting('hero_btn_secondary_text', 'Watch Video') }}</span>
+                                </a>
+                            @else
+                                <button type="button" onclick="alert('Introductory platform walkthrough video is being updated. Contact our support desk for an instant live demo.')" class="inline-flex items-center justify-center gap-2.5 px-5 py-3 bg-slate-900/60 hover:bg-slate-900/80 border border-white/60 text-white font-semibold text-sm sm:text-base rounded-md shadow-sm transition duration-150 backdrop-blur-xs text-center cursor-pointer">
+                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z" />
+                                    </svg>
+                                    <span>{{ site_setting('hero_btn_secondary_text', 'Watch Video') }}</span>
+                                </button>
+                            @endif
                         </div>
                     </div>
 
                     <!-- Right Hero Area: Floating Handwriting Script Tagline -->
                     <div class="lg:col-span-5 xl:col-span-6 relative flex flex-col items-center sm:items-end justify-center min-h-[90px] sm:min-h-[220px]">
-                        <!-- Handwriting Script overlay matching screenshot -->
                         <div class="relative sm:absolute mt-3 sm:mt-0 sm:top-0 sm:right-10 text-center sm:text-right transform -rotate-2 sm:-rotate-3 select-none pointer-events-none">
                             <div class="inline-flex items-center justify-center sm:justify-end gap-1.5 text-white/90">
                                 <span class="text-amber-300 text-sm">✦</span>
                                 <span class="font-script text-2xl sm:text-3xl lg:text-4xl font-bold tracking-wide text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-                                    Let's Build<br class="hidden sm:inline"> a Smarter<br class="hidden sm:inline"> India Together
+                                    {!! nl2br(e($scriptTagline)) !!}
                                 </span>
                                 <span class="text-amber-300 text-xs self-start">✦</span>
                             </div>

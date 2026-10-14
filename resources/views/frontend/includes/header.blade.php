@@ -57,7 +57,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <nav class="flex items-center space-x-1 sm:space-x-2 py-1.5 overflow-x-auto sm:overflow-visible text-xs sm:text-sm font-semibold text-slate-700 no-scrollbar">
                     <a href="{{ route('home') }}" class="px-3 py-1.5 rounded-lg text-[#1D64F2] hover:bg-blue-50 font-bold whitespace-nowrap transition">Home</a>
-                    <a href="#about" class="px-3 py-1.5 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition whitespace-nowrap">About Us</a>
+                    <a href="{{ route('about') }}" class="px-3 py-1.5 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition whitespace-nowrap">About Us</a>
                     
                     <!-- Dropdown Trigger 1: Our Platforms -->
                     <button type="button" data-dropdown-trigger="dropdown-platforms" class="nav-dropdown-trigger group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition cursor-pointer whitespace-nowrap focus:outline-hidden data-[active=true]:text-[#1D64F2] data-[active=true]:bg-blue-50 font-semibold text-slate-700">
@@ -99,7 +99,7 @@
                         </svg>
                     </button>
 
-                    <a href="#contact" class="px-3 py-1.5 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition whitespace-nowrap">Contact</a>
+                    <a href="{{ route('contact') }}" class="px-3 py-1.5 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition whitespace-nowrap">Contact</a>
                 </nav>
             </div>
 
@@ -1045,7 +1045,7 @@
                     </a>
 
                     <!-- Direct Link: About Us -->
-                    <a href="#about" class="mobile-nav-link flex items-center justify-between px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-100 transition">
+                    <a href="{{ route('about') }}" class="mobile-nav-link flex items-center justify-between px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-100 transition">
                         <span>About Sumatra Sales</span>
                         <span class="text-[10px] text-slate-400 font-normal">Mission</span>
                     </a>
@@ -1228,7 +1228,7 @@
                     </div>
 
                     <!-- Direct Link: Contact -->
-                    <a href="#contact" class="mobile-nav-link flex items-center justify-between px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-100 transition">
+                    <a href="{{ route('contact') }}" class="mobile-nav-link flex items-center justify-between px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-100 transition">
                         <span>Contact & Head Office</span>
                         <span class="text-[10px] text-slate-400 font-normal">Help Desk</span>
                     </a>

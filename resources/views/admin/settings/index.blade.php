@@ -29,8 +29,148 @@
     </div>
 
     <!-- SETTINGS FORM -->
-    <form action="{{ route('admin.settings.update') }}" method="POST" class="space-y-6">
+    <form action="{{ route('admin.settings.update') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
         @csrf
+
+        <!-- 0. HOMEPAGE HERO SECTION & CTA SETTINGS -->
+        <div class="bg-white rounded-2xl border border-slate-200/90 shadow-xs overflow-hidden">
+            <div class="p-4 sm:p-5 border-b border-slate-100 bg-gradient-to-r from-blue-900 via-slate-900 to-blue-950 text-white flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-blue-500/20 text-cyan-300 flex items-center justify-center shrink-0 border border-blue-400/30">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-sm font-black text-white">Homepage Hero Section & Background</h2>
+                        <p class="text-[11px] text-slate-300">Manage headline text, background image, CTA buttons, links, and floating tagline</p>
+                    </div>
+                </div>
+                <span class="px-2.5 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-[10px] font-black uppercase tracking-wider border border-cyan-400/30 shrink-0">
+                    Frontpage Hero
+                </span>
+            </div>
+
+            <div class="p-4 sm:p-6 space-y-5">
+                
+                <!-- Hero Background Image Management -->
+                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <label class="block text-xs font-black text-slate-800 uppercase tracking-wider">Hero Background Image</label>
+                        <span class="text-[10px] text-slate-400">Supported: JPG, PNG, WEBP, AVIF (Max: 5MB)</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+                        <!-- Preview Column -->
+                        <div class="md:col-span-4">
+                            @php
+                                $currentHeroImg = $settings['hero_bg_image'] ?? null;
+                            @endphp
+                            @if($currentHeroImg)
+                                <div class="relative rounded-xl overflow-hidden border border-slate-200 aspect-video bg-slate-900 group">
+                                    <img src="{{ str_starts_with($currentHeroImg, 'http') ? $currentHeroImg : asset($currentHeroImg) }}" alt="Current Hero Background" class="w-full h-full object-cover">
+                                    <div class="absolute inset-0 bg-slate-950/60 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-xs font-bold transition">
+                                        Current Background
+                                    </div>
+                                </div>
+                                <div class="mt-2 flex items-center gap-2">
+                                    <input type="checkbox" name="remove_hero_bg_image" id="remove_hero_bg_image" value="1" class="rounded border-slate-300 text-rose-600 focus:ring-rose-500">
+                                    <label for="remove_hero_bg_image" class="text-xs font-bold text-rose-600 cursor-pointer">Remove image & use default gradient</label>
+                                </div>
+                            @else
+                                <div class="rounded-xl border border-dashed border-slate-300 aspect-video bg-slate-100 flex flex-col items-center justify-center text-slate-400 text-xs p-3 text-center">
+                                    <svg class="w-6 h-6 text-slate-400 mb-1" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" /></svg>
+                                    <span>Default Gradient Active (No Image Set)</span>
+                                </div>
+                            @endif
+                        </div>
+
+                        <!-- Upload & URL Inputs Column -->
+                        <div class="md:col-span-8 space-y-3">
+                            <div>
+                                <label for="hero_bg_image_file" class="block text-xs font-bold text-slate-700 mb-1">Upload New Background Image File</label>
+                                <input type="file" name="hero_bg_image_file" id="hero_bg_image_file" accept="image/*" class="w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#2964F2] file:text-white hover:file:bg-blue-600 file:cursor-pointer cursor-pointer bg-white border border-slate-200 rounded-xl p-1.5">
+                            </div>
+
+                            <div class="flex items-center gap-3">
+                                <span class="h-px bg-slate-200 flex-1"></span>
+                                <span class="text-[10px] font-bold uppercase text-slate-400">OR Enter External Image URL</span>
+                                <span class="h-px bg-slate-200 flex-1"></span>
+                            </div>
+
+                            <div>
+                                <input type="text" name="hero_bg_image_url" id="hero_bg_image_url" value="{{ old('hero_bg_image_url', (isset($settings['hero_bg_image']) && str_starts_with($settings['hero_bg_image'], 'http')) ? $settings['hero_bg_image'] : '') }}" placeholder="https://example.com/hero-bg.jpg" class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Badge Pill -->
+                <div>
+                    <label for="hero_badge_text" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Top Badge Pill Text</label>
+                    <input type="text" name="hero_badge_text" id="hero_badge_text" value="{{ old('hero_badge_text', $settings['hero_badge_text'] ?? 'Digital India • New Opportunity • For Everyone') }}" placeholder="Digital India • New Opportunity • For Everyone" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
+                </div>
+
+                <!-- 3-Line Headline -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label for="hero_title_1" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Headline (Line 1)</label>
+                        <input type="text" name="hero_title_1" id="hero_title_1" value="{{ old('hero_title_1', $settings['hero_title_1'] ?? 'Your Network') }}" placeholder="Your Network" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
+                    </div>
+                    <div>
+                        <label for="hero_title_2" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Headline (Line 2)</label>
+                        <input type="text" name="hero_title_2" id="hero_title_2" value="{{ old('hero_title_2', $settings['hero_title_2'] ?? 'Our Technology') }}" placeholder="Our Technology" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
+                    </div>
+                    <div>
+                        <label for="hero_title_3" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Headline (Line 3)</label>
+                        <input type="text" name="hero_title_3" id="hero_title_3" value="{{ old('hero_title_3', $settings['hero_title_3'] ?? 'Your Opportunity') }}" placeholder="Your Opportunity" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
+                    </div>
+                </div>
+
+                <!-- Hero Subtitle -->
+                <div>
+                    <label for="hero_subtitle" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Hero Subtitle / Description</label>
+                    <textarea name="hero_subtitle" id="hero_subtitle" rows="2" placeholder="Join Sumatra Sales and be a part of India's growing digital ecosystem. No upfront investment fee." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">{{ old('hero_subtitle', $settings['hero_subtitle'] ?? "Join Sumatra Sales and be a part of India's growing digital ecosystem. No upfront investment fee.") }}</textarea>
+                </div>
+
+                <!-- Primary & Secondary Buttons & Links -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                    <!-- Primary Button -->
+                    <div class="p-4 rounded-2xl bg-amber-50/50 border border-amber-200/70 space-y-3">
+                        <span class="text-xs font-black uppercase text-amber-800 tracking-wider block">Primary CTA Button (Yellow)</span>
+                        <div>
+                            <label for="hero_btn_primary_text" class="block text-[11px] font-bold text-slate-700 mb-1">Button Text</label>
+                            <input type="text" name="hero_btn_primary_text" id="hero_btn_primary_text" value="{{ old('hero_btn_primary_text', $settings['hero_btn_primary_text'] ?? 'Become a Partner') }}" placeholder="Become a Partner" class="w-full px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition">
+                        </div>
+                        <div>
+                            <label for="hero_btn_primary_link" class="block text-[11px] font-bold text-slate-700 mb-1">Button Link URL / Route</label>
+                            <input type="text" name="hero_btn_primary_link" id="hero_btn_primary_link" value="{{ old('hero_btn_primary_link', $settings['hero_btn_primary_link'] ?? '/partner-register') }}" placeholder="/partner-register" class="w-full px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition">
+                            <span class="text-[10px] text-slate-400 mt-1 block">Default: /partner-register</span>
+                        </div>
+                    </div>
+
+                    <!-- Secondary Button -->
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3">
+                        <span class="text-xs font-black uppercase text-slate-800 tracking-wider block">Secondary Button (Video / Action)</span>
+                        <div>
+                            <label for="hero_btn_secondary_text" class="block text-[11px] font-bold text-slate-700 mb-1">Button Text</label>
+                            <input type="text" name="hero_btn_secondary_text" id="hero_btn_secondary_text" value="{{ old('hero_btn_secondary_text', $settings['hero_btn_secondary_text'] ?? 'Watch Video') }}" placeholder="Watch Video" class="w-full px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition">
+                        </div>
+                        <div>
+                            <label for="hero_btn_secondary_link" class="block text-[11px] font-bold text-slate-700 mb-1">Video Link / URL</label>
+                            <input type="text" name="hero_btn_secondary_link" id="hero_btn_secondary_link" value="{{ old('hero_btn_secondary_link', $settings['hero_btn_secondary_link'] ?? '#') }}" placeholder="https://youtube.com/... or #" class="w-full px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition">
+                            <span class="text-[10px] text-slate-400 mt-1 block">YouTube, Vimeo, or internal link</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right-side Handwritten Script Tagline -->
+                <div>
+                    <label for="hero_script_tagline" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Right-Side Handwritten Tagline</label>
+                    <textarea name="hero_script_tagline" id="hero_script_tagline" rows="2" placeholder="Let's Build a Smarter India Together" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">{{ old('hero_script_tagline', $settings['hero_script_tagline'] ?? "Let's Build a Smarter India Together") }}</textarea>
+                    <span class="text-[10px] text-slate-400 mt-1 block">Renders in elegant script font on the hero section</span>
+                </div>
+
+            </div>
+        </div>
 
         <!-- 1. GENERAL CONTACT DETAILS -->
         <div class="bg-white rounded-2xl border border-slate-200/90 shadow-xs overflow-hidden">
