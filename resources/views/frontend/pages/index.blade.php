@@ -436,172 +436,166 @@
         <!-- SOFTWARE DEVELOPMENT & DIGITAL SOLUTIONS SECTION (AUTO SCROLL MARQUEE) -->
         <section id="solutions" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 overflow-hidden">
             <!-- Section Header -->
-            <div class="flex items-center justify-between mb-5">
-                <h2 class="text-xl sm:text-2xl font-extrabold text-[#0B1727] tracking-tight">
-                    Software Development & Digital Solutions
-                </h2>
-                <span class="text-xs font-semibold text-slate-400 hidden sm:inline-flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-black text-[#0B1727] tracking-tight">
+                        Software Development & Digital Solutions
+                    </h2>
+                </div>
+                <span class="text-xs font-semibold text-slate-500 hidden sm:inline-flex items-center gap-2 bg-white px-3 py-1.5 rounded-full border border-slate-200/90 shadow-2xs">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
                     Turnkey Tech Solutions
                 </span>
             </div>
 
-            <!-- Marquee Container (Clean overflow, no blurry overlays) -->
-            <div id="solutions-marquee-container" class="relative w-full overflow-hidden py-8 -my-6 select-none">
+            <!-- Marquee Container with subtle edge mask -->
+            <div id="solutions-marquee-container" class="relative w-full overflow-hidden py-4 -my-2 select-none [mask-image:linear-gradient(to_right,transparent,black_40px,black_calc(100%-40px),transparent)]">
                 <!-- Scrolling Track with duplicated cards for seamless infinite loop -->
                 <div id="solutions-marquee-track" class="marquee-track flex gap-5 sm:gap-6 items-center">
                     
                     <!-- ===== SET 1 ===== -->
                     <!-- Solution 1: Readymade Software -->
-                    <div class="solution-card w-[205px] sm:w-[225px] h-[200px] sm:h-[215px] shrink-0 bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-xs hover:shadow-xl cursor-pointer group relative overflow-hidden"
-                         data-border="#9333ea">
-                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-purple-50 group-hover:bg-purple-100 border border-purple-200/80 flex items-center justify-center transition-all duration-300 shadow-2xs">
+                    <div class="solution-card w-[215px] sm:w-[230px] h-[210px] sm:h-[220px] shrink-0 bg-white border border-slate-200/90 hover:border-purple-300 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.04)] cursor-pointer group relative overflow-hidden transition-all duration-300">
+                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-purple-50 group-hover:bg-purple-100/90 border border-purple-200/70 flex items-center justify-center transition-colors duration-200">
                             <svg class="w-7 h-7 sm:w-8 sm:h-8 text-purple-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <rect x="3" y="4" width="18" height="16" rx="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M3 10h18M7 7h.01M10 7h.01M13 7h.01" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </div>
-                        <div class="my-auto">
-                            <span class="text-sm sm:text-[15px] font-black text-slate-900 group-hover:text-purple-700 transition-colors tracking-tight leading-tight block">
+                        <div class="my-auto py-1">
+                            <span class="text-[15px] sm:text-base font-bold text-slate-900 group-hover:text-purple-700 transition-colors tracking-tight leading-snug block">
                                 Readymade Software
                             </span>
                         </div>
-                        <span class="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-purple-700 bg-purple-50/90 px-2.5 py-0.5 rounded-full border border-purple-200/70">
+                        <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-purple-700 bg-purple-50 px-3 py-1 rounded-full border border-purple-200/80">
                             <span class="w-1.5 h-1.5 rounded-full bg-purple-600"></span>
                             <span>ERP & CRM</span>
                         </span>
                     </div>
 
                     <!-- Solution 2: Custom Software Development -->
-                    <div class="solution-card w-[205px] sm:w-[225px] h-[200px] sm:h-[215px] shrink-0 bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-xs hover:shadow-xl cursor-pointer group relative overflow-hidden"
-                         data-border="#2563eb">
-                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-blue-50 group-hover:bg-blue-100 border border-blue-200/80 flex items-center justify-center transition-all duration-300 shadow-2xs">
+                    <div class="solution-card w-[215px] sm:w-[230px] h-[210px] sm:h-[220px] shrink-0 bg-white border border-slate-200/90 hover:border-blue-300 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.04)] cursor-pointer group relative overflow-hidden transition-all duration-300">
+                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-blue-50 group-hover:bg-blue-100/90 border border-blue-200/70 flex items-center justify-center transition-colors duration-200">
                             <svg class="w-7 h-7 sm:w-8 sm:h-8 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75 16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" />
                             </svg>
                         </div>
-                        <div class="my-auto">
-                            <span class="text-sm sm:text-[15px] font-black text-slate-900 group-hover:text-blue-700 transition-colors tracking-tight leading-tight block">
+                        <div class="my-auto py-1">
+                            <span class="text-[15px] sm:text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors tracking-tight leading-snug block">
                                 Custom Software
                             </span>
                         </div>
-                        <span class="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-blue-700 bg-blue-50/90 px-2.5 py-0.5 rounded-full border border-blue-200/70">
+                        <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200/80">
                             <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
                             <span>Tailor-Made Code</span>
                         </span>
                     </div>
 
                     <!-- Solution 3: Website Development -->
-                    <div class="solution-card w-[205px] sm:w-[225px] h-[200px] sm:h-[215px] shrink-0 bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-xs hover:shadow-xl cursor-pointer group relative overflow-hidden"
-                         data-border="#0891b2">
-                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-cyan-50 group-hover:bg-cyan-100 border border-cyan-200/80 flex items-center justify-center transition-all duration-300 shadow-2xs">
+                    <div class="solution-card w-[215px] sm:w-[230px] h-[210px] sm:h-[220px] shrink-0 bg-white border border-slate-200/90 hover:border-cyan-300 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.04)] cursor-pointer group relative overflow-hidden transition-all duration-300">
+                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-cyan-50 group-hover:bg-cyan-100/90 border border-cyan-200/70 flex items-center justify-center transition-colors duration-200">
                             <svg class="w-7 h-7 sm:w-8 sm:h-8 text-cyan-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
                             </svg>
                         </div>
-                        <div class="my-auto">
-                            <span class="text-sm sm:text-[15px] font-black text-slate-900 group-hover:text-cyan-700 transition-colors tracking-tight leading-tight block">
+                        <div class="my-auto py-1">
+                            <span class="text-[15px] sm:text-base font-bold text-slate-900 group-hover:text-cyan-700 transition-colors tracking-tight leading-snug block">
                                 Website Development
                             </span>
                         </div>
-                        <span class="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-cyan-700 bg-cyan-50/90 px-2.5 py-0.5 rounded-full border border-cyan-200/70">
+                        <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-cyan-700 bg-cyan-50 px-3 py-1 rounded-full border border-cyan-200/80">
                             <span class="w-1.5 h-1.5 rounded-full bg-cyan-600"></span>
                             <span>Web & Portals</span>
                         </span>
                     </div>
 
                     <!-- Solution 4: Android & iOS App Development -->
-                    <div class="solution-card w-[205px] sm:w-[225px] h-[200px] sm:h-[215px] shrink-0 bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-xs hover:shadow-xl cursor-pointer group relative overflow-hidden"
-                         data-border="#4f46e5">
-                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-indigo-50 group-hover:bg-indigo-100 border border-indigo-200/80 flex items-center justify-center transition-all duration-300 shadow-2xs">
+                    <div class="solution-card w-[215px] sm:w-[230px] h-[210px] sm:h-[220px] shrink-0 bg-white border border-slate-200/90 hover:border-indigo-300 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.04)] cursor-pointer group relative overflow-hidden transition-all duration-300">
+                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-indigo-50 group-hover:bg-indigo-100/90 border border-indigo-200/70 flex items-center justify-center transition-colors duration-200">
                             <svg class="w-7 h-7 sm:w-8 sm:h-8 text-indigo-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <rect x="6" y="2" width="12" height="20" rx="3" stroke-linecap="round" stroke-linejoin="round"/>
                                 <circle cx="12" cy="18" r="1" fill="currentColor"/>
                             </svg>
                         </div>
-                        <div class="my-auto">
-                            <span class="text-sm sm:text-[15px] font-black text-slate-900 group-hover:text-indigo-700 transition-colors tracking-tight leading-tight block">
+                        <div class="my-auto py-1">
+                            <span class="text-[15px] sm:text-base font-bold text-slate-900 group-hover:text-indigo-700 transition-colors tracking-tight leading-snug block">
                                 Mobile App Dev
                             </span>
                         </div>
-                        <span class="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-indigo-700 bg-indigo-50/90 px-2.5 py-0.5 rounded-full border border-indigo-200/70">
+                        <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-indigo-700 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200/80">
                             <span class="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
                             <span>Android & iOS</span>
                         </span>
                     </div>
 
                     <!-- Solution 5: AI Solutions & Automation -->
-                    <div class="solution-card w-[205px] sm:w-[225px] h-[200px] sm:h-[215px] shrink-0 bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-xs hover:shadow-xl cursor-pointer group relative overflow-hidden"
-                         data-border="#0d9488">
-                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-teal-50 group-hover:bg-teal-100 border border-teal-200/80 flex items-center justify-center transition-all duration-300 shadow-2xs">
+                    <div class="solution-card w-[215px] sm:w-[230px] h-[210px] sm:h-[220px] shrink-0 bg-white border border-slate-200/90 hover:border-teal-300 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.04)] cursor-pointer group relative overflow-hidden transition-all duration-300">
+                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-teal-50 group-hover:bg-teal-100/90 border border-teal-200/70 flex items-center justify-center transition-colors duration-200">
                             <svg class="w-7 h-7 sm:w-8 sm:h-8 text-teal-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
                             </svg>
                         </div>
-                        <div class="my-auto">
-                            <span class="text-sm sm:text-[15px] font-black text-slate-900 group-hover:text-teal-700 transition-colors tracking-tight leading-tight block">
+                        <div class="my-auto py-1">
+                            <span class="text-[15px] sm:text-base font-bold text-slate-900 group-hover:text-teal-700 transition-colors tracking-tight leading-snug block">
                                 AI & Automation
                             </span>
                         </div>
-                        <span class="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-teal-700 bg-teal-50/90 px-2.5 py-0.5 rounded-full border border-teal-200/70">
+                        <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-teal-700 bg-teal-50 px-3 py-1 rounded-full border border-teal-200/80">
                             <span class="w-1.5 h-1.5 rounded-full bg-teal-600"></span>
                             <span>Smart Workflows</span>
                         </span>
                     </div>
 
                     <!-- Solution 6: Business Software -->
-                    <div class="solution-card w-[205px] sm:w-[225px] h-[200px] sm:h-[215px] shrink-0 bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-xs hover:shadow-xl cursor-pointer group relative overflow-hidden"
-                         data-border="#7c3aed">
-                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-violet-50 group-hover:bg-violet-100 border border-violet-200/80 flex items-center justify-center transition-all duration-300 shadow-2xs">
+                    <div class="solution-card w-[215px] sm:w-[230px] h-[210px] sm:h-[220px] shrink-0 bg-white border border-slate-200/90 hover:border-violet-300 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.04)] cursor-pointer group relative overflow-hidden transition-all duration-300">
+                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-violet-50 group-hover:bg-violet-100/90 border border-violet-200/70 flex items-center justify-center transition-colors duration-200">
                             <svg class="w-7 h-7 sm:w-8 sm:h-8 text-violet-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 0 1 0 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 0 1 0-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281Z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                             </svg>
                         </div>
-                        <div class="my-auto">
-                            <span class="text-sm sm:text-[15px] font-black text-slate-900 group-hover:text-violet-700 transition-colors tracking-tight leading-tight block">
+                        <div class="my-auto py-1">
+                            <span class="text-[15px] sm:text-base font-bold text-slate-900 group-hover:text-violet-700 transition-colors tracking-tight leading-snug block">
                                 Business Software
                             </span>
                         </div>
-                        <span class="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-violet-700 bg-violet-50/90 px-2.5 py-0.5 rounded-full border border-violet-200/70">
+                        <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-violet-700 bg-violet-50 px-3 py-1 rounded-full border border-violet-200/80">
                             <span class="w-1.5 h-1.5 rounded-full bg-violet-600"></span>
                             <span>Billing & POS</span>
                         </span>
                     </div>
 
                     <!-- Solution 7: Business Solutions -->
-                    <div class="solution-card w-[205px] sm:w-[225px] h-[200px] sm:h-[215px] shrink-0 bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-xs hover:shadow-xl cursor-pointer group relative overflow-hidden"
-                         data-border="#059669">
-                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-emerald-50 group-hover:bg-emerald-100 border border-emerald-200/80 flex items-center justify-center transition-all duration-300 shadow-2xs">
+                    <div class="solution-card w-[215px] sm:w-[230px] h-[210px] sm:h-[220px] shrink-0 bg-white border border-slate-200/90 hover:border-emerald-300 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.04)] cursor-pointer group relative overflow-hidden transition-all duration-300">
+                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-emerald-50 group-hover:bg-emerald-100/90 border border-emerald-200/70 flex items-center justify-center transition-colors duration-200">
                             <svg class="w-7 h-7 sm:w-8 sm:h-8 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
                             </svg>
                         </div>
-                        <div class="my-auto">
-                            <span class="text-sm sm:text-[15px] font-black text-slate-900 group-hover:text-emerald-700 transition-colors tracking-tight leading-tight block">
+                        <div class="my-auto py-1">
+                            <span class="text-[15px] sm:text-base font-bold text-slate-900 group-hover:text-emerald-700 transition-colors tracking-tight leading-snug block">
                                 Business Solutions
                             </span>
                         </div>
-                        <span class="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-emerald-700 bg-emerald-50/90 px-2.5 py-0.5 rounded-full border border-emerald-200/70">
+                        <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200/80">
                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
                             <span>Strategy & Growth</span>
                         </span>
                     </div>
 
                     <!-- Solution 8: AMC & Support -->
-                    <div class="solution-card w-[205px] sm:w-[225px] h-[200px] sm:h-[215px] shrink-0 bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-xs hover:shadow-xl cursor-pointer group relative overflow-hidden"
-                         data-border="#0284c7">
-                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-sky-50 group-hover:bg-sky-100 border border-sky-200/80 flex items-center justify-center transition-all duration-300 shadow-2xs">
+                    <div class="solution-card w-[215px] sm:w-[230px] h-[210px] sm:h-[220px] shrink-0 bg-white border border-slate-200/90 hover:border-sky-300 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.04)] cursor-pointer group relative overflow-hidden transition-all duration-300">
+                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-sky-50 group-hover:bg-sky-100/90 border border-sky-200/70 flex items-center justify-center transition-colors duration-200">
                             <svg class="w-7 h-7 sm:w-8 sm:h-8 text-sky-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                             </svg>
                         </div>
-                        <div class="my-auto">
-                            <span class="text-sm sm:text-[15px] font-black text-slate-900 group-hover:text-sky-700 transition-colors tracking-tight leading-tight block">
+                        <div class="my-auto py-1">
+                            <span class="text-[15px] sm:text-base font-bold text-slate-900 group-hover:text-sky-700 transition-colors tracking-tight leading-snug block">
                                 AMC & Support
                             </span>
                         </div>
-                        <span class="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-sky-700 bg-sky-50/90 px-2.5 py-0.5 rounded-full border border-sky-200/70">
+                        <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-sky-700 bg-sky-50 px-3 py-1 rounded-full border border-sky-200/80">
                             <span class="w-1.5 h-1.5 rounded-full bg-sky-600"></span>
                             <span>24/7 Dedicated Care</span>
                         </span>
@@ -609,155 +603,147 @@
 
                     <!-- ===== SET 2 (DUPLICATE FOR SEAMLESS INFINITE LOOP) ===== -->
                     <!-- Solution 1: Readymade Software -->
-                    <div class="solution-card w-[205px] sm:w-[225px] h-[200px] sm:h-[215px] shrink-0 bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-xs hover:shadow-xl cursor-pointer group relative overflow-hidden"
-                         data-border="#9333ea">
-                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-purple-50 group-hover:bg-purple-100 border border-purple-200/80 flex items-center justify-center transition-all duration-300 shadow-2xs">
+                    <div class="solution-card w-[215px] sm:w-[230px] h-[210px] sm:h-[220px] shrink-0 bg-white border border-slate-200/90 hover:border-purple-300 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.04)] cursor-pointer group relative overflow-hidden transition-all duration-300">
+                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-purple-50 group-hover:bg-purple-100/90 border border-purple-200/70 flex items-center justify-center transition-colors duration-200">
                             <svg class="w-7 h-7 sm:w-8 sm:h-8 text-purple-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <rect x="3" y="4" width="18" height="16" rx="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M3 10h18M7 7h.01M10 7h.01M13 7h.01" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </div>
-                        <div class="my-auto">
-                            <span class="text-sm sm:text-[15px] font-black text-slate-900 group-hover:text-purple-700 transition-colors tracking-tight leading-tight block">
+                        <div class="my-auto py-1">
+                            <span class="text-[15px] sm:text-base font-bold text-slate-900 group-hover:text-purple-700 transition-colors tracking-tight leading-snug block">
                                 Readymade Software
                             </span>
                         </div>
-                        <span class="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-purple-700 bg-purple-50/90 px-2.5 py-0.5 rounded-full border border-purple-200/70">
+                        <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-purple-700 bg-purple-50 px-3 py-1 rounded-full border border-purple-200/80">
                             <span class="w-1.5 h-1.5 rounded-full bg-purple-600"></span>
                             <span>ERP & CRM</span>
                         </span>
                     </div>
 
                     <!-- Solution 2: Custom Software Development -->
-                    <div class="solution-card w-[205px] sm:w-[225px] h-[200px] sm:h-[215px] shrink-0 bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-xs hover:shadow-xl cursor-pointer group relative overflow-hidden"
-                         data-border="#2563eb">
-                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-blue-50 group-hover:bg-blue-100 border border-blue-200/80 flex items-center justify-center transition-all duration-300 shadow-2xs">
+                    <div class="solution-card w-[215px] sm:w-[230px] h-[210px] sm:h-[220px] shrink-0 bg-white border border-slate-200/90 hover:border-blue-300 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.04)] cursor-pointer group relative overflow-hidden transition-all duration-300">
+                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-blue-50 group-hover:bg-blue-100/90 border border-blue-200/70 flex items-center justify-center transition-colors duration-200">
                             <svg class="w-7 h-7 sm:w-8 sm:h-8 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75 16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" />
                             </svg>
                         </div>
-                        <div class="my-auto">
-                            <span class="text-sm sm:text-[15px] font-black text-slate-900 group-hover:text-blue-700 transition-colors tracking-tight leading-tight block">
+                        <div class="my-auto py-1">
+                            <span class="text-[15px] sm:text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors tracking-tight leading-snug block">
                                 Custom Software
                             </span>
                         </div>
-                        <span class="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-blue-700 bg-blue-50/90 px-2.5 py-0.5 rounded-full border border-blue-200/70">
+                        <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200/80">
                             <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
                             <span>Tailor-Made Code</span>
                         </span>
                     </div>
 
                     <!-- Solution 3: Website Development -->
-                    <div class="solution-card w-[205px] sm:w-[225px] h-[200px] sm:h-[215px] shrink-0 bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-xs hover:shadow-xl cursor-pointer group relative overflow-hidden"
-                         data-border="#0891b2">
-                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-cyan-50 group-hover:bg-cyan-100 border border-cyan-200/80 flex items-center justify-center transition-all duration-300 shadow-2xs">
+                    <div class="solution-card w-[215px] sm:w-[230px] h-[210px] sm:h-[220px] shrink-0 bg-white border border-slate-200/90 hover:border-cyan-300 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.04)] cursor-pointer group relative overflow-hidden transition-all duration-300">
+                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-cyan-50 group-hover:bg-cyan-100/90 border border-cyan-200/70 flex items-center justify-center transition-colors duration-200">
                             <svg class="w-7 h-7 sm:w-8 sm:h-8 text-cyan-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
                             </svg>
                         </div>
-                        <div class="my-auto">
-                            <span class="text-sm sm:text-[15px] font-black text-slate-900 group-hover:text-cyan-700 transition-colors tracking-tight leading-tight block">
+                        <div class="my-auto py-1">
+                            <span class="text-[15px] sm:text-base font-bold text-slate-900 group-hover:text-cyan-700 transition-colors tracking-tight leading-snug block">
                                 Website Development
                             </span>
                         </div>
-                        <span class="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-cyan-700 bg-cyan-50/90 px-2.5 py-0.5 rounded-full border border-cyan-200/70">
+                        <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-cyan-700 bg-cyan-50 px-3 py-1 rounded-full border border-cyan-200/80">
                             <span class="w-1.5 h-1.5 rounded-full bg-cyan-600"></span>
                             <span>Web & Portals</span>
                         </span>
                     </div>
 
                     <!-- Solution 4: Android & iOS App Development -->
-                    <div class="solution-card w-[205px] sm:w-[225px] h-[200px] sm:h-[215px] shrink-0 bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-xs hover:shadow-xl cursor-pointer group relative overflow-hidden"
-                         data-border="#4f46e5">
-                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-indigo-50 group-hover:bg-indigo-100 border border-indigo-200/80 flex items-center justify-center transition-all duration-300 shadow-2xs">
+                    <div class="solution-card w-[215px] sm:w-[230px] h-[210px] sm:h-[220px] shrink-0 bg-white border border-slate-200/90 hover:border-indigo-300 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.04)] cursor-pointer group relative overflow-hidden transition-all duration-300">
+                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-indigo-50 group-hover:bg-indigo-100/90 border border-indigo-200/70 flex items-center justify-center transition-colors duration-200">
                             <svg class="w-7 h-7 sm:w-8 sm:h-8 text-indigo-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <rect x="6" y="2" width="12" height="20" rx="3" stroke-linecap="round" stroke-linejoin="round"/>
                                 <circle cx="12" cy="18" r="1" fill="currentColor"/>
                             </svg>
                         </div>
-                        <div class="my-auto">
-                            <span class="text-sm sm:text-[15px] font-black text-slate-900 group-hover:text-indigo-700 transition-colors tracking-tight leading-tight block">
+                        <div class="my-auto py-1">
+                            <span class="text-[15px] sm:text-base font-bold text-slate-900 group-hover:text-indigo-700 transition-colors tracking-tight leading-snug block">
                                 Mobile App Dev
                             </span>
                         </div>
-                        <span class="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-indigo-700 bg-indigo-50/90 px-2.5 py-0.5 rounded-full border border-indigo-200/70">
+                        <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-indigo-700 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200/80">
                             <span class="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
                             <span>Android & iOS</span>
                         </span>
                     </div>
 
                     <!-- Solution 5: AI Solutions & Automation -->
-                    <div class="solution-card w-[205px] sm:w-[225px] h-[200px] sm:h-[215px] shrink-0 bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-xs hover:shadow-xl cursor-pointer group relative overflow-hidden"
-                         data-border="#0d9488">
-                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-teal-50 group-hover:bg-teal-100 border border-teal-200/80 flex items-center justify-center transition-all duration-300 shadow-2xs">
+                    <div class="solution-card w-[215px] sm:w-[230px] h-[210px] sm:h-[220px] shrink-0 bg-white border border-slate-200/90 hover:border-teal-300 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.04)] cursor-pointer group relative overflow-hidden transition-all duration-300">
+                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-teal-50 group-hover:bg-teal-100/90 border border-teal-200/70 flex items-center justify-center transition-colors duration-200">
                             <svg class="w-7 h-7 sm:w-8 sm:h-8 text-teal-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
                             </svg>
                         </div>
-                        <div class="my-auto">
-                            <span class="text-sm sm:text-[15px] font-black text-slate-900 group-hover:text-teal-700 transition-colors tracking-tight leading-tight block">
+                        <div class="my-auto py-1">
+                            <span class="text-[15px] sm:text-base font-bold text-slate-900 group-hover:text-teal-700 transition-colors tracking-tight leading-snug block">
                                 AI & Automation
                             </span>
                         </div>
-                        <span class="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-teal-700 bg-teal-50/90 px-2.5 py-0.5 rounded-full border border-teal-200/70">
+                        <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-teal-700 bg-teal-50 px-3 py-1 rounded-full border border-teal-200/80">
                             <span class="w-1.5 h-1.5 rounded-full bg-teal-600"></span>
                             <span>Smart Workflows</span>
                         </span>
                     </div>
 
                     <!-- Solution 6: Business Software -->
-                    <div class="solution-card w-[205px] sm:w-[225px] h-[200px] sm:h-[215px] shrink-0 bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-xs hover:shadow-xl cursor-pointer group relative overflow-hidden"
-                         data-border="#7c3aed">
-                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-violet-50 group-hover:bg-violet-100 border border-violet-200/80 flex items-center justify-center transition-all duration-300 shadow-2xs">
+                    <div class="solution-card w-[215px] sm:w-[230px] h-[210px] sm:h-[220px] shrink-0 bg-white border border-slate-200/90 hover:border-violet-300 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.04)] cursor-pointer group relative overflow-hidden transition-all duration-300">
+                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-violet-50 group-hover:bg-violet-100/90 border border-violet-200/70 flex items-center justify-center transition-colors duration-200">
                             <svg class="w-7 h-7 sm:w-8 sm:h-8 text-violet-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 0 1 0 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 0 1 0-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281Z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                             </svg>
                         </div>
-                        <div class="my-auto">
-                            <span class="text-sm sm:text-[15px] font-black text-slate-900 group-hover:text-violet-700 transition-colors tracking-tight leading-tight block">
+                        <div class="my-auto py-1">
+                            <span class="text-[15px] sm:text-base font-bold text-slate-900 group-hover:text-violet-700 transition-colors tracking-tight leading-snug block">
                                 Business Software
                             </span>
                         </div>
-                        <span class="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-violet-700 bg-violet-50/90 px-2.5 py-0.5 rounded-full border border-violet-200/70">
+                        <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-violet-700 bg-violet-50 px-3 py-1 rounded-full border border-violet-200/80">
                             <span class="w-1.5 h-1.5 rounded-full bg-violet-600"></span>
                             <span>Billing & POS</span>
                         </span>
                     </div>
 
                     <!-- Solution 7: Business Solutions -->
-                    <div class="solution-card w-[205px] sm:w-[225px] h-[200px] sm:h-[215px] shrink-0 bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-xs hover:shadow-xl cursor-pointer group relative overflow-hidden"
-                         data-border="#059669">
-                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-emerald-50 group-hover:bg-emerald-100 border border-emerald-200/80 flex items-center justify-center transition-all duration-300 shadow-2xs">
+                    <div class="solution-card w-[215px] sm:w-[230px] h-[210px] sm:h-[220px] shrink-0 bg-white border border-slate-200/90 hover:border-emerald-300 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.04)] cursor-pointer group relative overflow-hidden transition-all duration-300">
+                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-emerald-50 group-hover:bg-emerald-100/90 border border-emerald-200/70 flex items-center justify-center transition-colors duration-200">
                             <svg class="w-7 h-7 sm:w-8 sm:h-8 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
                             </svg>
                         </div>
-                        <div class="my-auto">
-                            <span class="text-sm sm:text-[15px] font-black text-slate-900 group-hover:text-emerald-700 transition-colors tracking-tight leading-tight block">
+                        <div class="my-auto py-1">
+                            <span class="text-[15px] sm:text-base font-bold text-slate-900 group-hover:text-emerald-700 transition-colors tracking-tight leading-snug block">
                                 Business Solutions
                             </span>
                         </div>
-                        <span class="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-emerald-700 bg-emerald-50/90 px-2.5 py-0.5 rounded-full border border-emerald-200/70">
+                        <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200/80">
                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
                             <span>Strategy & Growth</span>
                         </span>
                     </div>
 
                     <!-- Solution 8: AMC & Support -->
-                    <div class="solution-card w-[205px] sm:w-[225px] h-[200px] sm:h-[215px] shrink-0 bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-xs hover:shadow-xl cursor-pointer group relative overflow-hidden"
-                         data-border="#0284c7">
-                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-sky-50 group-hover:bg-sky-100 border border-sky-200/80 flex items-center justify-center transition-all duration-300 shadow-2xs">
+                    <div class="solution-card w-[215px] sm:w-[230px] h-[210px] sm:h-[220px] shrink-0 bg-white border border-slate-200/90 hover:border-sky-300 rounded-2xl sm:rounded-3xl p-5 flex flex-col justify-between items-center text-center shadow-[0_2px_8px_rgba(0,0,0,0.04)] cursor-pointer group relative overflow-hidden transition-all duration-300">
+                        <div class="solution-icon w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-sky-50 group-hover:bg-sky-100/90 border border-sky-200/70 flex items-center justify-center transition-colors duration-200">
                             <svg class="w-7 h-7 sm:w-8 sm:h-8 text-sky-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                             </svg>
                         </div>
-                        <div class="my-auto">
-                            <span class="text-sm sm:text-[15px] font-black text-slate-900 group-hover:text-sky-700 transition-colors tracking-tight leading-tight block">
+                        <div class="my-auto py-1">
+                            <span class="text-[15px] sm:text-base font-bold text-slate-900 group-hover:text-sky-700 transition-colors tracking-tight leading-snug block">
                                 AMC & Support
                             </span>
                         </div>
-                        <span class="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold text-sky-700 bg-sky-50/90 px-2.5 py-0.5 rounded-full border border-sky-200/70">
+                        <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-sky-700 bg-sky-50 px-3 py-1 rounded-full border border-sky-200/80">
                             <span class="w-1.5 h-1.5 rounded-full bg-sky-600"></span>
                             <span>24/7 Dedicated Care</span>
                         </span>

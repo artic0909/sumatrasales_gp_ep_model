@@ -5,10 +5,9 @@
             const track = document.getElementById('solutions-marquee-track');
             if (!container || !track) return;
 
-            const cards = Array.from(track.querySelectorAll('.solution-card'));
             let isPaused = false;
             let offset = 0;
-            const speed = 1.4; // increased speed for a brisk, engaging flow
+            const speed = 0.9; // Smooth, steady, premium flow
             let lastTime = performance.now();
 
             // Hover pause
@@ -21,7 +20,7 @@
                 clearTimeout(touchTimer);
             }, { passive: true });
             container.addEventListener('touchend', () => { 
-                touchTimer = setTimeout(() => { isPaused = false; }, 1500); 
+                touchTimer = setTimeout(() => { isPaused = false; }, 1200); 
             }, { passive: true });
 
             function getHalfWidth() {
@@ -42,99 +41,6 @@
                         offset -= halfWidth;
                     }
                     track.style.transform = 'translate3d(-' + offset.toFixed(2) + 'px, 0, 0)';
-                }
-
-                // Dynamic scale & highlight calculations
-                const cRect = container.getBoundingClientRect();
-                const cLeft = cRect.left;
-                const cWidth = cRect.width;
-
-                for (let i = 0; i < cards.length; i++) {
-                    const card = cards[i];
-
-                    // If hovered by user, let CSS hover take full priority
-                    if (card.matches(':hover')) {
-                        card.style.transform = '';
-                        card.style.opacity = '1';
-                        card.style.boxShadow = '';
-                        card.style.borderColor = '';
-                        card.style.zIndex = '35';
-                        card.classList.add('is-highlighted');
-                        continue;
-                    }
-
-                    const cardRect = card.getBoundingClientRect();
-                    const cardCenter = cardRect.left + cardRect.width / 2;
-                    const progress = (cardCenter - cLeft) / cWidth;
-                    const borderColor = card.getAttribute('data-border') || '#6366f1';
-
-                    if (progress > 1.15) {
-                        // Far right: outside view
-                        card.style.opacity = '0';
-                        card.style.transform = 'scale(0.85)';
-                        card.style.boxShadow = '';
-                        card.style.borderColor = '';
-                        card.style.zIndex = '';
-                        card.classList.remove('is-highlighted');
-                    } else if (progress >= 0.82 && progress <= 1.15) {
-                        // ENTRY ZONE (Right side):
-                        // Scales up, lifts with smooth shadow — normal border preserved (NO colored border highlight)
-                        const opacity = Math.min(1, Math.max(0, (1.12 - progress) / 0.16));
-                        const peakRight = 1 - Math.min(1, Math.abs(progress - 0.95) / 0.10);
-                        const scale = 1.0 + (0.06 * peakRight);
-                        const liftY = -5 * peakRight;
-
-                        card.style.opacity = opacity.toFixed(3);
-                        card.style.transform = 'translateY(' + liftY.toFixed(1) + 'px) scale(' + scale.toFixed(3) + ')';
-                        card.style.borderColor = '';
-
-                        if (peakRight > 0.25) {
-                            card.style.boxShadow = '0 10px 24px -4px rgba(0, 0, 0, 0.08)';
-                            card.style.zIndex = '20';
-                            card.classList.add('is-highlighted');
-                        } else {
-                            card.style.boxShadow = '';
-                            card.style.zIndex = '';
-                            card.classList.remove('is-highlighted');
-                        }
-                    } else if (progress >= 0.18 && progress < 0.82) {
-                        // MIDDLE ZONE: Standard clean display with normal border
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0px) scale(1)';
-                        card.style.boxShadow = '';
-                        card.style.borderColor = '';
-                        card.style.zIndex = '';
-                        card.classList.remove('is-highlighted');
-                    } else if (progress >= -0.12 && progress < 0.18) {
-                        // EXIT ZONE (Left side / Hide):
-                        // Scales up, lifts with smooth shadow — normal border preserved (NO colored border highlight)
-                        const peakLeft = 1 - Math.min(1, Math.abs(progress - 0.08) / 0.09);
-                        const scale = 1.0 + (0.06 * peakLeft);
-                        const liftY = -5 * peakLeft;
-                        const opacity = Math.min(1, Math.max(0, (progress - (-0.08)) / (0.06 - (-0.08))));
-
-                        card.style.opacity = opacity.toFixed(3);
-                        card.style.transform = 'translateY(' + liftY.toFixed(1) + 'px) scale(' + scale.toFixed(3) + ')';
-                        card.style.borderColor = '';
-
-                        if (peakLeft > 0.25) {
-                            card.style.boxShadow = '0 10px 24px -4px rgba(0, 0, 0, 0.08)';
-                            card.style.zIndex = '20';
-                            card.classList.add('is-highlighted');
-                        } else {
-                            card.style.boxShadow = '';
-                            card.style.zIndex = '';
-                            card.classList.remove('is-highlighted');
-                        }
-                    } else {
-                        // Far left: hidden
-                        card.style.opacity = '0';
-                        card.style.transform = 'scale(0.85)';
-                        card.style.boxShadow = '';
-                        card.style.borderColor = '';
-                        card.style.zIndex = '';
-                        card.classList.remove('is-highlighted');
-                    }
                 }
 
                 requestAnimationFrame(tick);
