@@ -34,14 +34,24 @@
         <!-- Admin Profile Avatar Pill -->
         <div class="flex items-center gap-2.5 pl-1">
             <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-[#2964F2] to-blue-600 text-white flex items-center justify-center text-xs font-black shadow-xs ring-2 ring-blue-100">
-                A
+                {{ strtoupper(substr(auth('admin')->user()->name ?? 'A', 0, 1)) }}
             </div>
             <div class="hidden md:block text-left text-xs">
-                <span class="font-black text-slate-900 block leading-tight">Admin User</span>
-                <span class="text-[10px] text-slate-400 font-medium">Super Admin</span>
+                <span class="font-black text-slate-900 block leading-tight">{{ auth('admin')->user()->name ?? 'Admin User' }}</span>
+                <span class="text-[10px] text-slate-400 font-medium">{{ auth('admin')->user()->email ?? 'admin@sspl.com' }}</span>
             </div>
         </div>
 
+        <div class="h-6 w-px bg-slate-200 hidden sm:block"></div>
+
+        <!-- Logout Action Button -->
+        <form action="{{ route('admin.logout') }}" method="POST" class="inline">
+            @csrf
+            <button type="submit" title="Sign Out of Admin Console" class="p-2 rounded-xl text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition flex items-center gap-1.5 text-xs font-bold cursor-pointer">
+                <svg class="w-4 h-4 shrink-0 text-slate-400 hover:text-rose-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"/></svg>
+                <span class="hidden lg:inline text-[11px] text-slate-600">Logout</span>
+            </button>
+        </form>
     </div>
 
 </header>

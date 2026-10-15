@@ -24,15 +24,22 @@
             <p class="text-xs text-slate-500 font-medium">Please sign in to access the partner management console.</p>
         </div>
 
+        @if (session('status'))
+            <div class="mb-4 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-2">
+                <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                <span>{{ session('status') }}</span>
+            </div>
+        @endif
+
         @if ($errors->any())
             <div class="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs">
                 @foreach ($errors->all() as $error)
-                    <p>{{ $error }}</p>
+                    <p class="font-medium">{{ $error }}</p>
                 @endforeach
             </div>
         @endif
 
-        <form action="{{ route('login') }}" method="POST" class="space-y-4">
+        <form action="{{ route('admin.login.submit') }}" method="POST" class="space-y-4">
             @csrf
             <div>
                 <label for="email" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Email Address</label>

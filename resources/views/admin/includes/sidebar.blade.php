@@ -111,7 +111,7 @@
     </nav>
 
     <!-- Sidebar Bottom Action -->
-    <div class="p-3 border-t border-slate-800 bg-slate-950/40">
+    <div class="p-3 border-t border-slate-800 bg-slate-950/40 space-y-1.5">
         <a href="{{ route('home') }}" target="_blank" class="flex items-center justify-between p-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-800 text-xs font-bold text-slate-300 hover:text-white transition group">
             <span class="flex items-center gap-2">
                 <svg class="w-3.5 h-3.5 text-blue-400 group-hover:translate-x-0.5 transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>
@@ -119,6 +119,17 @@
             </span>
             <span class="text-[10px] text-slate-500">Live ↗</span>
         </a>
+
+        <form action="{{ route('admin.logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="w-full flex items-center justify-between p-2.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 hover:text-rose-300 text-xs font-bold transition cursor-pointer">
+                <span class="flex items-center gap-2">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"/></svg>
+                    <span>Sign Out</span>
+                </span>
+                <span class="text-[10px] uppercase font-bold text-rose-500/70">Exit</span>
+            </button>
+        </form>
     </div>
 
 </aside>
@@ -145,6 +156,16 @@
             <a href="{{ route('admin.contact.index') }}" class="block px-3 py-2 rounded-xl text-xs font-bold text-slate-300 hover:bg-slate-800">Contact Inquiries</a>
             <a href="{{ route('admin.settings.index') }}" class="block px-3 py-2 rounded-xl text-xs font-bold text-cyan-400 hover:bg-slate-800">Website Dynamic Content</a>
             <a href="{{ route('admin.profile.index') }}" class="block px-3 py-2 rounded-xl text-xs font-bold text-slate-300 hover:bg-slate-800">Admin Profile</a>
+
+            <div class="pt-4 border-t border-slate-800">
+                <form action="{{ route('admin.logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-rose-400 hover:bg-rose-500/10 flex items-center justify-between">
+                        <span>Sign Out</span>
+                        <span>&rarr;</span>
+                    </button>
+                </form>
+            </div>
         </nav>
     </div>
 </div>
