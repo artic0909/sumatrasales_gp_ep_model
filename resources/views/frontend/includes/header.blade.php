@@ -33,16 +33,6 @@
                         <a href="{{ route('dashboard') }}" class="hidden md:inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-md shadow-xs transition duration-150">
                             Dashboard
                         </a>
-                    @else
-                        <!-- Login Button (Desktop / Tablet) -->
-                        <div class="hidden md:inline-block relative group">
-                            <a href="{{ route('login') }}" class="inline-flex items-center gap-1 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-md shadow-xs transition duration-150">
-                                <span>Login</span>
-                                <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                                </svg>
-                            </a>
-                        </div>
                     @endauth
 
                     <!-- Become a Partner Primary CTA Button -->
@@ -1025,19 +1015,17 @@
             <!-- 2. Drawer Body (Scrollable with Smooth Accordions) -->
             <div class="flex-1 overflow-y-auto px-4 py-3.5 space-y-3.5">
                 
-                <!-- Quick Auth & Action Buttons -->
-                <div class="grid grid-cols-2 gap-2 pb-2 border-b border-slate-100">
+                <!-- Quick Action Button -->
+                <div class="pb-2 border-b border-slate-100">
                     @auth
-                        <a href="{{ route('dashboard') }}" class="mobile-nav-link py-2 px-3 text-center text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition">
-                            Dashboard
-                        </a>
-                    @else
-                        <a href="{{ route('login') }}" class="mobile-nav-link py-2 px-3 text-center text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition">
-                            Login
-                        </a>
+                        <div class="mb-2">
+                            <a href="{{ route('dashboard') }}" class="mobile-nav-link block py-2 px-3 text-center text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition">
+                                Dashboard
+                            </a>
+                        </div>
                     @endauth
-                    <a href="{{ route('partner.register') }}" class="mobile-nav-link py-2 px-3 text-center text-xs font-bold text-white {{ $isPartner ? 'bg-[#1546B0] ring-2 ring-blue-300' : 'bg-[#1D64F2] hover:bg-[#1853CA]' }} rounded-lg transition shadow-xs">
-                        Join Free
+                    <a href="{{ route('partner.register') }}" class="mobile-nav-link block py-2.5 px-3 text-center text-xs font-bold text-white {{ $isPartner ? 'bg-[#1546B0] ring-2 ring-blue-300' : 'bg-[#1D64F2] hover:bg-[#1853CA]' }} rounded-lg transition shadow-xs">
+                        Become a Partner (Join Free)
                     </a>
                 </div>
 
