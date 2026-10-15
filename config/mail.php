@@ -115,4 +115,15 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Email Address
+    |--------------------------------------------------------------------------
+    |
+    | The email address that receives notifications when new EP or GP
+    | applications are submitted.
+    |
+    */
+    'admin_email' => env('ADMIN_EMAIL', 'sumatra.sales2424@gmail.com'),
+
 ];

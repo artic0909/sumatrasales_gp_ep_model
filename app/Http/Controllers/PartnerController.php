@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AdminPartnerApplicationNotification;
+use App\Mail\PartnerApplicationSubmitted;
 use App\Models\Partner;
 use App\Models\TermsCheck;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -202,6 +206,26 @@ class PartnerController extends Controller
             'user_agent'          => $request->userAgent(),
             'accepted_at'         => now('Asia/Kolkata'),
         ]);
+
+        // Send email notifications to applicant and admin
+        try {
+            // 1. Send confirmation email with application details to the applicant
+            if (!empty($partner->email)) {
+                Mail::to($partner->email)->send(new PartnerApplicationSubmitted($partner));
+            }
+
+            // 2. Send notification email with full application details to the admin
+            $adminEmail = config('mail.admin_email', env('ADMIN_EMAIL', 'sumatra.sales2424@gmail.com'));
+            if (!empty($adminEmail)) {
+                Mail::to($adminEmail)->send(new AdminPartnerApplicationNotification($partner));
+            }
+        } catch (\Throwable $e) {
+            Log::error('Partner Application Email Error: ' . $e->getMessage(), [
+                'partner_id' => $partner->id,
+                'application_code' => $partner->application_code,
+                'trace' => $e->getTraceAsString(),
+            ]);
+        }
 
         $fullAddress = trim(implode(', ', array_filter([
             $validated['address'] ?? null,
