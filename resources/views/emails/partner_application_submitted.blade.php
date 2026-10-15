@@ -97,14 +97,6 @@
                                     Our verification team is reviewing your documents and application details. Once verified and approved, your official 
                                     <strong>{{ $partner->registration_type === 'GP' ? 'GP Referral Code' : 'EP Code & Appointment Details' }}</strong> 
                                     will be sent to this email address.
-                                </div>
-                            </div>
-
-                            <!-- PDF Download CTA Button -->
-                            <div style="text-align: center; margin: 24px 0 16px 0;">
-                                <a href="{{ route('partner.application.pdf', $partner->application_code) }}" target="_blank" style="display: inline-block; background-color: #2563eb; color: #ffffff; text-decoration: none; padding: 12px 28px; font-size: 13.5px; font-weight: 600; border-radius: 6px; box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);">
-                                    Download Application PDF
-                                </a>
                             </div>
                         </td>
                     </tr>

@@ -133,11 +133,8 @@
                                                 ? route('admin.gp.show', $partner->id) 
                                                 : route('admin.ep.show', $partner->id);
                                         @endphp
-                                        <a href="{{ $adminShowRoute }}" target="_blank" style="display: inline-block; background-color: #0f172a; color: #ffffff; text-decoration: none; padding: 12px 24px; font-size: 13.5px; font-weight: 600; border-radius: 6px; margin: 4px;">
+                                        <a href="{{ $adminShowRoute }}" target="_blank" style="display: inline-block; background-color: #0f172a; color: #ffffff; text-decoration: none; padding: 12px 28px; font-size: 13.5px; font-weight: 600; border-radius: 6px; box-shadow: 0 2px 4px rgba(15, 23, 42, 0.2);">
                                             View in Admin Panel &rarr;
-                                        </a>
-                                        <a href="{{ route('partner.application.pdf', $partner->application_code) }}" target="_blank" style="display: inline-block; background-color: #2563eb; color: #ffffff; text-decoration: none; padding: 12px 24px; font-size: 13.5px; font-weight: 600; border-radius: 6px; margin: 4px;">
-                                            Download Application PDF
                                         </a>
                                     </td>
                                 </tr>
