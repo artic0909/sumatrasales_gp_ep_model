@@ -1,4 +1,4 @@
-@if (session('submission_success') || session('success') || request()->has('preview_celebration'))
+@if (session('submission_success') || request()->has('preview_celebration'))
 @php
     $isPreview = request()->has('preview_celebration');
     $successData = session('submission_success', []);

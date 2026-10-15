@@ -179,19 +179,33 @@
                 </div>
 
                 @if (session('success'))
-                    <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-start gap-3">
-                        <span class="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 text-xs font-bold mt-0.5">✓</span>
+                    <div class="p-4 sm:p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs flex items-start gap-3.5 shadow-xs">
+                        <div class="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+                        </div>
                         <div class="space-y-1">
-                            <span class="font-bold block text-[13px]">Message Sent Successfully!</span>
-                            <p class="leading-relaxed">{{ session('success') }}</p>
+                            <span class="font-extrabold block text-sm text-emerald-950">Inquiry Message Received!</span>
+                            <p class="leading-relaxed text-emerald-800">{{ session('success') }}</p>
                         </div>
                     </div>
                 @endif
 
-                @if ($errors->any())
-                    <div class="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs space-y-1">
-                        <span class="font-bold block">Please fix the following:</span>
-                        <ul class="list-disc list-inside space-y-0.5">
+                @if (session('error'))
+                    <div class="p-4 sm:p-5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-900 text-xs flex items-start gap-3.5 shadow-xs">
+                        <div class="w-8 h-8 rounded-xl bg-rose-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" /></svg>
+                        </div>
+                        <div class="space-y-1">
+                            <span class="font-extrabold block text-sm text-rose-950">Submission Encountered an Issue</span>
+                            <p class="leading-relaxed text-rose-800">{{ session('error') }}</p>
+                        </div>
+                    </div>
+                @endif
+
+                @if (isset($errors) && $errors->any())
+                    <div class="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-xs space-y-1.5 shadow-xs">
+                        <span class="font-bold block text-rose-900">Please review the required fields:</span>
+                        <ul class="list-disc list-inside space-y-0.5 text-rose-700">
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
                             @endforeach
@@ -248,4 +262,143 @@
 
     </div>
 </main>
+
+{{-- ================================================================= --}}
+{{-- DEDICATED INQUIRY SUBMISSION SUCCESS MODAL --}}
+{{-- ================================================================= --}}
+@if (session('inquiry_submitted'))
+    @php
+        $inquiryData = session('inquiry_data', []);
+    @endphp
+    <div id="inquiry-success-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in" role="dialog" aria-modal="true">
+        <div class="relative w-full max-w-md bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden text-center p-6 sm:p-7 transform transition-all space-y-4">
+            
+            <!-- Top Gradient Accent -->
+            <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-emerald-500 via-teal-500 to-blue-500"></div>
+
+            <!-- Pulsing Checkmark Icon -->
+            <div class="relative mx-auto w-14 h-14 flex items-center justify-center shrink-0 mt-2">
+                <div class="absolute inset-0 rounded-full bg-emerald-500/20 animate-ping duration-1000"></div>
+                <div class="relative w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white flex items-center justify-center shadow-lg shadow-emerald-600/30">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Headline -->
+            <div class="space-y-1">
+                <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase tracking-wider border border-emerald-200">
+                    <span>Inquiry Received Successfully</span>
+                </div>
+                <h3 class="text-lg sm:text-xl font-black text-slate-900 tracking-tight">
+                    Thank You, {{ $inquiryData['name'] ?? 'Friend' }}!
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Your inquiry has been safely received. A confirmation email has been sent to your inbox, and our desk will respond shortly.
+                </p>
+            </div>
+
+            <!-- Submitted Details Summary Card -->
+            <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-100 text-left text-xs space-y-2">
+                <div class="flex items-center justify-between pb-2 border-b border-slate-200/60">
+                    <span class="text-slate-400 font-bold text-[10px] uppercase tracking-wider">Inquiry Topic</span>
+                    <span class="font-extrabold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-lg border border-indigo-100 text-[11px]">
+                        {{ $inquiryData['inquiry_type'] ?? 'General Inquiry' }}
+                    </span>
+                </div>
+                @if(!empty($inquiryData['email']))
+                    <div class="flex items-center justify-between text-[11px]">
+                        <span class="text-slate-400 font-semibold">Confirmation Sent To:</span>
+                        <span class="font-bold text-slate-800">{{ $inquiryData['email'] }}</span>
+                    </div>
+                @endif
+                @if(!empty($inquiryData['phone']))
+                    <div class="flex items-center justify-between text-[11px]">
+                        <span class="text-slate-400 font-semibold">Contact Phone:</span>
+                        <span class="font-bold text-slate-800">{{ $inquiryData['phone'] }}</span>
+                    </div>
+                @endif
+            </div>
+
+            <!-- Dismiss Button -->
+            <div class="pt-2">
+                <button type="button" onclick="closeInquirySuccessModal()" class="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-black transition cursor-pointer shadow-md">
+                    <span>Okay, Got It</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function closeInquirySuccessModal() {
+            const modal = document.getElementById('inquiry-success-modal');
+            if (modal) {
+                modal.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+                setTimeout(() => { modal.remove(); }, 300);
+            }
+        }
+    </script>
+@endif
+
+{{-- ================================================================= --}}
+{{-- DEDICATED INQUIRY SUBMISSION FAILED MODAL --}}
+{{-- ================================================================= --}}
+@if (session('inquiry_failed'))
+    <div id="inquiry-failed-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in" role="dialog" aria-modal="true">
+        <div class="relative w-full max-w-md bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden text-center p-6 sm:p-7 transform transition-all space-y-4">
+            
+            <!-- Top Gradient Accent -->
+            <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-rose-500 via-amber-500 to-rose-600"></div>
+
+            <!-- Warning Icon -->
+            <div class="mx-auto w-12 h-12 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center shadow-md">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                </svg>
+            </div>
+
+            <!-- Headline -->
+            <div class="space-y-1">
+                <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-700 text-[10px] font-black uppercase tracking-wider border border-rose-200">
+                    <span>Submission Incomplete</span>
+                </div>
+                <h3 class="text-lg font-black text-slate-900 tracking-tight">
+                    Inquiry Could Not Be Processed
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    {{ session('error', 'We encountered a server error while saving your inquiry. Please try again or reach our administrative desk directly.') }}
+                </p>
+            </div>
+
+            <!-- Direct Support Helpdesk Links -->
+            <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 text-xs space-y-2 text-left">
+                <div class="flex items-center justify-between text-[11px]">
+                    <span class="text-slate-400 font-semibold">Direct Email:</span>
+                    <a href="mailto:{{ site_setting('support_email', 'info.sumatrasales@gmail.com') }}" class="font-bold text-blue-600 hover:underline">
+                        {{ site_setting('support_email', 'info.sumatrasales@gmail.com') }}
+                    </a>
+                </div>
+                <div class="flex items-center justify-between text-[11px]">
+                    <span class="text-slate-400 font-semibold">Helpdesk Phone:</span>
+                    <a href="tel:{{ preg_replace('/[^0-9+]/', '', site_setting('support_phone', '+91 98765 00000')) }}" class="font-bold text-blue-600 hover:underline">
+                        {{ site_setting('support_phone', '+91 98765 00000') }}
+                    </a>
+                </div>
+            </div>
+
+            <!-- Dismiss Button -->
+            <div class="pt-2">
+                <button type="button" onclick="document.getElementById('inquiry-failed-modal').remove()" class="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-black transition cursor-pointer shadow-md">
+                    <span>Try Again</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+@endif
+
 @endsection
+

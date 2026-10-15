@@ -32,35 +32,48 @@ class ContactFormController extends Controller
             'message.required'      => 'Please write your message or inquiry details.',
         ]);
 
-        $validated['ip_address'] = $request->ip();
-        $validated['user_agent'] = $request->userAgent();
-        $validated['status'] = 'unread';
-
-        $inquiry = ContactInquiry::create($validated);
-
-        // Dispatch emails to user and admin
         try {
-            // 1. Send confirmation email to user
-            if (!empty($inquiry->email)) {
-                Mail::to($inquiry->email)->send(new ContactInquiryConfirmation($inquiry));
+            $validated['ip_address'] = $request->ip();
+            $validated['user_agent'] = $request->userAgent();
+            $validated['status'] = 'unread';
+
+            $inquiry = ContactInquiry::create($validated);
+
+            // Dispatch emails to user and admin
+            try {
+                // 1. Send confirmation email to user
+                if (!empty($inquiry->email)) {
+                    Mail::to($inquiry->email)->send(new ContactInquiryConfirmation($inquiry));
+                }
+
+                // 2. Send notification email to admin (sumatra.sales2424@gmail.com)
+                $adminEmail = config('mail.admin_email', env('ADMIN_EMAIL', 'sumatra.sales2424@gmail.com'));
+                if (!empty($adminEmail)) {
+                    Mail::to($adminEmail)->send(new AdminContactInquiryNotification($inquiry));
+                }
+            } catch (\Throwable $mailEx) {
+                Log::error('Contact Inquiry Email Delivery Warning: ' . $mailEx->getMessage(), [
+                    'inquiry_id' => $inquiry->id,
+                    'email'      => $inquiry->email,
+                ]);
             }
 
-            // 2. Send notification email to admin (sumatra.sales2424@gmail.com)
-            $adminEmail = config('mail.admin_email', env('ADMIN_EMAIL', 'sumatra.sales2424@gmail.com'));
-            if (!empty($adminEmail)) {
-                Mail::to($adminEmail)->send(new AdminContactInquiryNotification($inquiry));
-            }
+            return redirect()->route('contact')->with('inquiry_submitted', true)->with('inquiry_data', [
+                'name'         => $inquiry->name,
+                'email'        => $inquiry->email,
+                'phone'        => $inquiry->phone,
+                'inquiry_type' => $inquiry->inquiry_type,
+            ])->with('success', 'Your inquiry message has been submitted successfully! A confirmation email has been sent to your inbox.');
+
         } catch (\Throwable $e) {
-            Log::error('Contact Inquiry Email Error: ' . $e->getMessage(), [
-                'inquiry_id' => $inquiry->id,
-                'email'      => $inquiry->email,
-                'trace'      => $e->getTraceAsString(),
+            Log::error('Contact Inquiry Submission Failed: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
             ]);
-        }
 
-        return redirect()->back()->with(
-            'success',
-            'Thank you for reaching out! Your inquiry message has been received successfully. A confirmation email has been sent to your inbox, and our administrative desk will respond promptly.'
-        );
+            return redirect()->back()->withInput()->with('inquiry_failed', true)->with(
+                'error',
+                'We could not process your inquiry at this moment. Please try again or reach out directly to our support desk.'
+            );
+        }
     }
 }
