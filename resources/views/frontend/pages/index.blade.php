@@ -110,11 +110,11 @@
                     </div>
 
                     <!-- Edge-to-Edge 16:9 Photo Container (Uncropped) -->
-                    <div class="w-full aspect-[16/9] overflow-hidden relative bg-slate-100 border-y border-slate-100">
+                    <div class="w-full aspect-[16/9] overflow-hidden relative bg-slate-50">
                         <img src="/img/matrimony-card.jpg" alt="Rani Matrimonial Verified Couple Matchmaking" class="w-full h-full object-cover object-center transition-transform duration-300">
                     </div>
                     <!-- Highlight Sub-Bar (Unobstructed View) -->
-                    <div class="px-4 py-2 bg-[#3F0001]/5 border-b border-slate-100 flex items-center justify-between text-[11px] font-bold">
+                    <div class="px-4 py-2 bg-[#3F0001]/5 flex items-center justify-between text-[11px] font-bold">
                         <span class="inline-flex items-center gap-1.5 text-[#3F0001]">
                             <span class="text-rose-600">♥</span>
                             <span>100% Verified Profiles</span>
@@ -193,11 +193,11 @@
                     </div>
 
                     <!-- Edge-to-Edge 16:9 Photo Container (Uncropped) -->
-                    <div class="w-full aspect-[16/9] overflow-hidden relative bg-slate-100 border-y border-slate-100">
+                    <div class="w-full aspect-[16/9] overflow-hidden relative bg-slate-50">
                         <img src="/img/students-card.jpg" alt="Schoolwala Bengali Medium WBBSE Students" class="w-full h-full object-cover object-center transition-transform duration-300">
                     </div>
                     <!-- Highlight Sub-Bar (Unobstructed View) -->
-                    <div class="px-4 py-2 bg-[#F5DB3C]/15 border-b border-slate-100 flex items-center justify-between text-[11px] font-bold">
+                    <div class="px-4 py-2 bg-[#F5DB3C]/15 flex items-center justify-between text-[11px] font-bold">
                         <span class="inline-flex items-center gap-1.5 text-amber-950">
                             <span class="text-amber-600">★</span>
                             <span>Bengali Medium Focus</span>
@@ -275,11 +275,11 @@
                     </div>
 
                     <!-- Edge-to-Edge 16:9 Photo Container (Uncropped) -->
-                    <div class="w-full aspect-[16/9] overflow-hidden relative bg-slate-100 border-y border-slate-100">
+                    <div class="w-full aspect-[16/9] overflow-hidden relative bg-slate-50">
                         <img src="/img/doctor-card.jpg" alt="Doctorwala Verified Doctors and OPD Booking" class="w-full h-full object-cover object-center transition-transform duration-300">
                     </div>
                     <!-- Highlight Sub-Bar (Unobstructed View) -->
-                    <div class="px-4 py-2 bg-[#4DCBDC]/15 border-b border-slate-100 flex items-center justify-between text-[11px] font-bold">
+                    <div class="px-4 py-2 bg-[#4DCBDC]/15 flex items-center justify-between text-[11px] font-bold">
                         <span class="inline-flex items-center gap-1.5 text-[#0c5963]">
                             <span class="w-2 h-2 rounded-full bg-[#14727e] animate-pulse"></span>
                             <span>24/7 Verified Booking</span>
@@ -365,11 +365,11 @@
                     </div>
 
                     <!-- Edge-to-Edge 16:9 Photo Container (Uncropped) -->
-                    <div class="w-full aspect-[16/9] overflow-hidden relative bg-slate-900 border-y border-slate-800">
+                    <div class="w-full aspect-[16/9] overflow-hidden relative bg-white">
                         <img src="/img/software-card.jpg" alt="Software, Mobile App & Website Development" class="w-full h-full object-cover object-center transition-transform duration-300">
                     </div>
                     <!-- Highlight Sub-Bar (Unobstructed View) -->
-                    <div class="px-4 py-2 bg-indigo-50 border-b border-slate-100 flex items-center justify-between text-[11px] font-bold">
+                    <div class="px-4 py-2 bg-indigo-50/80 flex items-center justify-between text-[11px] font-bold">
                         <span class="inline-flex items-center gap-1.5 text-indigo-700">
                             <span class="text-indigo-600">⚡</span>
                             <span>Custom Tech</span>
