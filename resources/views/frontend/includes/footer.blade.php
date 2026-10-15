@@ -89,7 +89,7 @@
                         <li><a href="https://www.doctorwala.info/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-cyan-200 transition-colors block font-semibold">Doctorwala™ Healthcare & OPD</a></li>
                         <li><a href="https://schoolwala.info/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-amber-200 transition-colors block font-semibold">Schoolwala™ EdTech</a></li>
                         <li><a href="https://ranimatrimonial.com/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-rose-200 transition-colors block font-semibold">RaniMatrimonial™ Portal</a></li>
-                        <li><a href="https://projectattendance.com/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-orange-200 transition-colors block font-semibold">ProjectAttendance™ HRMS</a></li>
+                        <li><a href="{{ route('home') }}#solutions" class="text-white hover:text-indigo-200 transition-colors block font-semibold">Custom Software &amp; Apps Studio</a></li>
                         <li><a href="#" class="text-blue-100 hover:text-white transition-colors block">Retail POS & Billing Software</a></li>
                         <li><a href="#" class="text-blue-100 hover:text-white transition-colors block">Pharmacy Management ERP</a></li>
                         <li><a href="#" class="text-blue-100 hover:text-white transition-colors block">Restaurant & Dine POS</a></li>

@@ -178,42 +178,65 @@
                     <p class="text-xs text-slate-500 mt-1">Leave your details and message below. Our administrative team will review and respond promptly.</p>
                 </div>
 
-                <form onsubmit="event.preventDefault(); alert('Thank you for reaching out! Your message has been received by Sumatra Sales support desk.'); this.reset();" class="space-y-4 text-xs">
+                @if (session('success'))
+                    <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-start gap-3">
+                        <span class="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 text-xs font-bold mt-0.5">✓</span>
+                        <div class="space-y-1">
+                            <span class="font-bold block text-[13px]">Message Sent Successfully!</span>
+                            <p class="leading-relaxed">{{ session('success') }}</p>
+                        </div>
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs space-y-1">
+                        <span class="font-bold block">Please fix the following:</span>
+                        <ul class="list-disc list-inside space-y-0.5">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <form action="{{ route('contact.store') }}" method="POST" class="space-y-4 text-xs">
+                    @csrf
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="space-y-1.5">
                             <label class="font-bold text-slate-700 uppercase tracking-wider text-[11px]">Your Full Name *</label>
-                            <input type="text" required placeholder="e.g. Rahul Sharma" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
+                            <input type="text" name="name" required value="{{ old('name') }}" placeholder="e.g. Rahul Sharma" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
                         </div>
                         <div class="space-y-1.5">
                             <label class="font-bold text-slate-700 uppercase tracking-wider text-[11px]">Phone / Mobile Number *</label>
-                            <input type="tel" required placeholder="+91 98765 00000" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
+                            <input type="tel" name="phone" required value="{{ old('phone') }}" placeholder="+91 98765 00000" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="space-y-1.5">
                             <label class="font-bold text-slate-700 uppercase tracking-wider text-[11px]">Email Address *</label>
-                            <input type="email" required placeholder="name@example.com" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
+                            <input type="email" name="email" required value="{{ old('email') }}" placeholder="name@example.com" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
                         </div>
                         <div class="space-y-1.5">
                             <label class="font-bold text-slate-700 uppercase tracking-wider text-[11px]">Inquiry Type</label>
-                            <select class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
-                                <option>Executive Partner (EP) Program</option>
-                                <option>Ground Partner (GP) Program</option>
-                                <option>Software / Product Support</option>
-                                <option>Investor Relations</option>
-                                <option>General Inquiries</option>
+                            <select name="inquiry_type" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
+                                <option value="Executive Partner (EP) Program" {{ old('inquiry_type') === 'Executive Partner (EP) Program' ? 'selected' : '' }}>Executive Partner (EP) Program</option>
+                                <option value="Ground Partner (GP) Program" {{ old('inquiry_type') === 'Ground Partner (GP) Program' ? 'selected' : '' }}>Ground Partner (GP) Program</option>
+                                <option value="Software & Development Services" {{ old('inquiry_type') === 'Software & Development Services' ? 'selected' : '' }}>Software & Development Services</option>
+                                <option value="Software / Product Support" {{ old('inquiry_type') === 'Software / Product Support' ? 'selected' : '' }}>Software / Product Support</option>
+                                <option value="Investor Relations" {{ old('inquiry_type') === 'Investor Relations' ? 'selected' : '' }}>Investor Relations</option>
+                                <option value="General Inquiries" {{ old('inquiry_type') === 'General Inquiries' ? 'selected' : '' }}>General Inquiries</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="space-y-1.5">
                         <label class="font-bold text-slate-700 uppercase tracking-wider text-[11px]">Message / Inquiry Details *</label>
-                        <textarea rows="4" required placeholder="Describe your question or requirement..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition"></textarea>
+                        <textarea name="message" rows="4" required placeholder="Describe your question or requirement..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">{{ old('message') }}</textarea>
                     </div>
 
                     <div class="pt-2">
-                        <button type="submit" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#2964F2] hover:bg-blue-600 text-white font-black text-xs transition shadow-md shadow-blue-600/30 inline-flex items-center justify-center gap-2">
+                        <button type="submit" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#2964F2] hover:bg-blue-600 active:bg-blue-700 text-white font-black text-xs transition shadow-md shadow-blue-600/30 inline-flex items-center justify-center gap-2 cursor-pointer">
                             <span>Submit Inquiry Message</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                         </button>

@@ -104,7 +104,7 @@
                     <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-black text-xs">2</div>
                     <h4 class="text-sm font-extrabold text-slate-900">Verified Intellectual Property</h4>
                     <p class="text-xs text-slate-500 leading-relaxed">
-                        Doctorwala, Schoolwala, and ProjectAttendance are registered, proprietary digital assets developed in-house by Sumatra Sales.
+                        Doctorwala, Schoolwala, Rani Matrimonial, and our Custom Software Platforms are registered, proprietary digital assets developed in-house by Sumatra Sales.
                     </p>
                 </div>
 

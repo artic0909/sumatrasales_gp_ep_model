@@ -2,6 +2,7 @@
     $currentRoute = request()->route() ? request()->route()->getName() : '';
     $epCount = \App\Models\Partner::where('registration_type', 'EP')->count();
     $gpCount = \App\Models\Partner::where('registration_type', 'GP')->count();
+    $unreadInquiriesCount = \App\Models\ContactInquiry::where('status', 'unread')->count();
 @endphp
 
 <!-- DESKTOP FIXED SIDEBAR -->
@@ -81,6 +82,9 @@
                 </svg>
                 <span>Contact Inquiries</span>
             </div>
+            @if ($unreadInquiriesCount > 0)
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-black {{ str_starts_with($currentRoute, 'admin.contact.') ? 'bg-white text-indigo-700' : 'bg-indigo-500/20 text-indigo-300' }}">{{ $unreadInquiriesCount }}</span>
+            @endif
         </a>
 
         <div class="pt-3 pb-1.5 px-3">
@@ -153,7 +157,12 @@
             <a href="{{ route('admin.ep.index') }}" class="block px-3 py-2 rounded-xl text-xs font-bold text-slate-300 hover:bg-slate-800">Executive Partners (EP)</a>
             <a href="{{ route('admin.gp.index') }}" class="block px-3 py-2 rounded-xl text-xs font-bold text-slate-300 hover:bg-slate-800">Ground Partners (GP)</a>
             <a href="{{ route('admin.investor.index') }}" class="block px-3 py-2 rounded-xl text-xs font-bold text-slate-300 hover:bg-slate-800">Investor Relations</a>
-            <a href="{{ route('admin.contact.index') }}" class="block px-3 py-2 rounded-xl text-xs font-bold text-slate-300 hover:bg-slate-800">Contact Inquiries</a>
+            <a href="{{ route('admin.contact.index') }}" class="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold text-slate-300 hover:bg-slate-800">
+                <span>Contact Inquiries</span>
+                @if ($unreadInquiriesCount > 0)
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-indigo-500/20 text-indigo-300">{{ $unreadInquiriesCount }}</span>
+                @endif
+            </a>
             <a href="{{ route('admin.settings.index') }}" class="block px-3 py-2 rounded-xl text-xs font-bold text-cyan-400 hover:bg-slate-800">Website Dynamic Content</a>
             <a href="{{ route('admin.profile.index') }}" class="block px-3 py-2 rounded-xl text-xs font-bold text-slate-300 hover:bg-slate-800">Admin Profile</a>
 

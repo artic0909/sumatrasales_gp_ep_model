@@ -351,36 +351,37 @@
                     </div>
                 </article>
 
-                <!-- CARD 4: ProjectAttendance.com (Theme: #E48121) -->
-                <article id="projectattendance" itemscope itemtype="https://schema.org/SoftwareApplication" class="bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_36px_-6px_rgba(0,0,0,0.14)] hover:shadow-[0_24px_50px_-8px_rgba(228,129,33,0.38)] transition-all duration-300 flex flex-col group hover:-translate-y-2 overflow-hidden relative">
-                    <meta itemprop="applicationCategory" content="BusinessApplication">
-                    <meta itemprop="operatingSystem" content="Android, Web">
-                    <meta itemprop="url" content="https://projectattendance.com/">
+                <!-- CARD 4: Software & Apps (Theme: #4F46E5) -->
+                <article id="software-development" itemscope itemtype="https://schema.org/SoftwareApplication" class="bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_36px_-6px_rgba(0,0,0,0.14)] hover:shadow-[0_24px_50px_-8px_rgba(79,70,229,0.3)] transition-all duration-300 flex flex-col group hover:-translate-y-2 overflow-hidden relative">
+                    <meta itemprop="applicationCategory" content="DeveloperApplication">
+                    <meta itemprop="operatingSystem" content="Android, iOS, Web">
+                    <meta itemprop="url" content="{{ url('/') }}#solutions">
                     <!-- Top Luminous Accent Stripe -->
-                    <div class="h-1.5 w-full bg-[#E48121]"></div>
+                    <div class="h-1.5 w-full bg-indigo-600"></div>
 
                     <!-- Header Area with Luminous Gradient Tint -->
-                    <div class="px-5 pt-4 pb-3 bg-gradient-to-b from-[#E48121]/15 via-[#E48121]/5 to-white text-center flex flex-col items-center">
-                        <!-- Brand Logo displayed crisply -->
-                        <a href="https://projectattendance.com/" target="_blank" rel="noopener noreferrer" class="h-11 flex items-center justify-center gap-2">
-                            <img src="/img/projectattendance.png" alt="ProjectAttendance GPS Attendance HRMS" itemprop="image" class="h-9 w-9 object-contain group-hover:scale-105 transition-transform duration-300">
-                            <span class="text-xl font-black text-[#E48121] tracking-tight" itemprop="name">ProjectAttendance<span class="text-slate-600 font-bold text-xs">.com</span></span>
+                    <div class="px-5 pt-4 pb-3 bg-gradient-to-b from-indigo-500/10 via-indigo-500/5 to-white text-center flex flex-col items-center">
+                        <a href="#solutions" class="h-11 flex items-center justify-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-gradient-to-tr from-indigo-600 to-blue-600 text-white flex items-center justify-center shadow-xs shrink-0 group-hover:scale-105 transition-transform duration-300">
+                                <svg class="w-4 h-4 stroke-white" fill="none" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" /></svg>
+                            </span>
+                            <span class="text-xl font-black text-indigo-700 tracking-tight" itemprop="name">Software &amp; Apps</span>
                         </a>
-                        <p class="text-xs font-bold text-[#b8610f] mt-1 tracking-tight">Workforce & Admin HRMS</p>
+                        <p class="text-xs font-bold text-indigo-900 mt-0.5 tracking-tight">Custom Web, Mobile &amp; ERP</p>
                     </div>
 
                     <!-- Edge-to-Edge Photo with Floating Badge -->
-                    <div class="w-full h-44 sm:h-48 overflow-hidden relative bg-slate-100">
-                        <img src="/img/project-card.jpg" alt="ProjectAttendance Staff Location & Geofence" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="w-full h-44 sm:h-48 overflow-hidden relative bg-slate-900">
+                        <img src="/img/software-card.jpg" alt="Software, Mobile App & Website Development" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <!-- Dark vignette for high text contrast -->
-                        <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-950/80 via-slate-950/30 to-transparent"></div>
+                        <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-950/85 via-slate-950/40 to-transparent"></div>
                         <!-- Floating Pill Badge -->
                         <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-[11px] font-bold">
-                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-950/85 backdrop-blur-md border border-[#E48121]/40 text-[#E48121] shadow-md">
-                                <span class="text-[#E48121]">📍</span>
-                                <span>GPS Geofence Tracking</span>
+                            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-slate-950/85 backdrop-blur-md border border-indigo-500/40 text-indigo-300 shadow-md">
+                                <span>⚡</span>
+                                <span>Custom Tech</span>
                             </span>
-                            <span class="text-amber-200 text-[10px] font-semibold drop-shadow-sm">Live Attendance</span>
+                            <span class="text-indigo-200 text-[10px] font-semibold">Web &amp; Mobile</span>
                         </div>
                     </div>
 
@@ -388,49 +389,42 @@
                     <div class="p-5 flex-1 flex flex-col justify-between">
                         <ul class="space-y-2.5 text-xs font-bold text-slate-800" itemprop="description">
                             <li class="flex items-center gap-2.5">
-                                <span class="w-4 h-4 rounded-full bg-[#E48121] text-white flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
+                                <span class="w-4 h-4 rounded-full bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
                                     <svg class="w-2.5 h-2.5 stroke-white" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>GPS Geofenced Mobile Punch-In</span>
+                                <span>Custom Web Portals &amp; Apps</span>
                             </li>
                             <li class="flex items-center gap-2.5">
-                                <span class="w-4 h-4 rounded-full bg-[#E48121] text-white flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
+                                <span class="w-4 h-4 rounded-full bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
                                     <svg class="w-2.5 h-2.5 stroke-white" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>Real-Time Field Route Tracking</span>
+                                <span>Android &amp; iOS App Engineering</span>
                             </li>
                             <li class="flex items-center gap-2.5">
-                                <span class="w-4 h-4 rounded-full bg-[#E48121] text-white flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
+                                <span class="w-4 h-4 rounded-full bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
                                     <svg class="w-2.5 h-2.5 stroke-white" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>Automated Shift & Overtime Reports</span>
+                                <span>Billing, ERP &amp; Business CRM</span>
                             </li>
                             <li class="flex items-center gap-2.5">
-                                <span class="w-4 h-4 rounded-full bg-[#E48121] text-white flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
+                                <span class="w-4 h-4 rounded-full bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
                                     <svg class="w-2.5 h-2.5 stroke-white" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                                 </span>
-                                <span>Screen Time & Task Productivity</span>
-                            </li>
-                            <li class="flex items-center gap-2.5">
-                                <span class="w-4 h-4 rounded-full bg-[#E48121] text-white flex items-center justify-center shrink-0 shadow-2xs font-extrabold">
-                                    <svg class="w-2.5 h-2.5 stroke-white" fill="none" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
-                                </span>
-                                <span>Payroll Timesheets & Leave Mgmt</span>
+                                <span>Cloud Infrastructure &amp; API</span>
                             </li>
                         </ul>
 
                         <!-- CTA & Links -->
                         <div class="mt-5 pt-3 border-t border-slate-100 space-y-2">
-                            <!-- Official Website Button -->
-                            <a href="https://projectattendance.com/" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-3 bg-[#E48121] hover:bg-[#cb6f16] text-white text-xs font-black rounded-xl flex items-center justify-center gap-1.5 shadow-md hover:shadow-lg hover:shadow-[#E48121]/35 transition-all duration-200">
-                                <span>Visit projectattendance.com</span>
+                            <!-- Explore Solutions Button -->
+                            <a href="#solutions" class="w-full py-2.5 px-3 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black rounded-xl flex items-center justify-center gap-1.5 shadow-md hover:shadow-lg hover:shadow-indigo-500/25 transition-all duration-200">
+                                <span>Explore Solutions</span>
                                 <svg class="w-3.5 h-3.5 stroke-white" fill="none" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m13.5 6 6 6m0 0-6 6m6-6H3.75" /></svg>
                             </a>
 
-                            <!-- Play Store App Link -->
-                            <a href="https://play.google.com/store/apps/details?id=smart.geofence.attendance&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="w-full py-1.5 px-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold flex items-center justify-center gap-1.5 transition shadow-xs group/paapp" title="Download ProjectAttendance App on Google Play">
-                                <svg class="w-3.5 h-3.5 text-orange-400 shrink-0 group-hover/paapp:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.793 12 3.61 22.186a2.03 2.03 0 0 1-.36-1.186V3a2.03 2.03 0 0 1 .359-1.186zm11.3 9.072l2.38-2.38-12.02-6.87 9.64 9.25zm0 2.228l-9.64 9.25 12.02-6.87-2.38-2.38zm1.114-1.114l2.96 1.69a1.5 1.5 0 0 0 0-2.614l-2.96 1.69z"/></svg>
-                                <span>Get App on Google Play</span>
+                            <!-- Request Project Quote -->
+                            <a href="{{ route('contact') }}" class="w-full py-1.5 px-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold flex items-center justify-center gap-1.5 transition shadow-xs group/devquote" title="Request custom software development quote">
+                                <span>Request Project Quote</span>
                             </a>
                         </div>
                     </div>

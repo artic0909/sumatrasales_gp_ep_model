@@ -43,6 +43,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Contact Inquiries
         Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+        Route::get('/contact/{id}', [ContactController::class, 'show'])->name('contact.show');
+        Route::post('/contact/{id}/toggle-status', [ContactController::class, 'toggleStatus'])->name('contact.toggleStatus');
+        Route::delete('/contact/{id}', [ContactController::class, 'destroy'])->name('contact.destroy');
 
         // Admin Profile & Settings
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');

@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <!-- Primary Static SEO Meta Tags -->
-    <title>@yield('title', 'Sumatra Sales Private Limited - Technology for People | Doctorwala, Schoolwala, Rani Matrimonial & ProjectAttendance')</title>
-    <meta name="description" content="@yield('meta_description', 'Sumatra Sales Private Limited is India\'s premier digital enterprise software ecosystem powering Doctorwala (Healthcare OPD Booking), Schoolwala (WBBSE EdTech), Rani Matrimonial (Safe Matchmaking), and ProjectAttendance (GPS Workforce HRMS). Explore our platforms and join the Executive Partner (EP) & Ground Partner (GP) programs.')">
-    <meta name="keywords" content="@yield('meta_keywords', 'Sumatra Sales, Sumatra Sales Private Limited, Doctorwala, doctorwala.info, doctor appointment booking app, OPD booking, pathology lab tests, Schoolwala, schoolwala.info, WBBSE Bengali medium education app, Rani Matrimonial, ranimatrimonial.com, trusted matrimony portal, verified matchmaking, ProjectAttendance, projectattendance.com, GPS geofence attendance, biometric staff tracking, Ground Partner GP, Executive Partner EP, software franchise India')">
+    <title>@yield('title', 'Sumatra Sales Private Limited - Technology for People | Doctorwala, Schoolwala, Rani Matrimonial, ProjectAttendance & Software Development')</title>
+    <meta name="description" content="@yield('meta_description', 'Sumatra Sales Private Limited is India\'s premier digital technology and software enterprise powering Doctorwala (Healthcare OPD Booking), Schoolwala (WBBSE EdTech), Rani Matrimonial (Safe Matchmaking), ProjectAttendance (GPS Workforce HRMS), and end-to-end Custom Software Development, Mobile App Development (Android & iOS) and Website Development services. Explore our platforms or join the Partner program.')">
+    <meta name="keywords" content="@yield('meta_keywords', 'Sumatra Sales, Sumatra Sales Private Limited, Doctorwala, doctorwala.info, doctor appointment booking app, OPD booking, pathology lab tests, Schoolwala, schoolwala.info, WBBSE Bengali medium education app, Rani Matrimonial, ranimatrimonial.com, trusted matrimony portal, verified matchmaking, ProjectAttendance, projectattendance.com, GPS geofence attendance, biometric staff tracking, software development, custom software development company, mobile app development, Android app development, iOS app development, website development, web application development, ERP CRM development, IT company India, Ground Partner GP, Executive Partner EP, software franchise India')">
     <meta name="author" content="Sumatra Sales Private Limited">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <link rel="canonical" href="{{ url()->current() }}">
@@ -16,7 +16,7 @@
     <meta property="og:locale" content="en_IN">
     <meta property="og:type" content="website">
     <meta property="og:title" content="@yield('og_title', 'Sumatra Sales Private Limited - Technology for People')">
-    <meta property="og:description" content="@yield('og_description', 'Discover proprietary software engines built and maintained by Sumatra Sales: Doctorwala, Schoolwala, Rani Matrimonial, and ProjectAttendance. Join as an Executive Partner (EP) or Ground Partner (GP).')">
+    <meta property="og:description" content="@yield('og_description', 'Discover proprietary software engines built and maintained by Sumatra Sales: Doctorwala, Schoolwala, Rani Matrimonial, ProjectAttendance, plus Custom Software, Mobile App & Website Development services. Join as an Executive Partner (EP) or Ground Partner (GP).')">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:site_name" content="Sumatra Sales Private Limited">
     <meta property="og:image" content="{{ asset('img/hero-bg.jpg') }}">
@@ -27,7 +27,7 @@
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="@yield('twitter_title', 'Sumatra Sales Private Limited - Technology for People')">
-    <meta name="twitter:description" content="@yield('twitter_description', 'Official portal for Sumatra Sales Private Limited and flagship platforms: Doctorwala, Schoolwala, Rani Matrimonial, and ProjectAttendance.')">
+    <meta name="twitter:description" content="@yield('twitter_description', 'Official portal for Sumatra Sales Private Limited: Doctorwala, Schoolwala, Rani Matrimonial, ProjectAttendance, and Custom Software, Mobile App & Website Development.')">
     <meta name="twitter:image" content="{{ asset('img/hero-bg.jpg') }}">
 
     <!-- Favicon & Icons -->
@@ -151,6 +151,17 @@
                 "publisher": {
                     "@id": "{{ url('/') }}#organization"
                 }
+            },
+            {
+                "@type": "Service",
+                "@id": "{{ url('/') }}#software-development",
+                "name": "Custom Software, Mobile App & Website Development",
+                "url": "{{ url('/') }}#solutions",
+                "serviceType": "Software Development, Mobile App Engineering, Website Development",
+                "provider": {
+                    "@id": "{{ url('/') }}#organization"
+                },
+                "description": "End-to-end custom software engineering, Android and iOS mobile application development, responsive corporate websites, web portals, and scalable cloud ERP/CRM solutions."
             }
         ]
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ContactInquiry;
 use App\Models\Partner;
 use App\Models\Visitor;
 use Carbon\Carbon;
@@ -79,6 +80,10 @@ class DashboardController extends Controller
         // 5. Recent Visitor Logs (Latest 8)
         $recentVisitors = Visitor::latest('visited_at')->take(8)->get();
 
+        // Inbound Inquiries
+        $totalInquiries = ContactInquiry::count();
+        $unreadInquiries = ContactInquiry::where('status', 'unread')->count();
+
         return view('admin.dashboard.index', compact(
             'totalPartners',
             'totalEp',
@@ -99,7 +104,9 @@ class DashboardController extends Controller
             'desktopPct',
             'mobilePct',
             'tabletPct',
-            'recentVisitors'
+            'recentVisitors',
+            'totalInquiries',
+            'unreadInquiries'
         ));
     }
 }

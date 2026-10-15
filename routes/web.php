@@ -13,6 +13,7 @@ Route::get('/partner-application/view-pdf/{code}', [PartnerController::class, 'v
 
 Route::view('/about', 'frontend.pages.about')->name('about');
 Route::view('/contact', 'frontend.pages.contact')->name('contact');
+Route::post('/contact', [\App\Http\Controllers\ContactFormController::class, 'store'])->name('contact.store');
 Route::view('/investor-trust', 'frontend.pages.investor_trust')->name('investor.trust');
 
 Route::middleware(['auth', 'verified'])->group(function () {

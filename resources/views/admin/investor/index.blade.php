@@ -25,7 +25,7 @@
         <div class="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs">
             <span class="text-xs font-bold uppercase text-slate-400">Software Ecosystem</span>
             <span class="text-2xl font-black text-slate-900 block mt-2">4 Platforms</span>
-            <span class="text-[11px] text-slate-500">Doctorwala • Schoolwala • Rani • ProjectAttendance</span>
+            <span class="text-[11px] text-slate-500">Doctorwala • Schoolwala • Rani • Custom Software</span>
         </div>
         <div class="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs">
             <span class="text-xs font-bold uppercase text-slate-400">Total Partner Base</span>

@@ -197,19 +197,19 @@
                     </a>
                 </div>
 
-                <!-- Product 4: ProjectAttendance -->
+                <!-- Product 4: Custom Software & App Development -->
                 <div class="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md transition space-y-3 flex flex-col justify-between">
                     <div class="space-y-2">
                         <div class="h-10 flex items-center gap-2">
-                            <span class="w-3 h-3 rounded-full bg-[#E48121]"></span>
-                            <span class="text-base font-black text-slate-900">ProjectAttendance™</span>
+                            <span class="w-3 h-3 rounded-full bg-[#4F46E5]"></span>
+                            <span class="text-base font-black text-slate-900">Custom Software &amp; Apps™</span>
                         </div>
                         <p class="text-xs text-slate-500 leading-relaxed">
-                            Mobile geofence biometric attendance, live route tracking, overtime calculation, and staff payroll management HRMS system.
+                            Turnkey web application engineering, native Android and iOS mobile app development, custom billing, and enterprise ERP/CRM cloud solutions.
                         </p>
                     </div>
-                    <a href="https://projectattendance.com/" target="_blank" class="text-[11px] font-bold text-orange-700 hover:underline inline-flex items-center gap-1">
-                        <span>projectattendance.com</span>
+                    <a href="{{ route('home') }}#solutions" class="text-[11px] font-bold text-indigo-700 hover:underline inline-flex items-center gap-1">
+                        <span>Explore Software Solutions</span>
                         <span>↗</span>
                     </a>
                 </div>
