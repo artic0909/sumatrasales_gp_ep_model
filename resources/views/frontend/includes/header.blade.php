@@ -333,9 +333,9 @@
                                 <span>Looking to deploy these software platforms across your district, or need white-label distribution rights?</span>
                             </div>
                             <div class="flex items-center gap-3 shrink-0">
-                                <a href="#partner-program" class="font-bold text-blue-600 hover:text-blue-800 transition">Become a Ground Partner &rarr;</a>
+                                <a href="/partner-register" class="font-bold text-blue-600 hover:text-blue-800 transition">Become a Partner &rarr;</a>
                                 <span class="text-slate-300">|</span>
-                                <a href="#contact" class="font-bold text-slate-700 hover:text-slate-900 transition">Schedule Live Demo &rarr;</a>
+                                <!-- <a href="#contact" class="font-bold text-slate-700 hover:text-slate-900 transition">Schedule Live Demo &rarr;</a> -->
                             </div>
                         </div>
 
@@ -515,7 +515,7 @@
                                     </div>
 
                                     <div class="mt-4 pt-2.5 border-t border-white/15">
-                                        <a href="#contact" class="w-full py-2 px-3 bg-white hover:bg-blue-50 text-[#1D4ED8] font-black text-xs rounded-lg text-center shadow-sm transition-all flex items-center justify-center gap-1.5 group/btn">
+                                        <a href="/contact" class="w-full py-2 px-3 bg-white hover:bg-blue-50 text-[#1D4ED8] font-black text-xs rounded-lg text-center shadow-sm transition-all flex items-center justify-center gap-1.5 group/btn">
                                             <span>Request Free Consultation</span>
                                             <svg class="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                                         </a>
@@ -663,9 +663,6 @@
                                         <a href="{{ route('partner.register') }}" class="w-full py-2 px-3 bg-[#FABE28] hover:bg-[#E5AC20] text-slate-950 font-black text-xs rounded-lg text-center shadow-sm transition-all flex items-center justify-center gap-1.5">
                                             <span>Register Free as Partner</span>
                                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
-                                        </a>
-                                        <a href="{{ route('login') }}" class="w-full py-1 text-center text-[11px] text-slate-400 hover:text-white transition block">
-                                            Existing Partner? Sign In &rarr;
                                         </a>
                                     </div>
                                 </div>
