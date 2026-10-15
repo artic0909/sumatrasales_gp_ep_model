@@ -1,3 +1,11 @@
+@php
+    $currentRoute = request()->route() ? request()->route()->getName() : '';
+    $isHome = request()->routeIs('home') || $currentRoute === 'home' || request()->is('/');
+    $isAbout = request()->routeIs('about') || request()->is('about');
+    $isContact = request()->routeIs('contact*') || request()->is('contact*');
+    $isInvestor = request()->routeIs('investor.trust*') || request()->is('investor-trust*');
+    $isPartner = request()->routeIs('partner.register*') || request()->is('partner-register*');
+@endphp
 <header class="w-full bg-white border-b border-slate-200 sticky top-0 z-50 shadow-xs">
         <!-- Top Row: Logo & Action Buttons -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3">
@@ -38,7 +46,7 @@
                     @endauth
 
                     <!-- Become a Partner Primary CTA Button -->
-                    <a href="{{ route('partner.register') }}" class="inline-flex items-center justify-center px-3 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-bold text-white bg-[#1D64F2] hover:bg-[#1853CA] active:bg-[#1546B0] rounded-lg shadow-sm hover:shadow transition duration-150 whitespace-nowrap">
+                    <a href="{{ route('partner.register') }}" class="inline-flex items-center justify-center px-3 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-bold text-white {{ $isPartner ? 'bg-[#1546B0] ring-2 ring-blue-300 shadow-md' : 'bg-[#1D64F2] hover:bg-[#1853CA] active:bg-[#1546B0] shadow-sm hover:shadow' }} rounded-lg transition duration-150 whitespace-nowrap">
                         <span>Become a Partner</span>
                     </a>
 
@@ -56,8 +64,8 @@
         <div id="sub-header-bar" class="hidden lg:block border-t border-slate-200/80 bg-white relative">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <nav class="flex items-center space-x-1 sm:space-x-2 py-1.5 overflow-x-auto sm:overflow-visible text-xs sm:text-sm font-semibold text-slate-700 no-scrollbar">
-                    <a href="{{ route('home') }}" class="px-3 py-1.5 rounded-lg text-[#1D64F2] hover:bg-blue-50 font-bold whitespace-nowrap transition">Home</a>
-                    <a href="{{ route('about') }}" class="px-3 py-1.5 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition whitespace-nowrap">About Us</a>
+                    <a href="{{ route('home') }}" class="px-3 py-1.5 rounded-lg {{ $isHome ? 'text-[#1D64F2] bg-blue-50 font-bold shadow-2xs' : 'text-slate-700 hover:text-blue-600 hover:bg-slate-100 font-semibold' }} whitespace-nowrap transition">Home</a>
+                    <a href="{{ route('about') }}" class="px-3 py-1.5 rounded-lg {{ $isAbout ? 'text-[#1D64F2] bg-blue-50 font-bold shadow-2xs' : 'text-slate-700 hover:text-blue-600 hover:bg-slate-100 font-semibold' }} whitespace-nowrap transition">About Us</a>
                     
                     <!-- Dropdown Trigger 1: Our Platforms -->
                     <button type="button" data-dropdown-trigger="dropdown-platforms" class="nav-dropdown-trigger group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition cursor-pointer whitespace-nowrap focus:outline-hidden data-[active=true]:text-[#1D64F2] data-[active=true]:bg-blue-50 font-semibold text-slate-700">
@@ -76,17 +84,17 @@
                     </button>
 
                     <!-- Dropdown Trigger 3: Partner Program -->
-                    <button type="button" data-dropdown-trigger="dropdown-partner" class="nav-dropdown-trigger group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition cursor-pointer whitespace-nowrap focus:outline-hidden data-[active=true]:text-[#1D64F2] data-[active=true]:bg-blue-50 font-semibold text-slate-700">
+                    <button type="button" data-dropdown-trigger="dropdown-partner" class="nav-dropdown-trigger group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg {{ $isPartner ? 'text-[#1D64F2] bg-blue-50 font-bold shadow-2xs' : 'text-slate-700 hover:text-blue-600 hover:bg-slate-100 font-semibold' }} transition cursor-pointer whitespace-nowrap focus:outline-hidden data-[active=true]:text-[#1D64F2] data-[active=true]:bg-blue-50">
                         <span>Partner Program</span>
-                        <svg class="dropdown-chevron w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <svg class="dropdown-chevron w-3.5 h-3.5 {{ $isPartner ? 'text-[#1D64F2]' : 'text-slate-400 group-hover:text-blue-600' }} transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                         </svg>
                     </button>
 
                     <!-- Dropdown Trigger 4: Investor & Trust -->
-                    <button type="button" data-dropdown-trigger="dropdown-investor" class="nav-dropdown-trigger group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition cursor-pointer whitespace-nowrap focus:outline-hidden data-[active=true]:text-[#1D64F2] data-[active=true]:bg-blue-50 font-semibold text-slate-700">
+                    <button type="button" data-dropdown-trigger="dropdown-investor" class="nav-dropdown-trigger group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg {{ $isInvestor ? 'text-[#1D64F2] bg-blue-50 font-bold shadow-2xs' : 'text-slate-700 hover:text-blue-600 hover:bg-slate-100 font-semibold' }} transition cursor-pointer whitespace-nowrap focus:outline-hidden data-[active=true]:text-[#1D64F2] data-[active=true]:bg-blue-50">
                         <span>Investor & Trust</span>
-                        <svg class="dropdown-chevron w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <svg class="dropdown-chevron w-3.5 h-3.5 {{ $isInvestor ? 'text-[#1D64F2]' : 'text-slate-400 group-hover:text-blue-600' }} transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                         </svg>
                     </button>
@@ -99,7 +107,7 @@
                         </svg>
                     </button>
 
-                    <a href="{{ route('contact') }}" class="px-3 py-1.5 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition whitespace-nowrap">Contact</a>
+                    <a href="{{ route('contact') }}" class="px-3 py-1.5 rounded-lg {{ $isContact ? 'text-[#1D64F2] bg-blue-50 font-bold shadow-2xs' : 'text-slate-700 hover:text-blue-600 hover:bg-slate-100 font-semibold' }} whitespace-nowrap transition">Contact</a>
                 </nav>
             </div>
 
@@ -683,8 +691,8 @@
                                     <p class="text-[11px] sm:text-xs text-slate-500 font-medium">Public statutory compliance, certified corporate entity, and ISO 9001:2015 engineering standards.</p>
                                 </div>
                             </div>
-                            <a href="#investor-trust" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 shrink-0 self-start sm:self-auto group/toplink">
-                                <span>View Investor Section</span>
+                            <a href="{{ route('investor.trust') }}" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 shrink-0 self-start sm:self-auto group/toplink">
+                                <span>View Investor Section ↗</span>
                                 <svg class="w-3.5 h-3.5 group-hover/toplink:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                             </a>
                         </div>
@@ -799,8 +807,8 @@
                                     </div>
 
                                     <div class="mt-4 pt-2.5 border-t border-white/15">
-                                        <a href="#investor-trust" class="w-full py-2 px-3 bg-white hover:bg-blue-50 text-[#173FAD] font-black text-xs rounded-lg text-center shadow-sm transition-all flex items-center justify-center gap-1.5">
-                                            <span>Explore Investor Hub</span>
+                                        <a href="{{ route('investor.trust') }}" class="w-full py-2 px-3 bg-white hover:bg-blue-50 text-[#173FAD] font-black text-xs rounded-lg text-center shadow-sm transition-all flex items-center justify-center gap-1.5">
+                                            <span>Explore Investor Hub ↗</span>
                                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                                         </a>
                                     </div>
@@ -1031,7 +1039,7 @@
                             Login
                         </a>
                     @endauth
-                    <a href="{{ route('partner.register') }}" class="mobile-nav-link py-2 px-3 text-center text-xs font-bold text-white bg-[#1D64F2] hover:bg-[#1853CA] rounded-lg transition shadow-xs">
+                    <a href="{{ route('partner.register') }}" class="mobile-nav-link py-2 px-3 text-center text-xs font-bold text-white {{ $isPartner ? 'bg-[#1546B0] ring-2 ring-blue-300' : 'bg-[#1D64F2] hover:bg-[#1853CA]' }} rounded-lg transition shadow-xs">
                         Join Free
                     </a>
                 </div>
@@ -1040,15 +1048,15 @@
                 <nav class="space-y-1.5 text-xs font-semibold text-slate-700">
                     
                     <!-- Direct Link: Home -->
-                    <a href="{{ route('home') }}" class="mobile-nav-link flex items-center justify-between px-3 py-2 rounded-lg text-blue-600 bg-blue-50/80 font-bold transition">
+                    <a href="{{ route('home') }}" class="mobile-nav-link flex items-center justify-between px-3 py-2 rounded-lg {{ $isHome ? 'text-blue-600 bg-blue-50/80 font-bold shadow-2xs' : 'text-slate-700 hover:bg-slate-100 font-semibold' }} transition">
                         <span>Home</span>
-                        <span class="text-[10px] text-blue-500 font-normal">Overview</span>
+                        <span class="text-[10px] {{ $isHome ? 'text-blue-500 font-bold' : 'text-slate-400 font-normal' }}">Overview</span>
                     </a>
 
                     <!-- Direct Link: About Us -->
-                    <a href="{{ route('about') }}" class="mobile-nav-link flex items-center justify-between px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-100 transition">
+                    <a href="{{ route('about') }}" class="mobile-nav-link flex items-center justify-between px-3 py-2 rounded-lg {{ $isAbout ? 'text-blue-600 bg-blue-50/80 font-bold shadow-2xs' : 'text-slate-700 hover:bg-slate-100 font-semibold' }} transition">
                         <span>About Sumatra Sales</span>
-                        <span class="text-[10px] text-slate-400 font-normal">Mission</span>
+                        <span class="text-[10px] {{ $isAbout ? 'text-blue-500 font-bold' : 'text-slate-400 font-normal' }}">Mission</span>
                     </a>
 
                     <!-- Accordion 1: Our Platforms -->
@@ -1160,19 +1168,26 @@
                     </div>
 
                     <!-- Accordion 3: Partner Program -->
-                    <div class="border border-slate-200/80 rounded-xl overflow-hidden bg-slate-50/30">
-                        <button type="button" class="mobile-accordion-trigger w-full flex items-center justify-between px-3.5 py-2.5 text-slate-900 font-bold text-xs text-left transition hover:bg-slate-100/70">
+                    <div class="border {{ $isPartner ? 'border-blue-300 ring-1 ring-blue-200 bg-blue-50/20' : 'border-slate-200/80 bg-slate-50/30' }} rounded-xl overflow-hidden">
+                        <button type="button" class="mobile-accordion-trigger w-full flex items-center justify-between px-3.5 py-2.5 {{ $isPartner ? 'text-blue-700 font-black' : 'text-slate-900 font-bold' }} text-xs text-left transition hover:bg-slate-100/70">
                             <span class="flex items-center gap-2">
-                                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                <span class="w-2 h-2 rounded-full {{ $isPartner ? 'bg-blue-600 ring-2 ring-blue-300' : 'bg-emerald-500' }}"></span>
                                 <span>Partner Program (EP & GP)</span>
+                                @if($isPartner)
+                                    <span class="text-[9px] font-black uppercase tracking-wider px-1.5 py-0.2 rounded bg-blue-100 text-blue-700">Active</span>
+                                @endif
                             </span>
                             <svg class="mobile-chevron w-4 h-4 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
                         </button>
-                        <div class="mobile-accordion-panel hidden px-3 pb-3 pt-1 space-y-1.5 border-t border-slate-100 bg-white">
+                        <div class="mobile-accordion-panel {{ $isPartner ? 'block' : 'hidden' }} px-3 pb-3 pt-1 space-y-1.5 border-t border-slate-100 bg-white">
                             <div class="p-2 rounded bg-emerald-50/60 border border-emerald-100 text-[11px]">
                                 <span class="font-bold text-emerald-900 block">₹0 Investment Required</span>
                                 <span class="text-[10px] text-emerald-700">No franchise fee, no security deposit, direct bank commissions.</span>
                             </div>
+                            <a href="{{ route('partner.register') }}" class="mobile-nav-link block p-2 rounded {{ $isPartner ? 'bg-blue-50 text-blue-700 font-black' : 'hover:bg-slate-50 text-slate-800 font-bold' }} text-[11px]">
+                                <span>Join / Register as Partner ↗</span>
+                                <span class="block text-[10px] {{ $isPartner ? 'text-blue-600' : 'text-slate-500' }} font-normal">Executive Partner (EP) & Ground Partner (GP)</span>
+                            </a>
                             <a href="#partner-program" class="mobile-nav-link block p-2 rounded hover:bg-slate-50 text-[11px] font-bold text-slate-800">
                                 <span>Ground Partner (GP) Model</span>
                                 <span class="block text-[10px] text-slate-500 font-normal">Local market outreach & referrals</span>
@@ -1189,20 +1204,23 @@
                     </div>
 
                     <!-- Accordion 4: Investor & Trust -->
-                    <div class="border border-slate-200/80 rounded-xl overflow-hidden bg-slate-50/30">
-                        <button type="button" class="mobile-accordion-trigger w-full flex items-center justify-between px-3.5 py-2.5 text-slate-900 font-bold text-xs text-left transition hover:bg-slate-100/70">
+                    <div class="border {{ $isInvestor ? 'border-blue-300 ring-1 ring-blue-200 bg-blue-50/20' : 'border-slate-200/80 bg-slate-50/30' }} rounded-xl overflow-hidden">
+                        <button type="button" class="mobile-accordion-trigger w-full flex items-center justify-between px-3.5 py-2.5 {{ $isInvestor ? 'text-blue-700 font-black' : 'text-slate-900 font-bold' }} text-xs text-left transition hover:bg-slate-100/70">
                             <span class="flex items-center gap-2">
-                                <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                                <span class="w-2 h-2 rounded-full {{ $isInvestor ? 'bg-blue-600 ring-2 ring-blue-300' : 'bg-blue-500' }}"></span>
                                 <span>Investor & Trust</span>
+                                @if($isInvestor)
+                                    <span class="text-[9px] font-black uppercase tracking-wider px-1.5 py-0.2 rounded bg-blue-100 text-blue-700">Active</span>
+                                @endif
                             </span>
                             <svg class="mobile-chevron w-4 h-4 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
                         </button>
-                        <div class="mobile-accordion-panel hidden px-3 pb-3 pt-1 space-y-1.5 border-t border-slate-100 bg-white">
-                            <a href="#investor-trust" class="mobile-nav-link block p-2 rounded hover:bg-slate-50 text-[11px] font-bold text-slate-800">
-                                <span>Corporate Governance Charter</span>
-                                <span class="block text-[10px] text-slate-500 font-normal">Ethical conduct & partner policies</span>
+                        <div class="mobile-accordion-panel {{ $isInvestor ? 'block' : 'hidden' }} px-3 pb-3 pt-1 space-y-1.5 border-t border-slate-100 bg-white">
+                            <a href="{{ route('investor.trust') }}" class="mobile-nav-link block p-2 rounded {{ $isInvestor ? 'bg-blue-50 text-blue-700 font-black' : 'hover:bg-slate-50 text-slate-800 font-bold' }} text-[11px]">
+                                <span>Corporate Governance Charter & Trust Hub ↗</span>
+                                <span class="block text-[10px] {{ $isInvestor ? 'text-blue-600' : 'text-slate-500' }} font-normal">Ethical conduct, audited balance sheets & statutory filings</span>
                             </a>
-                            <a href="#investor-trust" class="mobile-nav-link block p-2 rounded hover:bg-slate-50 text-[11px] font-bold text-slate-800">
+                            <a href="{{ route('investor.trust') }}#business-model" class="mobile-nav-link block p-2 rounded hover:bg-slate-50 text-[11px] font-bold text-slate-800">
                                 <span>Business Model & Financial Transparency</span>
                                 <span class="block text-[10px] text-slate-500 font-normal">Public disclosure & operational metrics</span>
                             </a>
@@ -1229,9 +1247,9 @@
                     </div>
 
                     <!-- Direct Link: Contact -->
-                    <a href="{{ route('contact') }}" class="mobile-nav-link flex items-center justify-between px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-100 transition">
+                    <a href="{{ route('contact') }}" class="mobile-nav-link flex items-center justify-between px-3 py-2 rounded-lg {{ $isContact ? 'text-blue-600 bg-blue-50/80 font-bold shadow-2xs' : 'text-slate-700 hover:bg-slate-100 font-semibold' }} transition">
                         <span>Contact & Head Office</span>
-                        <span class="text-[10px] text-slate-400 font-normal">Help Desk</span>
+                        <span class="text-[10px] {{ $isContact ? 'text-blue-500 font-bold' : 'text-slate-400 font-normal' }}">Help Desk</span>
                     </a>
 
                 </nav>
