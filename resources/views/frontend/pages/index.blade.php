@@ -103,25 +103,23 @@
                     <div class="px-5 pt-4 pb-3 bg-gradient-to-b from-[#3F0001]/10 via-[#3F0001]/5 to-white text-center flex flex-col items-center">
                         <!-- Brand Logo displayed crisply -->
                         <a href="https://ranimatrimonial.com/" target="_blank" rel="noopener noreferrer" class="h-11 flex items-center justify-center gap-2">
-                            <img src="/img/ranimatrimonial.png" alt="Rani Matrimonial Verified Matchmaking" itemprop="image" class="h-9 w-9 object-contain rounded-full shadow-2xs group-hover:scale-105 transition-transform duration-300">
+                            <img src="/img/ranimatrimonial.png" alt="Rani Matrimonial Verified Matchmaking" itemprop="image" class="h-9 w-9 object-contain rounded-full shadow-2xs transition-transform duration-300">
                             <span class="text-xl font-black text-[#3F0001] tracking-tight" itemprop="name">Rani Matrimonial</span>
                         </a>
                         <p class="text-xs font-bold text-[#3F0001]/80 mt-1 tracking-tight">Find Your Perfect Match</p>
                     </div>
 
-                    <!-- Edge-to-Edge Photo with Floating Badge -->
-                    <div class="w-full h-44 sm:h-48 overflow-hidden relative bg-slate-100">
-                        <img src="/img/matrimony-card.jpg" alt="Rani Matrimonial Verified Couple Matchmaking" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
-                        <!-- Dark vignette for high text contrast -->
-                        <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-950/80 via-slate-950/30 to-transparent"></div>
-                        <!-- Floating Pill Badge -->
-                        <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-[11px] font-bold">
-                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-950/85 backdrop-blur-md border border-rose-500/30 text-rose-200 shadow-md">
-                                <span class="text-rose-400">♥</span>
-                                <span>100% Verified Profiles</span>
-                            </span>
-                            <span class="text-rose-300 text-[10px] font-semibold drop-shadow-sm">Family Privacy</span>
-                        </div>
+                    <!-- Edge-to-Edge 16:9 Photo Container (Uncropped) -->
+                    <div class="w-full aspect-[16/9] overflow-hidden relative bg-slate-100 border-y border-slate-100">
+                        <img src="/img/matrimony-card.jpg" alt="Rani Matrimonial Verified Couple Matchmaking" class="w-full h-full object-cover object-center transition-transform duration-300">
+                    </div>
+                    <!-- Highlight Sub-Bar (Unobstructed View) -->
+                    <div class="px-4 py-2 bg-[#3F0001]/5 border-b border-slate-100 flex items-center justify-between text-[11px] font-bold">
+                        <span class="inline-flex items-center gap-1.5 text-[#3F0001]">
+                            <span class="text-rose-600">♥</span>
+                            <span>100% Verified Profiles</span>
+                        </span>
+                        <span class="text-[#3F0001]/75 text-[10px] font-semibold">Family Privacy</span>
                     </div>
 
                     <!-- Feature Checklist -->
@@ -188,25 +186,23 @@
                     <div class="px-5 pt-4 pb-3 bg-gradient-to-b from-[#F5DB3C]/25 via-[#F5DB3C]/5 to-white text-center flex flex-col items-center">
                         <!-- Brand Logo displayed crisply -->
                         <a href="https://schoolwala.info/" target="_blank" rel="noopener noreferrer" class="h-11 flex items-center justify-center gap-2">
-                            <img src="/img/schoolwala.jpg" alt="Schoolwala EdTech WBBSE Learning" itemprop="image" class="h-9 w-9 object-contain rounded-lg shadow-2xs group-hover:scale-105 transition-transform duration-300">
+                            <img src="/img/schoolwala.jpg" alt="Schoolwala EdTech WBBSE Learning" itemprop="image" class="h-9 w-9 object-contain rounded-lg shadow-2xs transition-transform duration-300">
                             <span class="text-2xl font-black text-slate-900 tracking-tight" itemprop="name">School<span class="text-[#caad0c]">wala</span></span>
                         </a>
                         <p class="text-xs font-bold text-amber-900/80 mt-1 tracking-tight">Digital Education (Bengali Medium)</p>
                     </div>
 
-                    <!-- Edge-to-Edge Photo with Floating Badge -->
-                    <div class="w-full h-44 sm:h-48 overflow-hidden relative bg-slate-100">
-                        <img src="/img/students-card.jpg" alt="Schoolwala Bengali Medium WBBSE Students" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <!-- Dark vignette for high text contrast -->
-                        <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-950/80 via-slate-950/30 to-transparent"></div>
-                        <!-- Floating Pill Badge -->
-                        <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-[11px] font-bold">
-                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-950/80 backdrop-blur-md border border-[#F5DB3C]/40 text-[#F5DB3C] shadow-md">
-                                <span class="text-[#F5DB3C]">★</span>
-                                <span>Bengali Medium Focus</span>
-                            </span>
-                            <span class="text-amber-200 text-[10px] font-semibold drop-shadow-sm">WBBSE Syllabus</span>
-                        </div>
+                    <!-- Edge-to-Edge 16:9 Photo Container (Uncropped) -->
+                    <div class="w-full aspect-[16/9] overflow-hidden relative bg-slate-100 border-y border-slate-100">
+                        <img src="/img/students-card.jpg" alt="Schoolwala Bengali Medium WBBSE Students" class="w-full h-full object-cover object-center transition-transform duration-300">
+                    </div>
+                    <!-- Highlight Sub-Bar (Unobstructed View) -->
+                    <div class="px-4 py-2 bg-[#F5DB3C]/15 border-b border-slate-100 flex items-center justify-between text-[11px] font-bold">
+                        <span class="inline-flex items-center gap-1.5 text-amber-950">
+                            <span class="text-amber-600">★</span>
+                            <span>Bengali Medium Focus</span>
+                        </span>
+                        <span class="text-amber-900/80 text-[10px] font-semibold">WBBSE Syllabus</span>
                     </div>
 
                     <!-- Feature Checklist -->
@@ -254,14 +250,14 @@
 
                             <!-- Play Store App Link -->
                             <a href="https://play.google.com/store/apps/details?id=com.schoolwala.schoolwalaapp" target="_blank" rel="noopener noreferrer" class="w-full py-1.5 px-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold flex items-center justify-center gap-1.5 transition shadow-xs group/swapp" title="Download Schoolwala App on Google Play">
-                                <svg class="w-3.5 h-3.5 text-amber-400 shrink-0 group-hover/swapp:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.793 12 3.61 22.186a2.03 2.03 0 0 1-.36-1.186V3a2.03 2.03 0 0 1 .359-1.186zm11.3 9.072l2.38-2.38-12.02-6.87 9.64 9.25zm0 2.228l-9.64 9.25 12.02-6.87-2.38-2.38zm1.114-1.114l2.96 1.69a1.5 1.5 0 0 0 0-2.614l-2.96 1.69z"/></svg>
+                                <svg class="w-3.5 h-3.5 text-amber-400 shrink-0 transition-transform" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.793 12 3.61 22.186a2.03 2.03 0 0 1-.36-1.186V3a2.03 2.03 0 0 1 .359-1.186zm11.3 9.072l2.38-2.38-12.02-6.87 9.64 9.25zm0 2.228l-9.64 9.25 12.02-6.87-2.38-2.38zm1.114-1.114l2.96 1.69a1.5 1.5 0 0 0 0-2.614l-2.96 1.69z"/></svg>
                                 <span>Get Schoolwala on Google Play</span>
                             </a>
                         </div>
                     </div>
                 </article>
 
-                <!-- CARD 3: Rani Matrimonial (Theme: #3F0001) -->
+                <!-- CARD 3: Doctorwala (Theme: #4DCBDC) -->
                 <article id="doctorwala" itemscope itemtype="https://schema.org/SoftwareApplication" class="bg-white rounded-2xl border border-slate-200/90 shadow-[0_12px_36px_-6px_rgba(0,0,0,0.14)] hover:shadow-[0_24px_50px_-8px_rgba(77,203,220,0.38)] transition-all duration-300 flex flex-col group hover:-translate-y-2 overflow-hidden relative">
                     <meta itemprop="applicationCategory" content="HealthApplication">
                     <meta itemprop="operatingSystem" content="Android, Web">
@@ -273,24 +269,22 @@
                     <div class="px-5 pt-4 pb-3 bg-gradient-to-b from-[#4DCBDC]/20 via-[#4DCBDC]/5 to-white text-center flex flex-col items-center">
                         <!-- Brand Logo displayed crisply -->
                         <a href="https://www.doctorwala.info/" target="_blank" rel="noopener noreferrer" class="h-11 flex items-center justify-center">
-                            <img src="/img/doctorwala.png" alt="DOCTORwala Healthcare OPD Booking" itemprop="image" class="h-full w-auto max-w-[190px] object-contain group-hover:scale-105 transition-transform duration-300">
+                            <img src="/img/doctorwala.png" alt="DOCTORwala Healthcare OPD Booking" itemprop="image" class="h-full w-auto max-w-[190px] object-contain transition-transform duration-300">
                         </a>
                         <h3 class="text-xs font-bold text-[#14727e] mt-1 tracking-tight" itemprop="name">Healthcare for Everyone</h3>
                     </div>
 
-                    <!-- Edge-to-Edge Photo with Floating Badge -->
-                    <div class="w-full h-44 sm:h-48 overflow-hidden relative bg-slate-100">
-                        <img src="/img/doctor-card.jpg" alt="Doctorwala Verified Doctors and OPD Booking" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <!-- Dark vignette for high text contrast -->
-                        <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-950/80 via-slate-950/30 to-transparent"></div>
-                        <!-- Floating Pill Badge -->
-                        <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-[11px] font-bold">
-                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-950/80 backdrop-blur-md border border-[#4DCBDC]/40 text-[#4DCBDC] shadow-md">
-                                <span class="w-2 h-2 rounded-full bg-[#4DCBDC] animate-pulse"></span>
-                                <span>24/7 Verified Booking</span>
-                            </span>
-                            <span class="text-cyan-200 text-[10px] font-semibold drop-shadow-sm">Doctors & OPD</span>
-                        </div>
+                    <!-- Edge-to-Edge 16:9 Photo Container (Uncropped) -->
+                    <div class="w-full aspect-[16/9] overflow-hidden relative bg-slate-100 border-y border-slate-100">
+                        <img src="/img/doctor-card.jpg" alt="Doctorwala Verified Doctors and OPD Booking" class="w-full h-full object-cover object-center transition-transform duration-300">
+                    </div>
+                    <!-- Highlight Sub-Bar (Unobstructed View) -->
+                    <div class="px-4 py-2 bg-[#4DCBDC]/15 border-b border-slate-100 flex items-center justify-between text-[11px] font-bold">
+                        <span class="inline-flex items-center gap-1.5 text-[#0c5963]">
+                            <span class="w-2 h-2 rounded-full bg-[#14727e] animate-pulse"></span>
+                            <span>24/7 Verified Booking</span>
+                        </span>
+                        <span class="text-[#14727e] text-[10px] font-semibold">Doctors & OPD</span>
                     </div>
 
                     <!-- Feature Checklist -->
@@ -339,11 +333,11 @@
                             <!-- Play Store App Links -->
                             <div class="grid grid-cols-2 gap-1.5 pt-0.5">
                                 <a href="https://play.google.com/store/apps/details?id=com.doctorwala.dochealth&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="py-1.5 px-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold flex items-center justify-center gap-1 transition shadow-xs group/app" title="Doctorwala Patient App on Google Play">
-                                    <svg class="w-3 h-3 text-cyan-400 shrink-0 group-hover/app:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.793 12 3.61 22.186a2.03 2.03 0 0 1-.36-1.186V3a2.03 2.03 0 0 1 .359-1.186zm11.3 9.072l2.38-2.38-12.02-6.87 9.64 9.25zm0 2.228l-9.64 9.25 12.02-6.87-2.38-2.38zm1.114-1.114l2.96 1.69a1.5 1.5 0 0 0 0-2.614l-2.96 1.69z"/></svg>
+                                    <svg class="w-3 h-3 text-cyan-400 shrink-0 transition-transform" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.793 12 3.61 22.186a2.03 2.03 0 0 1-.36-1.186V3a2.03 2.03 0 0 1 .359-1.186zm11.3 9.072l2.38-2.38-12.02-6.87 9.64 9.25zm0 2.228l-9.64 9.25 12.02-6.87-2.38-2.38zm1.114-1.114l2.96 1.69a1.5 1.5 0 0 0 0-2.614l-2.96 1.69z"/></svg>
                                     <span>Patient App</span>
                                 </a>
                                 <a href="https://play.google.com/store/apps/details?id=info.doctorwala.partner&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="py-1.5 px-2 rounded-lg bg-cyan-50 hover:bg-cyan-100 text-[#0c5963] border border-cyan-200/80 text-[10px] font-bold flex items-center justify-center gap-1 transition group/part" title="Doctorwala Partner App (Doctors, OPD & Labs) on Google Play">
-                                    <svg class="w-3 h-3 text-cyan-600 shrink-0 group-hover/part:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.793 12 3.61 22.186a2.03 2.03 0 0 1-.36-1.186V3a2.03 2.03 0 0 1 .359-1.186zm11.3 9.072l2.38-2.38-12.02-6.87 9.64 9.25zm0 2.228l-9.64 9.25 12.02-6.87-2.38-2.38zm1.114-1.114l2.96 1.69a1.5 1.5 0 0 0 0-2.614l-2.96 1.69z"/></svg>
+                                    <svg class="w-3 h-3 text-cyan-600 shrink-0 transition-transform" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.793 12 3.61 22.186a2.03 2.03 0 0 1-.36-1.186V3a2.03 2.03 0 0 1 .359-1.186zm11.3 9.072l2.38-2.38-12.02-6.87 9.64 9.25zm0 2.228l-9.64 9.25 12.02-6.87-2.38-2.38zm1.114-1.114l2.96 1.69a1.5 1.5 0 0 0 0-2.614l-2.96 1.69z"/></svg>
                                     <span>Partner App</span>
                                 </a>
                             </div>
@@ -362,7 +356,7 @@
                     <!-- Header Area with Luminous Gradient Tint -->
                     <div class="px-5 pt-4 pb-3 bg-gradient-to-b from-indigo-500/10 via-indigo-500/5 to-white text-center flex flex-col items-center">
                         <a href="#solutions" class="h-11 flex items-center justify-center gap-2">
-                            <span class="w-7 h-7 rounded-lg bg-gradient-to-tr from-indigo-600 to-blue-600 text-white flex items-center justify-center shadow-xs shrink-0 group-hover:scale-105 transition-transform duration-300">
+                            <span class="w-7 h-7 rounded-lg bg-gradient-to-tr from-indigo-600 to-blue-600 text-white flex items-center justify-center shadow-xs shrink-0 transition-transform duration-300">
                                 <svg class="w-4 h-4 stroke-white" fill="none" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" /></svg>
                             </span>
                             <span class="text-xl font-black text-indigo-700 tracking-tight" itemprop="name">Software &amp; Apps</span>
@@ -370,19 +364,17 @@
                         <p class="text-xs font-bold text-indigo-900 mt-0.5 tracking-tight">Custom Web, Mobile &amp; ERP</p>
                     </div>
 
-                    <!-- Edge-to-Edge Photo with Floating Badge -->
-                    <div class="w-full h-44 sm:h-48 overflow-hidden relative bg-slate-900">
-                        <img src="/img/software-card.jpg" alt="Software, Mobile App & Website Development" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <!-- Dark vignette for high text contrast -->
-                        <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-950/85 via-slate-950/40 to-transparent"></div>
-                        <!-- Floating Pill Badge -->
-                        <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-[11px] font-bold">
-                            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-slate-950/85 backdrop-blur-md border border-indigo-500/40 text-indigo-300 shadow-md">
-                                <span>⚡</span>
-                                <span>Custom Tech</span>
-                            </span>
-                            <span class="text-indigo-200 text-[10px] font-semibold">Web &amp; Mobile</span>
-                        </div>
+                    <!-- Edge-to-Edge 16:9 Photo Container (Uncropped) -->
+                    <div class="w-full aspect-[16/9] overflow-hidden relative bg-slate-900 border-y border-slate-800">
+                        <img src="/img/software-card.jpg" alt="Software, Mobile App & Website Development" class="w-full h-full object-cover object-center transition-transform duration-300">
+                    </div>
+                    <!-- Highlight Sub-Bar (Unobstructed View) -->
+                    <div class="px-4 py-2 bg-indigo-50 border-b border-slate-100 flex items-center justify-between text-[11px] font-bold">
+                        <span class="inline-flex items-center gap-1.5 text-indigo-700">
+                            <span class="text-indigo-600">⚡</span>
+                            <span>Custom Tech</span>
+                        </span>
+                        <span class="text-indigo-600/80 text-[10px] font-semibold">Web &amp; Mobile</span>
                     </div>
 
                     <!-- Feature Checklist -->
