@@ -65,17 +65,46 @@
                 <option value="read" {{ request('status') == 'read' ? 'selected' : '' }}>Read Only</option>
             </select>
 
+            <!-- Showing Type (Per Page) Dropdown -->
+            <div class="flex items-center gap-1.5">
+                <span class="text-[11px] font-bold text-slate-400 uppercase">Show:</span>
+                <select name="per_page" onchange="this.form.submit()" class="px-2.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition cursor-pointer" title="Number of rows to display">
+                    <option value="10" {{ request('per_page', '10') == '10' ? 'selected' : '' }}>10 rows</option>
+                    <option value="20" {{ request('per_page') == '20' ? 'selected' : '' }}>20 rows</option>
+                    <option value="50" {{ request('per_page') == '50' ? 'selected' : '' }}>50 rows</option>
+                    <option value="100" {{ request('per_page') == '100' ? 'selected' : '' }}>100 rows</option>
+                    <option value="all" {{ request('per_page') == 'all' ? 'selected' : '' }}>All rows</option>
+                </select>
+            </div>
+
             <button type="submit" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold transition">
                 Filter
             </button>
 
-            @if (request()->hasAny(['search', 'type', 'status']))
+            @if (request()->hasAny(['search', 'type', 'status', 'per_page']))
                 <a href="{{ route('admin.contact.index') }}" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-bold transition">
                     Reset
                 </a>
             @endif
         </div>
     </form>
+
+    <!-- BULK ACTIONS FLOATING TOOLBAR -->
+    <div id="contact-bulk-bar" class="hidden p-3 bg-indigo-50/90 border border-indigo-200 rounded-2xl shadow-sm flex items-center justify-between gap-3 animate-fade-in">
+        <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold text-xs" id="contact-selected-count">0</span>
+            <span class="text-xs font-bold text-indigo-900">Contact inquiry message(s) selected</span>
+        </div>
+        <div class="flex items-center gap-2">
+            <button type="button" onclick="clearAllSelections('contact')" class="px-3 py-1.5 rounded-xl bg-white hover:bg-indigo-100 text-indigo-700 text-xs font-bold transition border border-indigo-200">
+                Deselect All
+            </button>
+            <button type="button" onclick="triggerContactBulkDelete()" class="px-3.5 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition shadow-xs inline-flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg>
+                <span>Delete Selected</span>
+            </button>
+        </div>
+    </div>
 
     <!-- INBOX TABLE -->
     <div class="bg-white rounded-2xl border border-slate-200/90 shadow-xs overflow-hidden">
@@ -84,6 +113,9 @@
                 <table class="w-full text-left text-xs">
                     <thead class="bg-slate-50/80 text-slate-400 font-bold uppercase tracking-wider text-[10px] border-b border-slate-100">
                         <tr>
+                            <th class="py-3 px-4 w-10 text-center">
+                                <input type="checkbox" id="select-all-contact" onclick="toggleSelectAll('contact')" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 w-4 h-4 cursor-pointer" title="Select all on this page">
+                            </th>
                             <th class="py-3 px-4">Status</th>
                             <th class="py-3 px-4">Sender Details</th>
                             <th class="py-3 px-4">Inquiry Category</th>
@@ -95,6 +127,9 @@
                     <tbody class="divide-y divide-slate-100 text-slate-700">
                         @foreach ($inquiries as $inquiry)
                             <tr class="hover:bg-slate-50/80 transition {{ $inquiry->status === 'unread' ? 'bg-indigo-50/20' : '' }}" id="row-inquiry-{{ $inquiry->id }}">
+                                <td class="py-3 px-4 text-center">
+                                    <input type="checkbox" value="{{ $inquiry->id }}" class="contact-row-checkbox rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 w-4 h-4 cursor-pointer" onchange="updateBulkBar('contact')">
+                                </td>
                                 <!-- STATUS -->
                                 <td class="py-3 px-4 whitespace-nowrap">
                                     @if ($inquiry->status === 'unread')
@@ -191,14 +226,10 @@
                                         </button>
                                     </form>
 
-                                    <!-- Delete Button -->
-                                    <form action="{{ route('admin.contact.destroy', $inquiry->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this inquiry from {{ addslashes($inquiry->name) }}?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="px-2 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 text-[11px] font-bold transition">
-                                            Delete
-                                        </button>
-                                    </form>
+                                    <!-- Delete Button using Global Confirmation Modal -->
+                                    <button type="button" onclick="openSingleDeleteModal('{{ route('admin.contact.destroy', $inquiry->id) }}', 'Inquiry from {{ addslashes($inquiry->name) }}')" class="px-2 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 text-[11px] font-bold transition">
+                                        Delete
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach
@@ -344,5 +375,49 @@
             closeInquiryModal();
         }
     });
+
+    function toggleSelectAll(scope) {
+        const master = document.getElementById(`select-all-${scope}`);
+        const checkboxes = document.querySelectorAll(`.${scope}-row-checkbox`);
+        checkboxes.forEach(cb => cb.checked = master.checked);
+        updateBulkBar(scope);
+    }
+
+    function updateBulkBar(scope) {
+        const checked = document.querySelectorAll(`.${scope}-row-checkbox:checked`);
+        const bulkBar = document.getElementById(`${scope}-bulk-bar`);
+        const countSpan = document.getElementById(`${scope}-selected-count`);
+        const master = document.getElementById(`select-all-${scope}`);
+        const allCheckboxes = document.querySelectorAll(`.${scope}-row-checkbox`);
+
+        if (countSpan) countSpan.textContent = checked.length;
+
+        if (checked.length > 0) {
+            bulkBar.classList.remove('hidden');
+        } else {
+            bulkBar.classList.add('hidden');
+        }
+
+        if (master) {
+            master.checked = allCheckboxes.length > 0 && checked.length === allCheckboxes.length;
+        }
+    }
+
+    function clearAllSelections(scope) {
+        const checkboxes = document.querySelectorAll(`.${scope}-row-checkbox`);
+        const master = document.getElementById(`select-all-${scope}`);
+        checkboxes.forEach(cb => cb.checked = false);
+        if (master) master.checked = false;
+        updateBulkBar(scope);
+    }
+
+    function getSelectedIds(scope) {
+        return Array.from(document.querySelectorAll(`.${scope}-row-checkbox:checked`)).map(cb => cb.value);
+    }
+
+    function triggerContactBulkDelete() {
+        const ids = getSelectedIds('contact');
+        openBulkDeleteModal('{{ route('admin.contact.bulkDestroy') }}', ids, 'contact inquiries');
+    }
 </script>
 @endsection

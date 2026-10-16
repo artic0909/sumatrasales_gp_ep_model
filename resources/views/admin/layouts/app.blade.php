@@ -112,6 +112,43 @@
         </div>
     </div>
 
+    </div>
+
+    <!-- GLOBAL CONFIRM DELETE MODAL (FOR SINGLE & BULK DELETE) -->
+    <div id="global-delete-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm p-4 flex items-center justify-center animate-fade-in" role="dialog" aria-modal="true">
+        <div class="relative w-full max-w-md bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden text-left p-6 space-y-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0 border border-rose-200">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg>
+                </div>
+                <div>
+                    <h3 id="delete-modal-title" class="text-base font-black text-slate-900">Confirm Deletion</h3>
+                    <p id="delete-modal-subtitle" class="text-xs text-slate-500 mt-0.5">This action is permanent and cannot be reversed.</p>
+                </div>
+            </div>
+
+            <p id="delete-modal-message" class="text-xs text-slate-600 leading-relaxed bg-slate-50 p-3 rounded-xl border border-slate-200/80">
+                Are you sure you want to delete this record?
+            </p>
+
+            <form id="global-delete-form" method="POST" action="">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="_method" id="global-delete-method" value="DELETE">
+                <div id="global-delete-hidden-inputs"></div>
+
+                <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+                    <button type="button" onclick="closeGlobalDeleteModal()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition">
+                        Cancel
+                    </button>
+                    <button type="submit" id="delete-modal-confirm-btn" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition inline-flex items-center gap-1.5 shadow-xs">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg>
+                        <span id="delete-modal-confirm-text">Yes, Delete</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script>
         function openPartnerModal(partner) {
@@ -192,6 +229,69 @@
             document.getElementById('partner-doc-modal').classList.add('hidden');
             document.body.classList.remove('overflow-hidden');
         }
+
+        // Global Delete Handlers
+        function openSingleDeleteModal(actionUrl, itemName = 'this record') {
+            const modal = document.getElementById('global-delete-modal');
+            const title = document.getElementById('delete-modal-title');
+            const msg = document.getElementById('delete-modal-message');
+            const form = document.getElementById('global-delete-form');
+            const methodInput = document.getElementById('global-delete-method');
+            const hiddenInputs = document.getElementById('global-delete-hidden-inputs');
+            const confirmText = document.getElementById('delete-modal-confirm-text');
+
+            title.textContent = 'Confirm Delete';
+            msg.innerHTML = `Are you sure you want to delete <strong>${itemName}</strong>? All associated details and files will be permanently removed.`;
+            form.action = actionUrl;
+            methodInput.value = 'DELETE';
+            hiddenInputs.innerHTML = '';
+            confirmText.textContent = 'Yes, Delete';
+
+            modal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function openBulkDeleteModal(formAction, selectedIds, entityName = 'records') {
+            if (!selectedIds || selectedIds.length === 0) {
+                alert('Please select at least one record to delete.');
+                return;
+            }
+
+            const modal = document.getElementById('global-delete-modal');
+            const title = document.getElementById('delete-modal-title');
+            const msg = document.getElementById('delete-modal-message');
+            const form = document.getElementById('global-delete-form');
+            const methodInput = document.getElementById('global-delete-method');
+            const hiddenInputs = document.getElementById('global-delete-hidden-inputs');
+            const confirmText = document.getElementById('delete-modal-confirm-text');
+
+            title.textContent = 'Confirm Bulk Delete';
+            msg.innerHTML = `Are you sure you want to delete <strong>${selectedIds.length}</strong> selected ${entityName}? This action cannot be undone.`;
+            form.action = formAction;
+            methodInput.value = 'POST';
+
+            hiddenInputs.innerHTML = selectedIds.map(id => `<input type="hidden" name="ids[]" value="${id}">`).join('');
+            confirmText.textContent = `Yes, Delete ${selectedIds.length} ${entityName}`;
+
+            modal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeGlobalDeleteModal() {
+            const modal = document.getElementById('global-delete-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }
+        }
+
+        // Close modal on Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePartnerModal();
+                closeGlobalDeleteModal();
+            }
+        });
     </script>
 
     @stack('scripts')

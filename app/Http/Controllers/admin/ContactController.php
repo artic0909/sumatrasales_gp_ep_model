@@ -37,7 +37,17 @@ class ContactController extends Controller
             $query->where('status', $request->status);
         }
 
-        $inquiries = $query->latest()->paginate(15)->withQueryString();
+        $perPageInput = strtolower(trim((string) $request->input('per_page', '10')));
+        if ($perPageInput === 'all') {
+            $totalCount = (clone $query)->count();
+            $perPage = max($totalCount, 1);
+        } elseif (in_array((int)$perPageInput, [10, 20, 50, 100])) {
+            $perPage = (int) $perPageInput;
+        } else {
+            $perPage = 10;
+        }
+
+        $inquiries = $query->latest()->paginate($perPage)->withQueryString();
 
         // Counters for quick stats
         $totalInquiries = ContactInquiry::count();
@@ -56,6 +66,21 @@ class ContactController extends Controller
             'readCount',
             'types'
         ));
+    }
+
+    /**
+     * Bulk delete selected contact inquiries.
+     */
+    public function bulkDestroy(Request $request)
+    {
+        $ids = (array) $request->input('ids', []);
+        if (empty($ids)) {
+            return back()->with('error', 'No inquiries selected for bulk deletion.');
+        }
+
+        $deletedCount = ContactInquiry::whereIn('id', $ids)->delete();
+
+        return redirect()->route('admin.contact.index')->with('success', "{$deletedCount} contact inquiries have been deleted.");
     }
 
     /**

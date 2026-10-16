@@ -40,13 +40,45 @@ class GpController extends Controller
             $query->where('status', $request->status);
         }
 
-        $partners = $query->latest()->paginate(15)->withQueryString();
+        if ($request->filled('interest')) {
+            $interest = $request->interest;
+            $query->whereJsonContains('interests', $interest);
+        }
+
+        $perPageInput = strtolower(trim((string) $request->input('per_page', '10')));
+        if ($perPageInput === 'all') {
+            $totalCount = (clone $query)->count();
+            $perPage = max($totalCount, 1);
+        } elseif (in_array((int)$perPageInput, [10, 20, 50, 100])) {
+            $perPage = (int) $perPageInput;
+        } else {
+            $perPage = 10;
+        }
+
+        $partners = $query->latest()->paginate($perPage)->withQueryString();
         $states   = Partner::where('registration_type', Partner::REGISTRATION_TYPE_GP)
             ->whereNotNull('state')
             ->distinct()
             ->pluck('state');
 
         return view('admin.gp.index', compact('partners', 'states'));
+    }
+
+    /**
+     * Bulk delete selected Ground Partner records.
+     */
+    public function bulkDestroy(Request $request)
+    {
+        $ids = (array) $request->input('ids', []);
+        if (empty($ids)) {
+            return back()->with('error', 'No partner applications selected for bulk deletion.');
+        }
+
+        $deletedCount = Partner::where('registration_type', Partner::REGISTRATION_TYPE_GP)
+            ->whereIn('id', $ids)
+            ->delete();
+
+        return redirect()->route('admin.gp.index')->with('success', "{$deletedCount} Ground Partner applications have been successfully deleted.");
     }
 
     /**

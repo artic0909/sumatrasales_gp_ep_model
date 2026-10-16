@@ -30,6 +30,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/ep/{id}/approve', [EpController::class, 'approve'])->name('ep.approve');
         Route::post('/ep/{id}/reject', [EpController::class, 'reject'])->name('ep.reject');
         Route::post('/ep/{id}/resend-email', [EpController::class, 'resendApprovalEmail'])->name('ep.resendEmail');
+        Route::post('/ep/bulk-delete', [EpController::class, 'bulkDestroy'])->name('ep.bulkDestroy');
         Route::delete('/ep/{id}', [EpController::class, 'destroy'])->name('ep.destroy');
 
         // Ground Partners (GP) Management
@@ -38,6 +39,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/gp/{id}/approve', [GpController::class, 'approve'])->name('gp.approve');
         Route::post('/gp/{id}/reject', [GpController::class, 'reject'])->name('gp.reject');
         Route::post('/gp/{id}/resend-email', [GpController::class, 'resendApprovalEmail'])->name('gp.resendEmail');
+        Route::post('/gp/bulk-delete', [GpController::class, 'bulkDestroy'])->name('gp.bulkDestroy');
         Route::delete('/gp/{id}', [GpController::class, 'destroy'])->name('gp.destroy');
 
         // Dynamic Website Content Settings (Phone, Email, Support, Investor Liaison)
@@ -51,6 +53,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
         Route::get('/contact/{id}', [ContactController::class, 'show'])->name('contact.show');
         Route::post('/contact/{id}/toggle-status', [ContactController::class, 'toggleStatus'])->name('contact.toggleStatus');
+        Route::post('/contact/bulk-delete', [ContactController::class, 'bulkDestroy'])->name('contact.bulkDestroy');
         Route::delete('/contact/{id}', [ContactController::class, 'destroy'])->name('contact.destroy');
 
         // Admin Profile & Settings

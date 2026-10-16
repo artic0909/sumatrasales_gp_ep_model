@@ -25,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->configureDefaults();
 
+        \Illuminate\Pagination\Paginator::defaultView('vendor.pagination.tailwind');
+
         require_once app_path('helpers.php');
 
         \Illuminate\Support\Facades\View::composer('*', function ($view) {
