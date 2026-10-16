@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\PartnerApplicationApproved;
 use App\Models\Partner;
+use App\Services\PartnerCodeService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class GpController extends Controller
 {
@@ -22,6 +26,7 @@ class GpController extends Controller
                   ->orWhere('email', 'like', "%{$search}%")
                   ->orWhere('phone', 'like', "%{$search}%")
                   ->orWhere('application_code', 'like', "%{$search}%")
+                  ->orWhere('approved_code', 'like', "%{$search}%")
                   ->orWhere('city', 'like', "%{$search}%")
                   ->orWhere('state', 'like', "%{$search}%");
             });
@@ -29,6 +34,10 @@ class GpController extends Controller
 
         if ($request->filled('state')) {
             $query->where('state', $request->state);
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
         }
 
         $partners = $query->latest()->paginate(15)->withQueryString();
@@ -41,7 +50,7 @@ class GpController extends Controller
     }
 
     /**
-     * Fetch complete details and documents of a specific Ground Partner.
+     * Fetch complete details and documents of a specific Ground Partner on dedicated View page.
      */
     public function show($id)
     {
@@ -56,7 +65,104 @@ class GpController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.gp.index');
+        $suggestedCodeData = PartnerCodeService::generateNextCode($partner);
+
+        return view('admin.gp.show', compact('partner', 'suggestedCodeData'));
+    }
+
+    /**
+     * Approve a Ground Partner application, generate unique code, and send acceptance email.
+     */
+    public function approve(Request $request, $id)
+    {
+        $partner = Partner::where('registration_type', Partner::REGISTRATION_TYPE_GP)->findOrFail($id);
+
+        $autoCodeData = PartnerCodeService::generateNextCode($partner);
+        $finalCode = strtoupper(trim((string) $request->input('approved_code', $autoCodeData['code'])));
+
+        if (empty($finalCode)) {
+            $finalCode = $autoCodeData['code'];
+        }
+
+        // Validate uniqueness
+        $exists = Partner::where('approved_code', $finalCode)
+            ->where('id', '!=', $partner->id)
+            ->exists();
+
+        if ($exists) {
+            return back()->with('error', "The partner code '{$finalCode}' is already assigned to another partner. Please choose another code.");
+        }
+
+        $partner->status = Partner::STATUS_APPROVED;
+        $partner->approved_code = $finalCode;
+        $partner->approved_at = now();
+        $partner->rejection_reason = null;
+        $partner->save();
+
+        // Record the issued sequence number
+        $prefix = $autoCodeData['prefix'];
+        if (str_starts_with($finalCode, $prefix)) {
+            $numPart = substr($finalCode, strlen($prefix));
+            if (is_numeric($numPart)) {
+                PartnerCodeService::recordCodeIssued($prefix, (int) $numPart);
+            }
+        }
+
+        // Send acceptance email
+        $emailSent = false;
+        if ($request->boolean('send_email', true) && !empty($partner->email)) {
+            try {
+                Mail::to($partner->email)->send(new PartnerApplicationApproved($partner));
+                $emailSent = true;
+            } catch (\Throwable $e) {
+                Log::error("Failed to send GP approval email to {$partner->email}: " . $e->getMessage());
+            }
+        }
+
+        $msg = "Application for '{$partner->name}' has been APPROVED with Unique Code: {$finalCode}.";
+        if ($emailSent) {
+            $msg .= " Acceptance email sent to {$partner->email}.";
+        }
+
+        return redirect()->route('admin.gp.show', $partner->id)->with('success', $msg);
+    }
+
+    /**
+     * Reject a Ground Partner application.
+     */
+    public function reject(Request $request, $id)
+    {
+        $partner = Partner::where('registration_type', Partner::REGISTRATION_TYPE_GP)->findOrFail($id);
+
+        $partner->status = Partner::STATUS_REJECTED;
+        $partner->rejection_reason = $request->input('rejection_reason');
+        $partner->save();
+
+        return redirect()->route('admin.gp.show', $partner->id)->with('success', "Application for '{$partner->name}' marked as Rejected.");
+    }
+
+    /**
+     * Resend official acceptance email to Ground Partner.
+     */
+    public function resendApprovalEmail($id)
+    {
+        $partner = Partner::where('registration_type', Partner::REGISTRATION_TYPE_GP)->findOrFail($id);
+
+        if (!$partner->isApproved() || empty($partner->approved_code)) {
+            return back()->with('error', "Cannot send approval email because this application is not yet approved.");
+        }
+
+        if (empty($partner->email)) {
+            return back()->with('error', "This partner does not have a registered email address.");
+        }
+
+        try {
+            Mail::to($partner->email)->send(new PartnerApplicationApproved($partner));
+            return back()->with('success', "Acceptance email has been resent to {$partner->email}.");
+        } catch (\Throwable $e) {
+            Log::error("Failed to resend GP approval email to {$partner->email}: " . $e->getMessage());
+            return back()->with('error', "Could not send email: " . $e->getMessage());
+        }
     }
 
     /**
@@ -69,6 +175,6 @@ class GpController extends Controller
 
         $partner->delete();
 
-        return back()->with('success', "Ground Partner application for '{$name}' has been deleted.");
+        return redirect()->route('admin.gp.index')->with('success', "Ground Partner application for '{$name}' has been deleted.");
     }
 }

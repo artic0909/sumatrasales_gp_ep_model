@@ -27,11 +27,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Executive Partners (EP) Management
         Route::get('/ep', [EpController::class, 'index'])->name('ep.index');
         Route::get('/ep/{id}', [EpController::class, 'show'])->name('ep.show');
+        Route::post('/ep/{id}/approve', [EpController::class, 'approve'])->name('ep.approve');
+        Route::post('/ep/{id}/reject', [EpController::class, 'reject'])->name('ep.reject');
+        Route::post('/ep/{id}/resend-email', [EpController::class, 'resendApprovalEmail'])->name('ep.resendEmail');
         Route::delete('/ep/{id}', [EpController::class, 'destroy'])->name('ep.destroy');
 
         // Ground Partners (GP) Management
         Route::get('/gp', [GpController::class, 'index'])->name('gp.index');
         Route::get('/gp/{id}', [GpController::class, 'show'])->name('gp.show');
+        Route::post('/gp/{id}/approve', [GpController::class, 'approve'])->name('gp.approve');
+        Route::post('/gp/{id}/reject', [GpController::class, 'reject'])->name('gp.reject');
+        Route::post('/gp/{id}/resend-email', [GpController::class, 'resendApprovalEmail'])->name('gp.resendEmail');
         Route::delete('/gp/{id}', [GpController::class, 'destroy'])->name('gp.destroy');
 
         // Dynamic Website Content Settings (Phone, Email, Support, Investor Liaison)

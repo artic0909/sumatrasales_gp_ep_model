@@ -35,6 +35,10 @@ class Partner extends Model
     public const REGISTRATION_TYPE_EP = 'EP';
     public const REGISTRATION_TYPE_GP = 'GP';
 
+    public const STATUS_PENDING = 'pending';
+    public const STATUS_APPROVED = 'approved';
+    public const STATUS_REJECTED = 'rejected';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -42,6 +46,7 @@ class Partner extends Model
      */
     protected $fillable = [
         'registration_type',
+        'status',
         'name',
         'phone',
         'email',
@@ -61,6 +66,9 @@ class Partner extends Model
         'self_image',
         'interests',
         'application_code',
+        'approved_code',
+        'approved_at',
+        'rejection_reason',
     ];
 
     /**
@@ -70,7 +78,23 @@ class Partner extends Model
      */
     protected $casts = [
         'interests' => 'array',
+        'approved_at' => 'datetime',
     ];
+
+    public function isApproved(): bool
+    {
+        return $this->status === self::STATUS_APPROVED;
+    }
+
+    public function isPending(): bool
+    {
+        return $this->status === self::STATUS_PENDING;
+    }
+
+    public function isRejected(): bool
+    {
+        return $this->status === self::STATUS_REJECTED;
+    }
 
     /**
      * Get the terms check record associated with the partner.

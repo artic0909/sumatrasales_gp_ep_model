@@ -36,7 +36,14 @@
             <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
         </div>
 
-        <div class="flex items-center gap-2 w-full sm:w-auto">
+        <div class="flex items-center gap-2 w-full sm:w-auto flex-wrap">
+            <select name="status" onchange="this.form.submit()" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
+                <option value="">All Statuses</option>
+                <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>Pending Review</option>
+                <option value="approved" {{ request('status') === 'approved' ? 'selected' : '' }}>Approved</option>
+                <option value="rejected" {{ request('status') === 'rejected' ? 'selected' : '' }}>Rejected</option>
+            </select>
+
             @if ($states->count() > 0)
                 <select name="state" onchange="this.form.submit()" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
                     <option value="">All States</option>
@@ -50,7 +57,7 @@
                 Filter
             </button>
 
-            @if (request()->hasAny(['search', 'state']))
+            @if (request()->hasAny(['search', 'state', 'status']))
                 <a href="{{ route('admin.ep.index') }}" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-bold transition">
                     Reset
                 </a>
@@ -67,6 +74,7 @@
                         <tr>
                             <th class="py-3 px-4">Application Code</th>
                             <th class="py-3 px-4">Partner Name</th>
+                            <th class="py-3 px-4">Status / Unique Code</th>
                             <th class="py-3 px-4">Contact Phone & Email</th>
                             <th class="py-3 px-4">City / State</th>
                             <th class="py-3 px-4">Aadhaar / PAN</th>
@@ -84,6 +92,22 @@
                                     <div class="font-bold text-slate-900">{{ $partner->name }}</div>
                                     <span class="inline-block text-[9px] px-1.5 py-0.2 rounded bg-blue-50 text-[#2964F2] font-black uppercase">Executive Partner</span>
                                 </td>
+                                <td class="py-3 px-4 whitespace-nowrap">
+                                    @if($partner->isApproved())
+                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 font-mono font-black text-[11px] border border-emerald-200">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                            {{ $partner->approved_code }}
+                                        </span>
+                                    @elseif($partner->isRejected())
+                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-rose-50 text-rose-700 font-bold text-[10px] border border-rose-200">
+                                            Rejected
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 font-bold text-[10px] border border-amber-200">
+                                            Pending
+                                        </span>
+                                    @endif
+                                </td>
                                 <td class="py-3 px-4">
                                     <div class="font-bold text-slate-800">{{ $partner->phone }}</div>
                                     <div class="text-[10px] text-slate-400">{{ $partner->email }}</div>
@@ -99,9 +123,9 @@
                                     {{ $partner->created_at->format('d M Y, h:i A') }}
                                 </td>
                                 <td class="py-3 px-4 text-right space-x-1.5 whitespace-nowrap">
-                                    <button type="button" onclick="openPartnerModal({{ json_encode($partner) }})" class="px-2.5 py-1 rounded-lg bg-blue-50 hover:bg-blue-100 text-[#2964F2] text-[11px] font-bold transition">
-                                        View Details
-                                    </button>
+                                    <a href="{{ route('admin.ep.show', $partner->id) }}" class="px-2.5 py-1 rounded-lg bg-[#2964F2] hover:bg-blue-600 text-white text-[11px] font-bold transition inline-block">
+                                        View Page
+                                    </a>
                                     @if (!empty($partner->application_code))
                                         <a href="{{ route('partner.application.pdf', ['code' => $partner->application_code]) }}" target="_blank" class="px-2 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 text-[11px] font-bold transition inline-block">
                                             PDF ↗
