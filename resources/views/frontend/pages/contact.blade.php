@@ -213,23 +213,45 @@
                     </div>
                 @endif
 
+                @php
+                    if (!isset($guardToken) || !isset($challengeText)) {
+                        $n1 = rand(2, 9);
+                        $n2 = rand(1, 9);
+                        $challengeText = "{$n1} + {$n2}";
+                        $guardToken = encrypt(json_encode([
+                            'ans' => $n1 + $n2,
+                            'ts'  => time(),
+                        ]));
+                    }
+                @endphp
+
                 <form action="{{ route('contact.store') }}" method="POST" class="space-y-4 text-xs">
                     @csrf
+
+                    {{-- INVISIBLE HONEYPOT TRAP (Catches automated web crawlers/bots) --}}
+                    <div class="hidden" style="display: none !important; opacity: 0; position: absolute; left: -9999px;" aria-hidden="true">
+                        <label for="corporate_website_url">Leave this field completely blank</label>
+                        <input type="text" name="corporate_website_url" id="corporate_website_url" value="" tabindex="-1" autocomplete="off">
+                    </div>
+
+                    {{-- ENCRYPTED TIMESTAMP & SECURITY TOKEN --}}
+                    <input type="hidden" name="_guard_token" value="{{ $guardToken }}">
+
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="space-y-1.5">
                             <label class="font-bold text-slate-700 uppercase tracking-wider text-[11px]">Your Full Name *</label>
-                            <input type="text" name="name" required value="{{ old('name') }}" placeholder="e.g. Rahul Sharma" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
+                            <input type="text" name="name" required maxlength="60" pattern="^[a-zA-Z\s\.\'\-]+$" value="{{ old('name') }}" placeholder="e.g. Rahul Sharma" title="Name must contain letters, spaces, dots or hyphens only" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
                         </div>
                         <div class="space-y-1.5">
                             <label class="font-bold text-slate-700 uppercase tracking-wider text-[11px]">Phone / Mobile Number *</label>
-                            <input type="tel" name="phone" required value="{{ old('phone') }}" placeholder="+91 98765 00000" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
+                            <input type="tel" name="phone" required minlength="8" maxlength="20" value="{{ old('phone') }}" placeholder="+91 98765 00000" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="space-y-1.5">
                             <label class="font-bold text-slate-700 uppercase tracking-wider text-[11px]">Email Address *</label>
-                            <input type="email" name="email" required value="{{ old('email') }}" placeholder="name@example.com" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
+                            <input type="email" name="email" required maxlength="120" value="{{ old('email') }}" placeholder="name@example.com" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
                         </div>
                         <div class="space-y-1.5">
                             <label class="font-bold text-slate-700 uppercase tracking-wider text-[11px]">Inquiry Type</label>
@@ -246,7 +268,24 @@
 
                     <div class="space-y-1.5">
                         <label class="font-bold text-slate-700 uppercase tracking-wider text-[11px]">Message / Inquiry Details *</label>
-                        <textarea name="message" rows="4" required placeholder="Describe your question or requirement..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">{{ old('message') }}</textarea>
+                        <textarea name="message" rows="4" required minlength="10" maxlength="3000" placeholder="Describe your question or requirement (no external promotional links)..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">{{ old('message') }}</textarea>
+                    </div>
+
+                    {{-- SECURITY CHECK / HUMAN VERIFICATION --}}
+                    <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200/90 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <label class="font-bold text-slate-700 uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                                <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+                                </svg>
+                                Security Verification *
+                            </label>
+                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-blue-100/80 text-blue-800 text-xs font-black tracking-wide border border-blue-200">
+                                Calculate: {{ $challengeText }} = ?
+                            </span>
+                        </div>
+                        <input type="number" name="captcha_answer" required placeholder="Type the answer to {{ $challengeText }}..." class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2964F2]/20 focus:border-[#2964F2] transition">
+                        <p class="text-[10px] text-slate-400">Quick anti-bot verification to protect against automated spam submissions.</p>
                     </div>
 
                     <div class="pt-2">

@@ -59,13 +59,57 @@ class ContactController extends Controller
             ->distinct()
             ->pluck('inquiry_type');
 
+        // Count obvious spam/bot inquiries currently stored
+        $spamCount = ContactInquiry::where(function ($q) {
+            $q->where('name', 'like', '%http://%')
+              ->orWhere('name', 'like', '%https://%')
+              ->orWhere('name', 'like', '%$1777%')
+              ->orWhere('name', 'like', '%$3000%')
+              ->orWhere('name', 'like', '%***%')
+              ->orWhere('name', 'like', '%slot%')
+              ->orWhere('name', 'like', '%bonus%')
+              ->orWhere('name', 'like', '%.ru/%')
+              ->orWhere('name', 'like', '%.ru?%')
+              ->orWhere('name', 'like', '%.php?%')
+              ->orWhere('message', 'like', '%http://%')
+              ->orWhere('message', 'like', '%https://%')
+              ->orWhere('message', 'like', '%go-bv.php%')
+              ->orWhere('message', 'like', '%go-na.php%');
+        })->count();
+
         return view('admin.contact.index', compact(
             'inquiries',
             'totalInquiries',
             'unreadCount',
             'readCount',
-            'types'
+            'types',
+            'spamCount'
         ));
+    }
+
+    /**
+     * Purge all detected spam & bot inquiries from the database.
+     */
+    public function purgeSpam(Request $request)
+    {
+        $deletedCount = ContactInquiry::where(function ($q) {
+            $q->where('name', 'like', '%http://%')
+              ->orWhere('name', 'like', '%https://%')
+              ->orWhere('name', 'like', '%$1777%')
+              ->orWhere('name', 'like', '%$3000%')
+              ->orWhere('name', 'like', '%***%')
+              ->orWhere('name', 'like', '%slot%')
+              ->orWhere('name', 'like', '%bonus%')
+              ->orWhere('name', 'like', '%.ru/%')
+              ->orWhere('name', 'like', '%.ru?%')
+              ->orWhere('name', 'like', '%.php?%')
+              ->orWhere('message', 'like', '%http://%')
+              ->orWhere('message', 'like', '%https://%')
+              ->orWhere('message', 'like', '%go-bv.php%')
+              ->orWhere('message', 'like', '%go-na.php%');
+        })->delete();
+
+        return redirect()->route('admin.contact.index')->with('success', "{$deletedCount} fake bot / spam inquiries were successfully purged and removed permanently.");
     }
 
     /**

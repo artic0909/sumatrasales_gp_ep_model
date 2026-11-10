@@ -12,8 +12,10 @@ Route::get('/partner-application/pdf/{code}', [PartnerController::class, 'downlo
 Route::get('/partner-application/view-pdf/{code}', [PartnerController::class, 'viewApplicationPdf'])->name('partner.application.view_pdf');
 
 Route::view('/about', 'frontend.pages.about')->name('about');
-Route::view('/contact', 'frontend.pages.contact')->name('contact');
-Route::post('/contact', [\App\Http\Controllers\ContactFormController::class, 'store'])->name('contact.store');
+Route::get('/contact', [\App\Http\Controllers\ContactFormController::class, 'showContactForm'])->name('contact');
+Route::post('/contact', [\App\Http\Controllers\ContactFormController::class, 'store'])
+    ->middleware('throttle:5,1')
+    ->name('contact.store');
 Route::view('/investor-trust', 'frontend.pages.investor_trust')->name('investor.trust');
 
 Route::middleware(['auth', 'verified'])->group(function () {

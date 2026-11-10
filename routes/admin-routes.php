@@ -51,6 +51,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Contact Inquiries
         Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+        Route::post('/contact/purge-spam', [ContactController::class, 'purgeSpam'])->name('contact.purgeSpam');
         Route::get('/contact/{id}', [ContactController::class, 'show'])->name('contact.show');
         Route::post('/contact/{id}/toggle-status', [ContactController::class, 'toggleStatus'])->name('contact.toggleStatus');
         Route::post('/contact/bulk-delete', [ContactController::class, 'bulkDestroy'])->name('contact.bulkDestroy');
