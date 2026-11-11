@@ -60,6 +60,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Facebook Ad Leads & Meta Conversions API (CAPI)
         Route::get('/leads', [LeadController::class, 'index'])->name('leads.index');
+        Route::post('/leads/sync-past-leads', [LeadController::class, 'syncPastLeads'])->name('leads.syncPastLeads');
         Route::get('/leads/create', [LeadController::class, 'create'])->name('leads.create');
         Route::post('/leads', [LeadController::class, 'store'])->name('leads.store');
         Route::get('/leads/{id}', [LeadController::class, 'show'])->name('leads.show');

@@ -22,6 +22,15 @@
 
         <!-- ACTION BUTTONS & STATS -->
         <div class="flex items-center gap-2 flex-wrap">
+            <!-- Sync Past Historical Leads from Facebook Button -->
+            <form action="{{ route('admin.leads.syncPastLeads') }}" method="POST" onsubmit="return confirm('Fetch all past leads from your Facebook Instant Forms? This will import any leads submitted before webhook integration.');">
+                @csrf
+                <button type="submit" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition inline-flex items-center gap-1.5 shadow-sm cursor-pointer" title="Fetch past historical leads from Facebook Instant Forms">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+                    <span>Sync Past FB Leads</span>
+                </button>
+            </form>
+
             <a href="{{ route('admin.leads.create') }}" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition inline-flex items-center gap-1.5 shadow-sm cursor-pointer">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
                 <span>Add Manual Lead</span>

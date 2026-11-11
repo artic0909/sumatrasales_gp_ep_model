@@ -252,5 +252,104 @@ class LeadController extends Controller
 
         return redirect()->route('admin.leads.index')->with('error', 'No leads selected for deletion.');
     }
+
+    /**
+     * Fetch past historical leads directly from Facebook Instant Forms.
+     */
+    public function syncPastLeads()
+    {
+        $accessToken = config('services.facebook.page_access_token') ?: env('FB_PAGE_ACCESS_TOKEN');
+        $pageId = '1310217108840460';
+
+        if (empty($accessToken)) {
+            return back()->with('error', 'Cannot sync past leads: FB_PAGE_ACCESS_TOKEN is missing in .env');
+        }
+
+        try {
+            $formsResponse = \Illuminate\Support\Facades\Http::timeout(15)->get("https://graph.facebook.com/v19.0/{$pageId}/leadgen_forms", [
+                'access_token' => $accessToken,
+                'limit' => 50,
+            ]);
+
+            if (!$formsResponse->successful()) {
+                return back()->with('error', 'Failed to retrieve forms from Facebook: ' . $formsResponse->body());
+            }
+
+            $forms = $formsResponse->json('data') ?? [];
+            $totalSynced = 0;
+
+            foreach ($forms as $form) {
+                $formId = $form['id'];
+                $leadsResponse = \Illuminate\Support\Facades\Http::timeout(20)->get("https://graph.facebook.com/v19.0/{$formId}/leads", [
+                    'fields' => 'id,created_time,ad_id,form_id,field_data',
+                    'access_token' => $accessToken,
+                    'limit' => 100,
+                ]);
+
+                if ($leadsResponse->successful()) {
+                    $leads = $leadsResponse->json('data') ?? [];
+
+                    foreach ($leads as $leadItem) {
+                        $leadgenId = $leadItem['id'];
+                        $adId = $leadItem['ad_id'] ?? null;
+                        $createdAt = isset($leadItem['created_time']) ? \Carbon\Carbon::parse($leadItem['created_time']) : now();
+
+                        $fieldData = collect($leadItem['field_data'] ?? []);
+                        $email = null;
+                        $phone = null;
+                        $fullName = null;
+
+                        foreach ($fieldData as $field) {
+                            $name = strtolower($field['name'] ?? '');
+                            $val = $field['values'][0] ?? null;
+
+                            if (in_array($name, ['email', 'user_email', 'work_email'])) {
+                                $email = $val;
+                            } elseif (in_array($name, ['phone_number', 'phone', 'contact_number', 'mobile_number'])) {
+                                $phone = $val;
+                            } elseif (in_array($name, ['full_name', 'name', 'first_name', 'last_name'])) {
+                                if ($name === 'full_name' || empty($fullName)) {
+                                    $fullName = $val;
+                                }
+                            }
+                        }
+
+                        $adName = null;
+                        if ($adId) {
+                            $adRes = \Illuminate\Support\Facades\Http::timeout(5)->get("https://graph.facebook.com/v19.0/{$adId}", [
+                                'fields' => 'name',
+                                'access_token' => $accessToken,
+                            ]);
+                            if ($adRes->successful()) {
+                                $adName = $adRes->json('name');
+                            }
+                        }
+
+                        Lead::updateOrCreate(
+                            ['fb_leadgen_id' => $leadgenId],
+                            [
+                                'page_id'       => $pageId,
+                                'form_id'       => $formId,
+                                'ad_id'         => $adId,
+                                'ad_name'       => $adName,
+                                'name'          => $fullName,
+                                'email'         => $email,
+                                'phone'         => $phone,
+                                'status'        => 'new',
+                                'raw_data'      => $leadItem,
+                                'created_at'    => $createdAt,
+                            ]
+                        );
+
+                        $totalSynced++;
+                    }
+                }
+            }
+
+            return back()->with('success', "Success! Synchronized {$totalSynced} past lead(s) from Facebook into your CRM.");
+        } catch (\Throwable $e) {
+            return back()->with('error', 'Exception while syncing past leads: ' . $e->getMessage());
+        }
+    }
 }
 
