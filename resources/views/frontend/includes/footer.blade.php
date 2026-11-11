@@ -283,6 +283,8 @@
                 <div>
                     <div>
                         © {{ date('Y') }} <strong class="text-white font-bold">Sumatra Sales Private Limited</strong>. All rights reserved.
+                        <span class="mx-2 text-white/30">•</span>
+                        <a href="{{ route('privacy.policy') }}" class="text-cyan-200 hover:text-white underline transition font-semibold">Privacy Policy</a>
                     </div>
                     <div class="text-[10px] text-blue-200 mt-1">
                         Corporate Headquarters: {{ site_setting('office_address', 'West Bengal, India') }} • Support Helpline: {{ site_setting('phone', '+91 98765 43210') }} | {{ site_setting('email', 'partner@sumatrasales.com') }}

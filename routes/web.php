@@ -12,6 +12,7 @@ Route::get('/partner-application/pdf/{code}', [PartnerController::class, 'downlo
 Route::get('/partner-application/view-pdf/{code}', [PartnerController::class, 'viewApplicationPdf'])->name('partner.application.view_pdf');
 
 Route::view('/about', 'frontend.pages.about')->name('about');
+Route::view('/privacy-policy', 'frontend.pages.privacy_policy')->name('privacy.policy');
 Route::get('/contact', [\App\Http\Controllers\ContactFormController::class, 'showContactForm'])->name('contact');
 Route::post('/contact', [\App\Http\Controllers\ContactFormController::class, 'store'])
     ->middleware('throttle:5,1')
