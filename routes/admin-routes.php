@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\EpController;
 use App\Http\Controllers\admin\GpController;
 use App\Http\Controllers\admin\InvestorController;
+use App\Http\Controllers\admin\LeadController;
 use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\admin\SettingController;
 use Illuminate\Support\Facades\Route;
@@ -56,6 +57,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/contact/{id}/toggle-status', [ContactController::class, 'toggleStatus'])->name('contact.toggleStatus');
         Route::post('/contact/bulk-delete', [ContactController::class, 'bulkDestroy'])->name('contact.bulkDestroy');
         Route::delete('/contact/{id}', [ContactController::class, 'destroy'])->name('contact.destroy');
+
+        // Facebook Ad Leads & Meta Conversions API (CAPI)
+        Route::get('/leads', [LeadController::class, 'index'])->name('leads.index');
+        Route::get('/leads/create', [LeadController::class, 'create'])->name('leads.create');
+        Route::post('/leads', [LeadController::class, 'store'])->name('leads.store');
+        Route::get('/leads/{id}', [LeadController::class, 'show'])->name('leads.show');
+        Route::get('/leads/{id}/edit', [LeadController::class, 'edit'])->name('leads.edit');
+        Route::put('/leads/{id}', [LeadController::class, 'update'])->name('leads.update');
+        Route::post('/leads/{id}/status', [LeadController::class, 'updateStatus'])->name('leads.updateStatus');
+        Route::post('/leads/{id}/sync-capi', [LeadController::class, 'syncCapi'])->name('leads.syncCapi');
+        Route::post('/leads/bulk-delete', [LeadController::class, 'bulkDestroy'])->name('leads.bulkDestroy');
+        Route::delete('/leads/{id}', [LeadController::class, 'destroy'])->name('leads.destroy');
 
         // Admin Profile & Settings
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');

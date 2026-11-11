@@ -22,5 +22,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
 });
 
+// Meta Facebook Webhook Endpoints
+Route::get('/facebook/webhook', [\App\Http\Controllers\FacebookWebhookController::class, 'verify'])->name('facebook.webhook.verify');
+Route::post('/facebook/webhook', [\App\Http\Controllers\FacebookWebhookController::class, 'handle'])->name('facebook.webhook.handle');
+Route::get('/api/facebook/webhook', [\App\Http\Controllers\FacebookWebhookController::class, 'verify']);
+Route::post('/api/facebook/webhook', [\App\Http\Controllers\FacebookWebhookController::class, 'handle']);
+
 require __DIR__.'/settings.php';
 require __DIR__.'/admin-routes.php';

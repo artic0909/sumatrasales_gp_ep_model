@@ -16,6 +16,13 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\TrackVisitorMiddleware::class,
         ]);
 
+        $middleware->validateCsrfTokens(except: [
+            'facebook/webhook',
+            'facebook/webhook/*',
+            'api/facebook/webhook',
+            'api/facebook/webhook/*',
+        ]);
+
         $middleware->redirectGuestsTo(function (Request $request) {
             if ($request->is('admin*') || $request->routeIs('admin.*')) {
                 return route('admin.login');
