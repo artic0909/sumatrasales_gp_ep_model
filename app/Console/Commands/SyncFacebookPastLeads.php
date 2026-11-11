@@ -14,7 +14,7 @@ class SyncFacebookPastLeads extends Command
      *
      * @var string
      */
-    protected $signature = 'fb:sync-past-leads {--page_id=1310217108840460}';
+    protected $signature = 'fb:sync-past-leads {--page_id=1310217108840460} {--form_id=}';
 
     /**
      * The console command description.
@@ -36,20 +36,33 @@ class SyncFacebookPastLeads extends Command
         }
 
         $pageId = $this->option('page_id') ?: '1310217108840460';
-        $this->info("Fetching Instant Forms for Page ID: {$pageId}...");
+        $directFormId = $this->option('form_id');
 
-        // 1. Fetch all Leadgen Forms belonging to the Page
-        $formsResponse = Http::timeout(15)->get("https://graph.facebook.com/v19.0/{$pageId}/leadgen_forms", [
-            'access_token' => $accessToken,
-            'limit' => 50,
-        ]);
+        $forms = [];
 
-        if (!$formsResponse->successful()) {
-            $this->error('Failed to fetch forms: ' . $formsResponse->body());
-            return 1;
+        if (!empty($directFormId)) {
+            $forms = [['id' => $directFormId, 'name' => 'Specified Form']];
+        } else {
+            $this->info("Fetching Instant Forms for Page ID: {$pageId}...");
+
+            // 1. Fetch all Leadgen Forms belonging to the Page
+            $formsResponse = Http::timeout(15)->get("https://graph.facebook.com/v19.0/{$pageId}/leadgen_forms", [
+                'access_token' => $accessToken,
+                'limit' => 50,
+            ]);
+
+            if (!$formsResponse->successful()) {
+                $errorMsg = $formsResponse->body();
+                $this->error('Failed to fetch forms: ' . $errorMsg);
+                if (str_contains($errorMsg, 'pages_manage_ads')) {
+                    $this->warn("\n👉 FIX: Go to Graph API Explorer, add 'pages_manage_ads' permission, generate the token again, and update FB_PAGE_ACCESS_TOKEN in .env.");
+                    $this->warn("Alternatively, pass the Form ID directly: php artisan fb:sync-past-leads --form_id=YOUR_FORM_ID\n");
+                }
+                return 1;
+            }
+
+            $forms = $formsResponse->json('data') ?? [];
         }
-
-        $forms = $formsResponse->json('data') ?? [];
         $this->info("Found " . count($forms) . " Instant Form(s). Fetching leads...");
 
         $totalSynced = 0;
