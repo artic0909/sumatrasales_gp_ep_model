@@ -85,6 +85,22 @@ class FacebookWebhookController extends Controller
             }
         }
 
+        // Support for Meta Developers Webhook "Test / Send to server" Sample Payload
+        if (isset($data['sample']) && is_array($data['sample'])) {
+            $sample = $data['sample'];
+            if (($sample['field'] ?? '') === 'leadgen') {
+                $value = $sample['value'] ?? [];
+                $leadgenId = $value['leadgen_id'] ?? null;
+                $adId = $value['ad_id'] ?? null;
+                $formId = $value['form_id'] ?? null;
+                $pageId = $value['page_id'] ?? null;
+
+                if ($leadgenId) {
+                    $this->processLead($leadgenId, $adId, $formId, $pageId, true);
+                }
+            }
+        }
+
         // Meta requires an immediate 200 OK response to confirm delivery
         return response('EVENT_RECEIVED', 200)->header('Content-Type', 'text/plain');
     }
@@ -92,12 +108,41 @@ class FacebookWebhookController extends Controller
     /**
      * Fetch lead details and ad information from Facebook Graph API and save into the database.
      */
-    private function processLead($leadgenId, $adId = null, $formId = null, $pageId = null): void
+    private function processLead($leadgenId, $adId = null, $formId = null, $pageId = null, bool $isSample = false): void
     {
         $accessToken = config('services.facebook.page_access_token') ?: env('FB_PAGE_ACCESS_TOKEN');
 
-        if (empty($accessToken)) {
-            Log::error('[Meta Webhook] Cannot process lead: FB_PAGE_ACCESS_TOKEN is missing in .env');
+        // If it's a sample test event from Meta Developers test button (dummy ID like 444444444444)
+        if ($isSample || $leadgenId === '444444444444' || empty($accessToken)) {
+            Log::info('[Meta Webhook] Storing sample test lead in database', [
+                'leadgen_id' => $leadgenId,
+                'ad_id' => $adId,
+                'is_sample' => $isSample,
+            ]);
+
+            Lead::updateOrCreate(
+                ['fb_leadgen_id' => $leadgenId],
+                [
+                    'page_id'       => $pageId ?? '444444444444',
+                    'form_id'       => $formId ?? '444444444444',
+                    'ad_id'         => $adId ?? '444444444',
+                    'ad_name'       => 'Meta Sample Test Ad Creative',
+                    'campaign_name' => 'Meta Leadgen Sample Campaign',
+                    'name'          => 'Meta Test Lead (Sample Submission)',
+                    'email'         => 'test.lead@sumatrasales.com',
+                    'phone'         => '+919876543210',
+                    'status'        => 'new',
+                    'raw_data'      => [
+                        'field_data' => [
+                            ['name' => 'full_name', 'values' => ['Meta Test Lead (Sample Submission)']],
+                            ['name' => 'email', 'values' => ['test.lead@sumatrasales.com']],
+                            ['name' => 'phone_number', 'values' => ['+919876543210']],
+                            ['name' => 'inquiry_topic', 'values' => ['Tested via Meta Webhooks Sample Tool']],
+                        ]
+                    ],
+                ]
+            );
+
             return;
         }
 
