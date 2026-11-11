@@ -18,8 +18,8 @@ class FacebookCapiService
      */
     public static function sendStatusEvent(Lead $lead, string $eventName = 'QualifiedLead', array $extraCustomData = []): array
     {
-        $pixelId = env('FB_PIXEL_ID');
-        $token = env('FB_CAPI_ACCESS_TOKEN');
+        $pixelId = config('services.facebook.pixel_id') ?: env('FB_PIXEL_ID');
+        $token = config('services.facebook.capi_access_token') ?: env('FB_CAPI_ACCESS_TOKEN');
 
         if (empty($pixelId) || empty($token)) {
             $msg = 'Meta CAPI credentials missing: FB_PIXEL_ID or FB_CAPI_ACCESS_TOKEN is not configured in .env';

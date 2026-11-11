@@ -14,15 +14,32 @@ class FacebookWebhookController extends Controller
      */
     public function verify(Request $request)
     {
-        $mode = $request->query('hub_mode', $request->query('hub.mode'));
-        $token = $request->query('hub_verify_token', $request->query('hub.verify_token'));
-        $challenge = $request->query('hub_challenge', $request->query('hub.challenge'));
+        $mode = $request->input('hub_mode') 
+            ?? $request->input('hub.mode') 
+            ?? $request->query('hub_mode') 
+            ?? $request->query('hub.mode') 
+            ?? ($_GET['hub_mode'] ?? ($_GET['hub.mode'] ?? null));
 
-        $verifyToken = env('FB_WEBHOOK_VERIFY_TOKEN');
+        $token = $request->input('hub_verify_token') 
+            ?? $request->input('hub.verify_token') 
+            ?? $request->query('hub_verify_token') 
+            ?? $request->query('hub.verify_token') 
+            ?? ($_GET['hub_verify_token'] ?? ($_GET['hub.verify_token'] ?? null));
+
+        $challenge = $request->input('hub_challenge') 
+            ?? $request->input('hub.challenge') 
+            ?? $request->query('hub_challenge') 
+            ?? $request->query('hub.challenge') 
+            ?? ($_GET['hub_challenge'] ?? ($_GET['hub.challenge'] ?? null));
+
+        $verifyToken = config('services.facebook.webhook_verify_token') 
+            ?: (env('FB_WEBHOOK_VERIFY_TOKEN') ?: 'sumatra_sales_fb_verify_token_2026');
 
         Log::info('[Meta Webhook] Verification attempt received', [
             'mode' => $mode,
             'token_match' => ($token === $verifyToken),
+            'token_received' => $token,
+            'expected_token' => $verifyToken,
             'ip' => $request->ip(),
         ]);
 
@@ -33,6 +50,7 @@ class FacebookWebhookController extends Controller
         Log::warning('[Meta Webhook] Verification failed: token mismatch or invalid mode', [
             'provided_token' => $token,
             'expected_token' => $verifyToken ? 'CONFIGURED' : 'NOT_CONFIGURED',
+            'mode' => $mode,
         ]);
 
         return response('Forbidden', 403);
@@ -76,7 +94,7 @@ class FacebookWebhookController extends Controller
      */
     private function processLead($leadgenId, $adId = null, $formId = null, $pageId = null): void
     {
-        $accessToken = env('FB_PAGE_ACCESS_TOKEN');
+        $accessToken = config('services.facebook.page_access_token') ?: env('FB_PAGE_ACCESS_TOKEN');
 
         if (empty($accessToken)) {
             Log::error('[Meta Webhook] Cannot process lead: FB_PAGE_ACCESS_TOKEN is missing in .env');
