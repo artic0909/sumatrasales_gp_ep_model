@@ -72,7 +72,7 @@ class SyncFacebookPastLeads extends Command
             $formName = $form['name'] ?? 'Instant Form';
             $this->line("Checking Form: {$formName} (ID: {$formId})...");
 
-            $nextUrl = "https://graph.facebook.com/v19.0/{$formId}/leads?fields=id,created_time,ad_id,form_id,field_data&access_token={$accessToken}&limit=100";
+            $nextUrl = "https://graph.facebook.com/v19.0/{$formId}/leads?fields=id,created_time,ad_id,ad_name,adset_id,adset_name,campaign_id,campaign_name,form_id,is_organic,field_data&access_token={$accessToken}&limit=100";
 
             while ($nextUrl) {
                 $leadsResponse = Http::timeout(20)->get($nextUrl);
@@ -88,6 +88,11 @@ class SyncFacebookPastLeads extends Command
                 foreach ($leads as $leadItem) {
                     $leadgenId = $leadItem['id'];
                     $adId = $leadItem['ad_id'] ?? null;
+                    $adName = $leadItem['ad_name'] ?? null;
+                    $adsetId = $leadItem['adset_id'] ?? null;
+                    $adsetName = $leadItem['adset_name'] ?? null;
+                    $campaignId = $leadItem['campaign_id'] ?? null;
+                    $campaignName = $leadItem['campaign_name'] ?? null;
                     $createdAt = isset($leadItem['created_time']) ? \Carbon\Carbon::parse($leadItem['created_time']) : now();
 
                     $fieldData = collect($leadItem['field_data'] ?? []);
@@ -110,12 +115,13 @@ class SyncFacebookPastLeads extends Command
                         }
                     }
 
-                    // Optional Ad title fetch
-                    $adName = null;
-                    if ($adId) {
-                        $adRes = Http::timeout(5)->get("https://graph.facebook.com/v19.0/{$adId}?fields=name&access_token={$accessToken}");
+                    // Optional Ad title fetch if ad_id is present but ad_name is empty
+                    if ($adId && empty($adName)) {
+                        $adRes = Http::timeout(5)->get("https://graph.facebook.com/v19.0/{$adId}?fields=name,campaign{name},adset{name}&access_token={$accessToken}");
                         if ($adRes->successful()) {
                             $adName = $adRes->json('name');
+                            $campaignName = $campaignName ?? $adRes->json('campaign.name');
+                            $adsetName = $adsetName ?? $adRes->json('adset.name');
                         }
                     }
 
@@ -124,8 +130,13 @@ class SyncFacebookPastLeads extends Command
                         [
                             'page_id'       => $pageId,
                             'form_id'       => $formId,
+                            'form_name'     => $formName,
                             'ad_id'         => $adId,
                             'ad_name'       => $adName,
+                            'adset_id'      => $adsetId,
+                            'adset_name'    => $adsetName,
+                            'campaign_id'   => $campaignId,
+                            'campaign_name' => $campaignName,
                             'name'          => $fullName,
                             'email'         => $email,
                             'phone'         => $phone,

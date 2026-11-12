@@ -152,44 +152,53 @@ class FacebookWebhookController extends Controller
             $adsetName = null;
             $campaignId = null;
             $campaignName = null;
+            $formName = null;
 
-            // 1. Fetch Ad & Campaign Details if ad_id is available
-            if ($adId) {
-                $adResponse = Http::timeout(10)->get("https://graph.facebook.com/v19.0/{$adId}", [
-                    'fields' => 'id,name,adset_id,campaign_id',
-                    'access_token' => $accessToken,
-                ]);
-
-                if ($adResponse->successful()) {
-                    $adData = $adResponse->json();
-                    $adName = $adData['name'] ?? null;
-                    $adsetId = $adData['adset_id'] ?? null;
-                    $campaignId = $adData['campaign_id'] ?? null;
-
-                    // Fetch Campaign Name
-                    if ($campaignId) {
-                        $campaignResponse = Http::timeout(5)->get("https://graph.facebook.com/v19.0/{$campaignId}", [
-                            'fields' => 'id,name',
-                            'access_token' => $accessToken,
-                        ]);
-                        if ($campaignResponse->successful()) {
-                            $campaignName = $campaignResponse->json('name');
-                        }
-                    }
-                } else {
-                    Log::warning("[Meta Webhook] Failed to fetch ad details for ad {$adId}: " . $adResponse->body());
-                }
-            }
-
-            // 2. Fetch Lead Details from Meta Graph API
-            $leadResponse = Http::timeout(10)->get("https://graph.facebook.com/v19.0/{$leadgenId}", [
-                'fields' => 'id,created_time,ad_id,form_id,field_data',
+            // 1. Fetch Lead Details with full Ad & Campaign Attribution from Meta Graph API
+            $leadResponse = Http::timeout(12)->get("https://graph.facebook.com/v19.0/{$leadgenId}", [
+                'fields' => 'id,created_time,ad_id,ad_name,adset_id,adset_name,campaign_id,campaign_name,form_id,is_organic,field_data',
                 'access_token' => $accessToken,
             ]);
 
             if ($leadResponse->successful()) {
                 $leadData = $leadResponse->json();
                 $fieldData = collect($leadData['field_data'] ?? []);
+
+                $adId = $leadData['ad_id'] ?? $adId;
+                $adName = $leadData['ad_name'] ?? null;
+                $adsetId = $leadData['adset_id'] ?? null;
+                $adsetName = $leadData['adset_name'] ?? null;
+                $campaignId = $leadData['campaign_id'] ?? null;
+                $campaignName = $leadData['campaign_name'] ?? null;
+                $formId = $leadData['form_id'] ?? $formId;
+
+                // 2. If Ad ID exists and ad_name is not yet populated, fetch ad creative name
+                if ($adId && empty($adName)) {
+                    $adResponse = Http::timeout(6)->get("https://graph.facebook.com/v19.0/{$adId}", [
+                        'fields' => 'id,name,adset{id,name},campaign{id,name}',
+                        'access_token' => $accessToken,
+                    ]);
+
+                    if ($adResponse->successful()) {
+                        $adObj = $adResponse->json();
+                        $adName = $adObj['name'] ?? null;
+                        $campaignName = $campaignName ?? ($adObj['campaign']['name'] ?? null);
+                        $campaignId = $campaignId ?? ($adObj['campaign']['id'] ?? null);
+                        $adsetName = $adsetName ?? ($adObj['adset']['name'] ?? null);
+                        $adsetId = $adsetId ?? ($adObj['adset']['id'] ?? null);
+                    }
+                }
+
+                // 3. Fetch Form Name if available
+                if ($formId) {
+                    $formRes = Http::timeout(5)->get("https://graph.facebook.com/v19.0/{$formId}", [
+                        'fields' => 'name',
+                        'access_token' => $accessToken,
+                    ]);
+                    if ($formRes->successful()) {
+                        $formName = $formRes->json('name');
+                    }
+                }
 
                 // Extract standard field values
                 $email = null;
@@ -215,8 +224,9 @@ class FacebookWebhookController extends Controller
                     ['fb_leadgen_id' => $leadgenId],
                     [
                         'page_id'       => $pageId,
-                        'form_id'       => $formId ?? ($leadData['form_id'] ?? null),
-                        'ad_id'         => $adId ?? ($leadData['ad_id'] ?? null),
+                        'form_id'       => $formId,
+                        'form_name'     => $formName,
+                        'ad_id'         => $adId,
                         'ad_name'       => $adName,
                         'adset_id'      => $adsetId,
                         'adset_name'    => $adsetName,
@@ -235,7 +245,9 @@ class FacebookWebhookController extends Controller
                     'fb_leadgen_id' => $leadgenId,
                     'name' => $fullName,
                     'email' => $email,
+                    'ad_id' => $adId,
                     'ad_name' => $adName,
+                    'campaign' => $campaignName,
                 ]);
             } else {
                 Log::error("[Meta Webhook] Failed to fetch lead data for {$leadgenId}: " . $leadResponse->body());

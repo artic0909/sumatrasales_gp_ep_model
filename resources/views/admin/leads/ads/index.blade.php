@@ -103,6 +103,18 @@
                 <option value="contacted" {{ request('status') === 'contacted' ? 'selected' : '' }}>Contacted</option>
             </select>
 
+            <!-- Filter by Specific Ad -->
+            @if(isset($availableAds) && $availableAds->count() > 0)
+                <select name="ad" onchange="this.form.submit()" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition max-w-[180px] truncate">
+                    <option value="">All Facebook Ads</option>
+                    @foreach($availableAds as $adItem)
+                        <option value="{{ $adItem->ad_name }}" {{ request('ad') == $adItem->ad_name ? 'selected' : '' }}>
+                            {{ Str::limit($adItem->ad_name, 22) }}
+                        </option>
+                    @endforeach
+                </select>
+            @endif
+
             <!-- Filter by CAPI Sync -->
             <select name="synced" onchange="this.form.submit()" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition">
                 <option value="">All Meta CAPI States</option>
@@ -122,7 +134,7 @@
                 </select>
             </div>
 
-            @if(request()->anyFilled(['search', 'status', 'synced', 'per_page']))
+            @if(request()->anyFilled(['search', 'status', 'synced', 'ad', 'per_page']))
                 <a href="{{ route('admin.leads.index') }}" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl text-xs font-bold transition">
                     Reset
                 </a>
@@ -198,18 +210,39 @@
 
                             <!-- Ad Attribution -->
                             <td class="py-3.5 px-4">
-                                <div class="space-y-0.5">
-                                    <div class="font-bold text-slate-800 text-xs">
-                                        {{ $lead->ad_name ?? ($lead->ad_id ? 'Ad ID: ' . $lead->ad_id : 'Direct / Manual Entry') }}
-                                    </div>
-                                    @if($lead->campaign_name)
-                                        <div class="text-[11px] text-slate-500 font-medium">
-                                            Campaign: {{ $lead->campaign_name }}
+                                <div class="space-y-1">
+                                    @if($lead->ad_name || $lead->ad_id)
+                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 font-bold text-[11px] border border-blue-200">
+                                                <svg class="w-3 h-3 text-blue-600 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                                                <span>{{ $lead->ad_name ?: 'Facebook Ad' }}</span>
+                                            </span>
+                                            @if($lead->ad_id)
+                                                <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 font-bold">
+                                                    ID: {{ $lead->ad_id }}
+                                                </span>
+                                            @endif
+                                        </div>
+                                        @if($lead->campaign_name)
+                                            <div class="text-[11px] text-slate-600 font-medium">
+                                                <span class="text-slate-400">Campaign:</span> <strong class="text-slate-800">{{ $lead->campaign_name }}</strong>
+                                            </div>
+                                        @endif
+                                    @else
+                                        <div class="flex items-center gap-1.5 flex-wrap">
+                                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-purple-50 text-purple-700 font-bold text-[11px] border border-purple-200">
+                                                <svg class="w-3 h-3 text-purple-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" /></svg>
+                                                <span>{{ $lead->form_name ?: 'Instant Form' }}</span>
+                                            </span>
+                                            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                                                Organic / Direct
+                                            </span>
                                         </div>
                                     @endif
+
                                     <div class="flex items-center gap-2 text-[10px] text-slate-400 font-mono">
-                                        @if($lead->ad_id)
-                                            <span>Ad: {{ $lead->ad_id }}</span>
+                                        @if($lead->form_id)
+                                            <span>Form: {{ $lead->form_id }}</span>
                                         @endif
                                         @if($lead->fb_leadgen_id)
                                             <span>• Leadgen: {{ $lead->fb_leadgen_id }}</span>

@@ -13,6 +13,7 @@ class Lead extends Model
         'fb_leadgen_id',
         'page_id',
         'form_id',
+        'form_name',
         'ad_id',
         'ad_name',
         'adset_id',
