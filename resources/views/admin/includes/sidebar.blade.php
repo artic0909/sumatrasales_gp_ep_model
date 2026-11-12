@@ -88,6 +88,10 @@
             @endif
         </a>
 
+        <div class="pt-3 pb-1.5 px-3">
+            <span class="text-[10px] font-black uppercase tracking-wider text-slate-500">Ads & Leads</span>
+        </div>
+
         <!-- META ADS & CAMPAIGNS -->
         <a href="{{ route('admin.ads.index') }}" class="group flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold transition {{ str_starts_with($currentRoute, 'admin.ads.') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30 font-black' : 'text-slate-400 hover:text-white hover:bg-slate-800/60' }}">
             <div class="flex items-center gap-3">
