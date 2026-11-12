@@ -605,9 +605,12 @@
         document.getElementById('followup-next-date-input').value = '';
         document.getElementById('followup-modal-alert').classList.add('hidden');
 
-        // Select 'calling' as default type
-        const defaultRadio = document.querySelector('input[name="followup_type"][value="calling"]');
-        if (defaultRadio) defaultRadio.checked = true;
+        // Select 'calling' as default type in dropdown
+        const typeSelect = document.getElementById('followup-type-select');
+        if (typeSelect) typeSelect.value = 'calling';
+
+        const statusSelect = document.getElementById('followup-status-input');
+        if (statusSelect) statusSelect.value = 'interested';
 
         // Show Modal
         document.getElementById('lead-followup-modal').classList.remove('hidden');
@@ -633,7 +636,7 @@
         historyContainer.innerHTML = `
             <div class="py-8 text-center text-slate-400">
                 <svg class="animate-spin h-5 w-5 mx-auto mb-2 text-indigo-500" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
-                <span>Loading previous follow-up records...</span>
+                <span>Loading follow-up timeline...</span>
             </div>
         `;
 
@@ -648,9 +651,9 @@
             } else {
                 historyContainer.innerHTML = `
                     <div class="py-8 text-center text-slate-400 bg-slate-50/50 rounded-2xl border border-dashed border-slate-200">
-                        <span class="text-2xl block mb-1">📋</span>
-                        <p class="font-bold text-slate-700 text-xs">No follow-ups recorded yet</p>
-                        <p class="text-[11px] text-slate-400">Use the form above to log your first call or WhatsApp interaction!</p>
+                        <span class="text-2xl block mb-1">⏱️</span>
+                        <p class="font-bold text-slate-700 text-xs">No follow-up history yet</p>
+                        <p class="text-[11px] text-slate-400">Use the quick form above to log your first call or WhatsApp interaction!</p>
                     </div>
                 `;
             }
@@ -665,40 +668,71 @@
 
     function renderFollowupList(followups) {
         const historyContainer = document.getElementById('followup-history-container');
-        let html = '<div class="space-y-2.5 max-h-[300px] overflow-y-auto pr-1">';
+        let html = '<div class="relative pl-7 border-l-2 border-indigo-200 ml-3.5 space-y-4 my-2 max-h-[360px] overflow-y-auto pr-2">';
 
         followups.forEach(f => {
+            let channelIcon = '📞';
             let channelBadge = '';
+            let ringColor = 'border-blue-500 bg-blue-50 text-blue-700';
+
             if (f.type === 'calling') {
-                channelBadge = '<span class="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 font-bold border border-blue-200 text-[10px]">📞 Phone Call</span>';
+                channelIcon = '📞';
+                channelBadge = '<span class="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 font-bold border border-blue-200 text-[10px]">Phone Call</span>';
+                ringColor = 'border-blue-500 bg-blue-50 text-blue-700';
             } else if (f.type === 'whatsapp') {
-                channelBadge = '<span class="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 font-bold border border-emerald-200 text-[10px]">💬 WhatsApp</span>';
+                channelIcon = '💬';
+                channelBadge = '<span class="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 font-bold border border-emerald-200 text-[10px]">WhatsApp</span>';
+                ringColor = 'border-emerald-500 bg-emerald-50 text-emerald-700';
             } else if (f.type === 'both') {
-                channelBadge = '<span class="px-2 py-0.5 rounded-md bg-purple-50 text-purple-700 font-bold border border-purple-200 text-[10px]">📞💬 Call & WhatsApp</span>';
+                channelIcon = '📞💬';
+                channelBadge = '<span class="px-2 py-0.5 rounded-md bg-purple-50 text-purple-700 font-bold border border-purple-200 text-[10px]">Call & WhatsApp</span>';
+                ringColor = 'border-purple-500 bg-purple-50 text-purple-700';
             } else {
-                channelBadge = `<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-bold border border-slate-200 text-[10px]">📋 ${f.type_label}</span>`;
+                channelIcon = '📋';
+                channelBadge = `<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-bold border border-slate-200 text-[10px]">${f.type_label}</span>`;
+                ringColor = 'border-slate-400 bg-slate-50 text-slate-700';
             }
 
-            let statusBadge = f.status ? `<span class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-bold text-[10px] border border-slate-200">${f.status}</span>` : '';
+            let statusBadge = '';
+            if (f.status === 'interested' || f.status === 'converted') {
+                statusBadge = `<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold text-[10px] border border-emerald-200">${escapeHtml(f.status)}</span>`;
+            } else if (f.status === 'callback') {
+                statusBadge = '<span class="px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 font-bold text-[10px] border border-amber-200">Callback</span>';
+            } else if (f.status === 'not_interested') {
+                statusBadge = '<span class="px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 font-bold text-[10px] border border-rose-200">Not Interested</span>';
+            } else if (f.status) {
+                statusBadge = `<span class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-bold text-[10px] border border-slate-200">${escapeHtml(f.status)}</span>`;
+            }
 
             html += `
-                <div id="followup-item-${f.id}" class="p-3 rounded-xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:border-indigo-200 transition space-y-1.5 text-xs shadow-2xs">
-                    <div class="flex items-center justify-between gap-2 flex-wrap">
-                        <div class="flex items-center gap-1.5">
-                            ${channelBadge}
-                            ${statusBadge}
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-[11px] font-bold text-slate-500">${f.followup_date}</span>
-                            <button type="button" onclick="deleteFollowup(${f.id})" class="text-slate-400 hover:text-rose-600 transition p-0.5" title="Delete record">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
-                            </button>
-                        </div>
+                <div id="followup-item-${f.id}" class="relative group">
+                    <!-- Timeline Node Icon -->
+                    <div class="absolute -left-[41px] top-1 w-6 h-6 rounded-full bg-white border-2 ${ringColor} flex items-center justify-center text-[10px] shadow-xs">
+                        <span>${channelIcon}</span>
                     </div>
-                    ${f.notes ? `<div class="text-slate-800 font-medium whitespace-pre-line text-xs pl-0.5">${escapeHtml(f.notes)}</div>` : '<div class="text-slate-400 italic text-[11px]">No discussion notes.</div>'}
-                    <div class="flex items-center justify-between text-[10px] text-slate-400 pt-1 border-t border-slate-200/50">
-                        <span>By: <strong>${escapeHtml(f.created_by_name || 'Admin')}</strong></span>
-                        ${f.next_followup_date ? `<span class="font-bold text-indigo-600">📅 Next: ${f.next_followup_date}</span>` : ''}
+
+                    <!-- Timeline Card Body -->
+                    <div class="p-3 rounded-xl bg-white border border-slate-200 shadow-2xs hover:border-indigo-300 transition space-y-1.5">
+                        <div class="flex items-center justify-between gap-2 flex-wrap">
+                            <div class="flex items-center gap-1.5">
+                                ${channelBadge}
+                                ${statusBadge}
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[11px] font-bold text-slate-700">${f.followup_date}</span>
+                                <span class="text-[10px] text-slate-400 font-medium">(${f.followup_time_ago})</span>
+                                <button type="button" onclick="deleteFollowup(${f.id})" class="text-slate-300 hover:text-rose-600 transition p-0.5" title="Delete record">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        ${f.notes ? `<div class="text-slate-800 font-medium whitespace-pre-line text-xs pl-0.5 leading-relaxed">${escapeHtml(f.notes)}</div>` : '<div class="text-slate-400 italic text-[11px]">No discussion remarks entered.</div>'}
+
+                        <div class="flex items-center justify-between text-[10px] text-slate-400 pt-1 border-t border-slate-100">
+                            <span>Logged by: <strong class="text-slate-600">${escapeHtml(f.created_by_name || 'Admin')}</strong></span>
+                            ${f.next_followup_date ? `<span class="font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.2 rounded border border-indigo-200">📅 Next: ${f.next_followup_date}</span>` : ''}
+                        </div>
                     </div>
                 </div>
             `;
@@ -717,7 +751,7 @@
         btn.disabled = true;
         btn.innerHTML = '<span>Saving...</span>';
 
-        const type = document.querySelector('input[name="followup_type"]:checked')?.value || 'calling';
+        const type = document.getElementById('followup-type-select')?.value || 'calling';
         const notes = document.getElementById('followup-notes-input').value;
         const status = document.getElementById('followup-status-input').value;
         const followup_date = document.getElementById('followup-date-input').value;
@@ -748,7 +782,7 @@
                 alertBox.textContent = `✓ ${data.message} (${data.followup.type_label})`;
                 alertBox.classList.remove('hidden');
 
-                // Clear textarea
+                // Clear input
                 document.getElementById('followup-notes-input').value = '';
                 document.getElementById('followup-next-date-input').value = '';
 
@@ -851,78 +885,60 @@
             <!-- Success / Flash Notification -->
             <div id="followup-modal-alert" class="hidden p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold animate-fade-in"></div>
 
-            <!-- FORM: LOG NEW FOLLOW-UP -->
-            <form onsubmit="submitFollowupLog(event)" class="p-4 rounded-2xl bg-slate-50/80 border border-slate-200 space-y-3.5">
-                <div class="flex items-center justify-between pb-2 border-b border-slate-200">
-                    <span class="text-xs font-black uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+            <!-- COMPACT SMALL FORM: LOG NEW FOLLOW-UP -->
+            <form onsubmit="submitFollowupLog(event)" class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/90 space-y-2.5 shadow-2xs">
+                <div class="flex items-center justify-between pb-1.5 border-b border-slate-200">
+                    <span class="text-[11px] font-black uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-indigo-600 animate-pulse"></span>
                         <span>Log New Interaction</span>
                     </span>
-                    <span class="text-[10px] text-slate-400 font-semibold">Real-time counter sync</span>
+                    <span class="text-[10px] text-slate-400 font-medium">Real-time counter sync</span>
                 </div>
 
-                <!-- Channel / Category Selector -->
-                <div>
-                    <label class="block text-[11px] font-bold text-slate-700 mb-1.5 uppercase tracking-wider">
-                        Communication Channel / Category <span class="text-rose-500">*</span>:
-                    </label>
-                    <div class="grid grid-cols-3 gap-2">
-                        <label class="relative flex items-center justify-center gap-1.5 p-2.5 rounded-xl border border-slate-200 bg-white hover:border-indigo-300 cursor-pointer has-checked:bg-blue-50 has-checked:border-blue-500 has-checked:text-blue-700 transition font-bold text-xs">
-                            <input type="radio" name="followup_type" value="calling" checked class="sr-only">
-                            <span>📞</span>
-                            <span>Phone Call</span>
-                        </label>
-                        <label class="relative flex items-center justify-center gap-1.5 p-2.5 rounded-xl border border-slate-200 bg-white hover:border-indigo-300 cursor-pointer has-checked:bg-emerald-50 has-checked:border-emerald-500 has-checked:text-emerald-700 transition font-bold text-xs">
-                            <input type="radio" name="followup_type" value="whatsapp" class="sr-only">
-                            <span>💬</span>
-                            <span>WhatsApp</span>
-                        </label>
-                        <label class="relative flex items-center justify-center gap-1.5 p-2.5 rounded-xl border border-slate-200 bg-white hover:border-indigo-300 cursor-pointer has-checked:bg-purple-50 has-checked:border-purple-500 has-checked:text-purple-700 transition font-bold text-xs">
-                            <input type="radio" name="followup_type" value="both" class="sr-only">
-                            <span>📞💬</span>
-                            <span>Both</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Discussion Notes -->
-                <div>
-                    <label class="block text-[11px] font-bold text-slate-700 mb-1 uppercase tracking-wider">
-                        Discussion Summary / Remarks:
-                    </label>
-                    <textarea id="followup-notes-input" rows="2" placeholder="e.g. Discussed pricing for DoctorWala, customer requested callback on Monday..." class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition resize-none"></textarea>
-                </div>
-
-                <!-- Date / Time & Outcome Status Grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                    <!-- Date & Time of Follow-up -->
+                <!-- Row 1: Category Dropdown, Outcome Status, Date & Time, Next Follow-up -->
+                <div class="grid gap-2" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));">
+                    <!-- Category Dropdown -->
                     <div>
-                        <label class="block text-[10px] font-bold text-slate-600 mb-1 uppercase">Date &amp; Time:</label>
-                        <input type="datetime-local" id="followup-date-input" class="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition">
+                        <label class="block text-[10px] font-bold text-slate-600 mb-1 uppercase tracking-wider">Channel / Category <span class="text-rose-500">*</span>:</label>
+                        <select id="followup-type-select" class="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition cursor-pointer">
+                            <option value="calling">📞 Phone Call</option>
+                            <option value="whatsapp">💬 WhatsApp</option>
+                            <option value="both">📞💬 Call &amp; WhatsApp</option>
+                            <option value="other">📋 Other</option>
+                        </select>
                     </div>
 
-                    <!-- Outcome Status -->
+                    <!-- Outcome Status Dropdown -->
                     <div>
-                        <label class="block text-[10px] font-bold text-slate-600 mb-1 uppercase">Outcome Status:</label>
-                        <select id="followup-status-input" class="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition">
+                        <label class="block text-[10px] font-bold text-slate-600 mb-1 uppercase tracking-wider">Outcome Status:</label>
+                        <select id="followup-status-input" class="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition cursor-pointer">
                             <option value="interested">Interested</option>
                             <option value="callback">Callback Requested</option>
                             <option value="no_answer">No Answer / Busy</option>
                             <option value="not_interested">Not Interested</option>
-                            <option value="converted">Converted / Closed</option>
+                            <option value="converted">Converted / Sale Closed</option>
                         </select>
                     </div>
 
-                    <!-- Next Follow-up (Optional) -->
+                    <!-- Date & Time of Follow-up -->
                     <div>
-                        <label class="block text-[10px] font-bold text-slate-600 mb-1 uppercase">Next Follow-up (Opt):</label>
-                        <input type="datetime-local" id="followup-next-date-input" class="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition">
+                        <label class="block text-[10px] font-bold text-slate-600 mb-1 uppercase tracking-wider">Date &amp; Time:</label>
+                        <input type="datetime-local" id="followup-date-input" class="w-full px-2 py-1.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition">
+                    </div>
+
+                    <!-- Next Follow-up Schedule (Optional) -->
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-600 mb-1 uppercase tracking-wider">Next Follow-up (Opt):</label>
+                        <input type="datetime-local" id="followup-next-date-input" class="w-full px-2 py-1.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition">
                     </div>
                 </div>
 
-                <!-- Submit Button -->
-                <div class="pt-1 flex justify-end">
-                    <button type="submit" id="followup-submit-btn" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition inline-flex items-center gap-1.5 shadow-sm cursor-pointer">
+                <!-- Row 2: Discussion Summary & Submit Button Inline -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 pt-1">
+                    <div class="flex-1">
+                        <input type="text" id="followup-notes-input" placeholder="Discussion summary / customer remarks..." class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition">
+                    </div>
+                    <button type="submit" id="followup-submit-btn" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition inline-flex items-center justify-center gap-1.5 shadow-sm cursor-pointer shrink-0">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
                         <span>Save Follow-up</span>
                     </button>
@@ -930,11 +946,11 @@
             </form>
 
             <!-- SECTION: PREVIOUS FOLLOW-UP AUDIT TIMELINE -->
-            <div class="space-y-3">
-                <div class="flex items-center justify-between pb-1 border-b border-slate-100">
+            <div class="space-y-3 pt-1">
+                <div class="flex items-center justify-between pb-1.5 border-b border-slate-100">
                     <h4 class="text-xs font-black uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                        <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
-                        <span>Follow-up History &amp; Conversation Trail</span>
+                        <svg class="w-3.5 h-3.5 text-indigo-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                        <span>Follow-up Timeline &amp; Activity Trail</span>
                     </h4>
                     <a href="{{ route('admin.leads.followups.index') }}" target="_blank" class="text-[11px] font-bold text-indigo-600 hover:text-indigo-800 transition">
                         View All Logs &rarr;
