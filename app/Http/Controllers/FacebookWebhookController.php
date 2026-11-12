@@ -110,7 +110,9 @@ class FacebookWebhookController extends Controller
      */
     private function processLead($leadgenId, $adId = null, $formId = null, $pageId = null, bool $isSample = false): void
     {
-        $accessToken = config('services.facebook.page_access_token') ?: env('FB_PAGE_ACCESS_TOKEN');
+        $rawToken = config('services.facebook.page_access_token') ?: env('FB_PAGE_ACCESS_TOKEN');
+        $resolvedPageId = $pageId ?: '1310217108840460';
+        $accessToken = \App\Services\FacebookCapiService::resolvePageAccessToken($rawToken, $resolvedPageId);
 
         // If it's a sample test event from Meta Developers test button (dummy ID like 444444444444)
         if ($isSample || $leadgenId === '444444444444' || empty($accessToken)) {

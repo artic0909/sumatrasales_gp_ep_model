@@ -276,12 +276,14 @@ class LeadController extends Controller
      */
     public function syncPastLeads()
     {
-        $accessToken = config('services.facebook.page_access_token') ?: env('FB_PAGE_ACCESS_TOKEN');
+        $rawToken = config('services.facebook.page_access_token') ?: env('FB_PAGE_ACCESS_TOKEN');
         $pageId = '1310217108840460';
 
-        if (empty($accessToken)) {
+        if (empty($rawToken)) {
             return back()->with('error', 'Cannot sync past leads: FB_PAGE_ACCESS_TOKEN is missing in .env');
         }
+
+        $accessToken = FacebookCapiService::resolvePageAccessToken($rawToken, $pageId);
 
         try {
             $formsResponse = \Illuminate\Support\Facades\Http::timeout(15)->get("https://graph.facebook.com/v19.0/{$pageId}/leadgen_forms", [

@@ -9,6 +9,32 @@ use Illuminate\Support\Facades\Log;
 class FacebookCapiService
 {
     /**
+     * Resolve Page Access Token dynamically from either a Page Token or a System User Token.
+     */
+    public static function resolvePageAccessToken(?string $token = null, string $pageId = '1310217108840460'): ?string
+    {
+        $rawToken = $token ?: (config('services.facebook.page_access_token') ?: env('FB_PAGE_ACCESS_TOKEN'));
+        if (empty($rawToken)) {
+            return null;
+        }
+
+        try {
+            $response = Http::timeout(6)->get("https://graph.facebook.com/v19.0/{$pageId}", [
+                'fields' => 'access_token',
+                'access_token' => $rawToken,
+            ]);
+
+            if ($response->successful() && $response->json('access_token')) {
+                return $response->json('access_token');
+            }
+        } catch (\Throwable $e) {
+            Log::warning('[Facebook Token Resolver] Failed to resolve page token: ' . $e->getMessage());
+        }
+
+        return $rawToken;
+    }
+
+    /**
      * Send Offline / Qualified Lead event to Meta Conversions API (CAPI).
      *
      * @param Lead $lead

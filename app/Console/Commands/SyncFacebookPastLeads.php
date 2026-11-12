@@ -28,14 +28,15 @@ class SyncFacebookPastLeads extends Command
      */
     public function handle()
     {
-        $accessToken = config('services.facebook.page_access_token') ?: env('FB_PAGE_ACCESS_TOKEN');
+        $rawToken = config('services.facebook.page_access_token') ?: env('FB_PAGE_ACCESS_TOKEN');
 
-        if (empty($accessToken)) {
+        if (empty($rawToken)) {
             $this->error('FB_PAGE_ACCESS_TOKEN is missing in .env or config.');
             return 1;
         }
 
         $pageId = $this->option('page_id') ?: '1310217108840460';
+        $accessToken = \App\Services\FacebookCapiService::resolvePageAccessToken($rawToken, $pageId);
         $directFormId = $this->option('form_id');
 
         $forms = [];
