@@ -84,12 +84,21 @@ class SubscribeFacebookPagesWebhook extends Command
                 }
             } catch (\Throwable $e) {}
 
-            // Always include Sumatra Sales default page
-            if (!isset($pages['1310217108840460'])) {
-                $pages['1310217108840460'] = [
-                    'id' => '1310217108840460',
-                    'name' => 'Sumatra Sales Private Limited',
-                ];
+            // Known Facebook Pages in Business Portfolio
+            $knownPages = [
+                '1310217108840460' => 'Sumatra Sales Private Limited',
+                '762432300289937'  => 'Schoolwala.info',
+                '1093893383804955' => 'Doctorwala medical eco system',
+                '1351775608010540' => 'Rani Matrimonial',
+            ];
+
+            foreach ($knownPages as $id => $name) {
+                if (!isset($pages[$id])) {
+                    $pages[$id] = [
+                        'id' => $id,
+                        'name' => $name,
+                    ];
+                }
             }
         }
 
