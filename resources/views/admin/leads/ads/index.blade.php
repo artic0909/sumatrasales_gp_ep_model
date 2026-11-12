@@ -394,7 +394,7 @@
                                         <form action="{{ route('admin.leads.syncCapi', $lead->id) }}" method="POST" class="inline-block">
                                             @csrf
                                             <button type="submit" class="px-2 py-0.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-[10px] font-black transition cursor-pointer">
-                                                Push to CAPI
+                                                Push to Facebook
                                             </button>
                                         </form>
                                     </div>
