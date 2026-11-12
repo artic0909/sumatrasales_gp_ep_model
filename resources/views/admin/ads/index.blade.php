@@ -22,6 +22,15 @@
 
         <!-- ACTION BUTTONS -->
         <div class="flex items-center gap-2 flex-wrap">
+            <!-- Sync Past FB Leads Button directly in Ads Dashboard -->
+            <form action="{{ route('admin.leads.syncPastLeads') }}" method="POST" onsubmit="return confirm('Download all past historical leads from Facebook Instant Forms into your CRM database?');">
+                @csrf
+                <button type="submit" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition inline-flex items-center gap-1.5 shadow-sm cursor-pointer" title="Download all leads from Meta Instant Forms into CRM database">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+                    <span>Sync Past FB Leads</span>
+                </button>
+            </form>
+
             <!-- Force Refresh from Meta API -->
             <form action="{{ route('admin.ads.refresh') }}" method="POST">
                 @csrf
@@ -282,11 +291,19 @@
                                     <div class="inline-flex flex-col items-center">
                                         <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-black bg-emerald-50 text-emerald-800 border border-emerald-300 shadow-2xs">
                                             <svg class="w-3 h-3 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
-                                            <span>Receiving Leads ({{ $ad['crm_leads_count'] ?: $ad['meta_leads'] }})</span>
+                                            @if($ad['crm_leads_count'] > 0)
+                                                <span>{{ $ad['crm_leads_count'] }} in CRM</span>
+                                            @else
+                                                <span>{{ $ad['meta_leads'] }} Meta Leads</span>
+                                            @endif
                                         </span>
                                         @if(!empty($ad['latest_lead_at']))
                                             <span class="text-[10px] text-slate-400 mt-0.5">
                                                 Last: {{ \Carbon\Carbon::parse($ad['latest_lead_at'])->diffForHumans() }}
+                                            </span>
+                                        @elseif($ad['crm_leads_count'] == 0 && $ad['meta_leads'] > 0)
+                                            <span class="text-[9px] text-blue-600 font-bold mt-0.5">
+                                                Click 'Sync Past FB Leads'
                                             </span>
                                         @endif
                                     </div>
@@ -310,7 +327,7 @@
                             <!-- Action ("View Leads" button) -->
                             <td class="py-3.5 px-4 text-right whitespace-nowrap">
                                 <div class="flex items-center justify-end gap-1.5">
-                                    <a href="{{ route('admin.leads.index', ['search' => $ad['name']]) }}" 
+                                    <a href="{{ route('admin.leads.index', ['campaign' => $ad['name'], 'campaign_id' => $ad['id']]) }}" 
                                        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition cursor-pointer"
                                        title="View leads for this campaign in CRM">
                                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
@@ -318,6 +335,10 @@
                                         @if($ad['crm_leads_count'] > 0)
                                             <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-white text-blue-700 font-black">
                                                 {{ $ad['crm_leads_count'] }}
+                                            </span>
+                                        @elseif($ad['meta_leads'] > 0)
+                                            <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-blue-100 text-blue-800 font-bold">
+                                                {{ $ad['meta_leads'] }}
                                             </span>
                                         @endif
                                     </a>

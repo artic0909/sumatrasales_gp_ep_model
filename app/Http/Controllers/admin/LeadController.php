@@ -16,16 +16,52 @@ class LeadController extends Controller
     {
         $query = Lead::query();
 
+        // Filter by Campaign, Ad Name, or Ad ID (Exact or Fuzzy Match)
+        if ($request->filled('campaign') || $request->filled('campaign_id') || $request->filled('ad')) {
+            $filter = trim($request->campaign ?: ($request->campaign_id ?: $request->ad));
+            
+            // Clean any leading 'Post: "' and trailing quotes/emojis for flexible matching
+            $cleanKeyword = preg_replace('/^Post:\s*"/ui', '', $filter);
+            $cleanKeyword = trim(trim($cleanKeyword, "\"'\t\n\r\0\x0B"));
+
+            $query->where(function ($q) use ($filter, $cleanKeyword) {
+                $q->where('campaign_id', $filter)
+                  ->orWhere('ad_id', $filter)
+                  ->orWhere('form_id', $filter)
+                  ->orWhere('campaign_name', 'like', "%{$filter}%")
+                  ->orWhere('ad_name', 'like', "%{$filter}%")
+                  ->orWhere('form_name', 'like', "%{$filter}%");
+
+                if (!empty($cleanKeyword) && mb_strlen($cleanKeyword) >= 3) {
+                    $subWord = mb_substr($cleanKeyword, 0, 20);
+                    $q->orWhere('campaign_name', 'like', "%{$subWord}%")
+                      ->orWhere('ad_name', 'like', "%{$subWord}%")
+                      ->orWhere('form_name', 'like', "%{$subWord}%");
+                }
+            });
+        }
+
         // Search by keyword
         if ($request->filled('search')) {
             $search = trim($request->search);
-            $query->where(function ($q) use ($search) {
+            $cleanSearch = preg_replace('/^Post:\s*"/ui', '', $search);
+            $cleanSearch = trim(trim($cleanSearch, "\"'\t\n\r\0\x0B"));
+
+            $query->where(function ($q) use ($search, $cleanSearch) {
                 $q->where('name', 'like', "%{$search}%")
                   ->orWhere('email', 'like', "%{$search}%")
                   ->orWhere('phone', 'like', "%{$search}%")
                   ->orWhere('ad_name', 'like', "%{$search}%")
                   ->orWhere('campaign_name', 'like', "%{$search}%")
+                  ->orWhere('form_name', 'like', "%{$search}%")
                   ->orWhere('fb_leadgen_id', 'like', "%{$search}%");
+
+                if (!empty($cleanSearch) && $cleanSearch !== $search && mb_strlen($cleanSearch) >= 3) {
+                    $subWord = mb_substr($cleanSearch, 0, 20);
+                    $q->orWhere('campaign_name', 'like', "%{$subWord}%")
+                      ->orWhere('ad_name', 'like', "%{$subWord}%")
+                      ->orWhere('form_name', 'like', "%{$subWord}%");
+                }
             });
         }
 
@@ -41,15 +77,6 @@ class LeadController extends Controller
             } elseif ($request->synced === 'unsynced') {
                 $query->where('synced_to_fb', false);
             }
-        }
-
-        // Filter by specific Ad Name or Ad ID
-        if ($request->filled('ad')) {
-            $adFilter = trim($request->ad);
-            $query->where(function ($q) use ($adFilter) {
-                $q->where('ad_id', $adFilter)
-                  ->orWhere('ad_name', $adFilter);
-            });
         }
 
         // Per page pagination
@@ -73,8 +100,11 @@ class LeadController extends Controller
         $syncedCount = Lead::where('synced_to_fb', true)->count();
 
         // Get list of distinct Ads & Campaigns for filtering
-        $availableAds = Lead::whereNotNull('ad_name')
-            ->where('ad_name', '!=', '')
+        $availableAds = Lead::where(function($q) {
+                $q->whereNotNull('ad_name')->where('ad_name', '!=', '')
+                  ->orWhereNotNull('campaign_name')->where('campaign_name', '!=', '')
+                  ->orWhereNotNull('form_name')->where('form_name', '!=', '');
+            })
             ->select('ad_name', 'ad_id')
             ->distinct()
             ->orderBy('ad_name')
@@ -276,11 +306,14 @@ class LeadController extends Controller
      */
     public function syncPastLeads()
     {
-        $rawToken = config('services.facebook.page_access_token') ?: env('FB_PAGE_ACCESS_TOKEN');
+        $rawToken = config('services.facebook.page_access_token') 
+            ?: config('services.facebook.capi_access_token') 
+            ?: env('FB_PAGE_ACCESS_TOKEN') 
+            ?: env('FB_CAPI_ACCESS_TOKEN');
         $pageId = '1310217108840460';
 
         if (empty($rawToken)) {
-            return back()->with('error', 'Cannot sync past leads: FB_PAGE_ACCESS_TOKEN is missing in .env');
+            return back()->with('error', 'Cannot sync past leads: Facebook Access Token is missing in .env');
         }
 
         $accessToken = FacebookCapiService::resolvePageAccessToken($rawToken, $pageId);
@@ -297,19 +330,25 @@ class LeadController extends Controller
 
             $forms = $formsResponse->json('data') ?? [];
             $totalSynced = 0;
+            $adDetailsCache = [];
 
             foreach ($forms as $form) {
                 $formId = $form['id'];
                 $formName = $form['name'] ?? 'Instant Form';
 
-                $leadsResponse = \Illuminate\Support\Facades\Http::timeout(20)->get("https://graph.facebook.com/v19.0/{$formId}/leads", [
-                    'fields' => 'id,created_time,ad_id,ad_name,adset_id,adset_name,campaign_id,campaign_name,form_id,is_organic,field_data',
-                    'access_token' => $accessToken,
-                    'limit' => 100,
-                ]);
+                $nextUrl = "https://graph.facebook.com/v19.0/{$formId}/leads?fields=id,created_time,ad_id,ad_name,adset_id,adset_name,campaign_id,campaign_name,form_id,is_organic,field_data&access_token={$accessToken}&limit=100";
+                $pagesCount = 0;
 
-                if ($leadsResponse->successful()) {
-                    $leads = $leadsResponse->json('data') ?? [];
+                while ($nextUrl && $pagesCount < 20) {
+                    $pagesCount++;
+                    $leadsResponse = \Illuminate\Support\Facades\Http::timeout(25)->get($nextUrl);
+
+                    if (!$leadsResponse->successful()) {
+                        break;
+                    }
+
+                    $leadsData = $leadsResponse->json();
+                    $leads = $leadsData['data'] ?? [];
 
                     foreach ($leads as $leadItem) {
                         $leadgenId = $leadItem['id'];
@@ -341,18 +380,30 @@ class LeadController extends Controller
                             }
                         }
 
-                        // If ad_id exists and ad_name was not populated directly, fetch ad details
-                        if ($adId && empty($adName)) {
-                            $adRes = \Illuminate\Support\Facades\Http::timeout(5)->get("https://graph.facebook.com/v19.0/{$adId}", [
-                                'fields' => 'name,campaign{name},adset{name}',
-                                'access_token' => $accessToken,
-                            ]);
-                            if ($adRes->successful()) {
-                                $adName = $adRes->json('name');
-                                $campaignName = $campaignName ?? $adRes->json('campaign.name');
-                                $adsetName = $adsetName ?? $adRes->json('adset.name');
+                        // If ad_id exists and ad_name / campaignName was not populated directly, fetch ad details
+                        if ($adId && (empty($adName) || empty($campaignName))) {
+                            if (isset($adDetailsCache[$adId])) {
+                                $adObj = $adDetailsCache[$adId];
+                            } else {
+                                $adRes = \Illuminate\Support\Facades\Http::timeout(5)->get("https://graph.facebook.com/v19.0/{$adId}", [
+                                    'fields' => 'name,campaign{id,name},adset{id,name}',
+                                    'access_token' => $accessToken,
+                                ]);
+                                $adObj = $adRes->successful() ? $adRes->json() : [];
+                                $adDetailsCache[$adId] = $adObj;
+                            }
+
+                            if (!empty($adObj)) {
+                                $adName = $adName ?: ($adObj['name'] ?? null);
+                                $campaignName = $campaignName ?: ($adObj['campaign']['name'] ?? null);
+                                $campaignId = $campaignId ?: ($adObj['campaign']['id'] ?? null);
+                                $adsetName = $adsetName ?: ($adObj['adset']['name'] ?? null);
+                                $adsetId = $adsetId ?: ($adObj['adset']['id'] ?? null);
                             }
                         }
+
+                        // Fallback campaign attribution to formName if still empty
+                        $finalCampaignName = $campaignName ?: $formName;
 
                         Lead::updateOrCreate(
                             ['fb_leadgen_id' => $leadgenId],
@@ -365,7 +416,7 @@ class LeadController extends Controller
                                 'adset_id'      => $adsetId,
                                 'adset_name'    => $adsetName,
                                 'campaign_id'   => $campaignId,
-                                'campaign_name' => $campaignName,
+                                'campaign_name' => $finalCampaignName,
                                 'name'          => $fullName,
                                 'email'         => $email,
                                 'phone'         => $phone,
@@ -377,10 +428,12 @@ class LeadController extends Controller
 
                         $totalSynced++;
                     }
+
+                    $nextUrl = $leadsData['paging']['next'] ?? null;
                 }
             }
 
-            return back()->with('success', "Success! Synchronized {$totalSynced} past lead(s) from Facebook into your CRM.");
+            return back()->with('success', "Success! Synchronized {$totalSynced} past lead(s) from Facebook into your CRM database.");
         } catch (\Throwable $e) {
             return back()->with('error', 'Exception while syncing past leads: ' . $e->getMessage());
         }

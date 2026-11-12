@@ -142,19 +142,37 @@
         </div>
     </form>
 
-    <!-- ACTIVE AD FILTER BANNER -->
-    @if(request('ad'))
-        <div class="px-4 py-2.5 rounded-xl bg-blue-50 border border-blue-200 text-blue-900 text-xs flex items-center justify-between gap-3">
-            <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-                <span>Filtered by Ad: <strong>{{ request('ad') }}</strong> ({{ $leads->total() }} leads found)</span>
+    <!-- ACTIVE AD / CAMPAIGN FILTER BANNER -->
+    @if(request('campaign') || request('ad') || request('campaign_id'))
+        <div class="px-4 py-3 rounded-2xl bg-blue-50 border border-blue-200 text-blue-900 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-2.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse shrink-0"></span>
+                <div>
+                    <span class="font-bold">Filtering by:</span>
+                    <span class="font-semibold text-slate-800">{{ request('campaign') ?: (request('ad') ?: request('campaign_id')) }}</span>
+                    <span class="font-black text-blue-700 ml-1">({{ $leads->total() }} leads in CRM)</span>
+                    @if($leads->total() === 0)
+                        <p class="text-[11px] text-blue-800 mt-0.5">
+                            👉 Meta reports leads for this campaign, but they haven't been downloaded into your local CRM database yet. Click <strong>"Sync Past FB Leads"</strong> to download all past leads!
+                        </p>
+                    @endif
+                </div>
             </div>
-            <div class="flex items-center gap-2">
-                <a href="{{ route('admin.leads.index') }}" class="px-2.5 py-1 rounded-lg bg-white hover:bg-slate-100 text-slate-700 text-[11px] font-bold border border-slate-200 transition">
-                    Clear Ad Filter
+            <div class="flex items-center gap-2 shrink-0">
+                @if($leads->total() === 0)
+                    <form action="{{ route('admin.leads.syncPastLeads') }}" method="POST" onsubmit="return confirm('Download all past leads from Facebook Instant Forms?');">
+                        @csrf
+                        <button type="submit" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition inline-flex items-center gap-1 shadow-xs cursor-pointer">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+                            <span>Sync Past FB Leads</span>
+                        </button>
+                    </form>
+                @endif
+                <a href="{{ route('admin.leads.index') }}" class="px-2.5 py-1.5 rounded-xl bg-white hover:bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200 transition">
+                    Clear Filter
                 </a>
-                <a href="{{ route('admin.ads.index') }}" class="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold transition">
-                    &larr; Back to Meta Ads Overview
+                <a href="{{ route('admin.ads.index') }}" class="px-2.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition">
+                    &larr; Back to Meta Ads
                 </a>
             </div>
         </div>

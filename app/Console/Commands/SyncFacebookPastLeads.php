@@ -28,7 +28,10 @@ class SyncFacebookPastLeads extends Command
      */
     public function handle()
     {
-        $rawToken = config('services.facebook.page_access_token') ?: env('FB_PAGE_ACCESS_TOKEN');
+        $rawToken = config('services.facebook.page_access_token') 
+            ?: config('services.facebook.capi_access_token') 
+            ?: env('FB_PAGE_ACCESS_TOKEN') 
+            ?: env('FB_CAPI_ACCESS_TOKEN');
 
         if (empty($rawToken)) {
             $this->error('FB_PAGE_ACCESS_TOKEN is missing in .env or config.');
@@ -137,7 +140,7 @@ class SyncFacebookPastLeads extends Command
                             'adset_id'      => $adsetId,
                             'adset_name'    => $adsetName,
                             'campaign_id'   => $campaignId,
-                            'campaign_name' => $campaignName,
+                            'campaign_name' => $campaignName ?: $formName,
                             'name'          => $fullName,
                             'email'         => $email,
                             'phone'         => $phone,
