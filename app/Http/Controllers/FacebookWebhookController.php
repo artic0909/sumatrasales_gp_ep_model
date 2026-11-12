@@ -110,7 +110,10 @@ class FacebookWebhookController extends Controller
      */
     private function processLead($leadgenId, $adId = null, $formId = null, $pageId = null, bool $isSample = false): void
     {
-        $rawToken = config('services.facebook.page_access_token') ?: env('FB_PAGE_ACCESS_TOKEN');
+        $rawToken = config('services.facebook.page_access_token') 
+            ?: config('services.facebook.capi_access_token') 
+            ?: env('FB_PAGE_ACCESS_TOKEN') 
+            ?: env('FB_CAPI_ACCESS_TOKEN');
         $resolvedPageId = $pageId ?: '1310217108840460';
         $accessToken = \App\Services\FacebookCapiService::resolvePageAccessToken($rawToken, $resolvedPageId);
 
@@ -233,7 +236,7 @@ class FacebookWebhookController extends Controller
                         'adset_id'      => $adsetId,
                         'adset_name'    => $adsetName,
                         'campaign_id'   => $campaignId,
-                        'campaign_name' => $campaignName,
+                        'campaign_name' => $campaignName ?: ($adName ?: $formName),
                         'name'          => $fullName,
                         'email'         => $email,
                         'phone'         => $phone,
