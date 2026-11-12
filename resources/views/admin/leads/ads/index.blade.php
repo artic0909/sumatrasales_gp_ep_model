@@ -671,24 +671,24 @@
         let html = '<div class="relative pl-7 border-l-2 border-indigo-200 ml-3.5 space-y-4 my-2 max-h-[360px] overflow-y-auto pr-2">';
 
         followups.forEach(f => {
-            let channelIcon = '📞';
+           
             let channelBadge = '';
             let ringColor = 'border-blue-500 bg-blue-50 text-blue-700';
 
             if (f.type === 'calling') {
-                channelIcon = '📞';
+       
                 channelBadge = '<span class="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 font-bold border border-blue-200 text-[10px]">Phone Call</span>';
                 ringColor = 'border-blue-500 bg-blue-50 text-blue-700';
             } else if (f.type === 'whatsapp') {
-                channelIcon = '💬';
+               
                 channelBadge = '<span class="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 font-bold border border-emerald-200 text-[10px]">WhatsApp</span>';
                 ringColor = 'border-emerald-500 bg-emerald-50 text-emerald-700';
             } else if (f.type === 'both') {
-                channelIcon = '📞💬';
+               
                 channelBadge = '<span class="px-2 py-0.5 rounded-md bg-purple-50 text-purple-700 font-bold border border-purple-200 text-[10px]">Call & WhatsApp</span>';
                 ringColor = 'border-purple-500 bg-purple-50 text-purple-700';
             } else {
-                channelIcon = '📋';
+                
                 channelBadge = `<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-bold border border-slate-200 text-[10px]">${f.type_label}</span>`;
                 ringColor = 'border-slate-400 bg-slate-50 text-slate-700';
             }
@@ -901,10 +901,9 @@
                     <div>
                         <label class="block text-[10px] font-bold text-slate-600 mb-1 uppercase tracking-wider">Channel / Category <span class="text-rose-500">*</span>:</label>
                         <select id="followup-type-select" class="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition cursor-pointer">
-                            <option value="calling">📞 Phone Call</option>
-                            <option value="whatsapp">💬 WhatsApp</option>
-                            <option value="both">📞💬 Call &amp; WhatsApp</option>
-                            <option value="other">📋 Other</option>
+                            <option value="calling">Phone Call</option>
+                            <option value="whatsapp">WhatsApp</option>
+                            <option value="both">Call &amp; WhatsApp</option>
                         </select>
                     </div>
 

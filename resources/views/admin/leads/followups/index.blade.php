@@ -111,10 +111,9 @@
             <!-- Filter by Channel / Type -->
             <select name="type" onchange="this.form.submit()" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition">
                 <option value="">All Channels</option>
-                <option value="calling" {{ request('type') === 'calling' ? 'selected' : '' }}>📞 Phone Calls Only</option>
-                <option value="whatsapp" {{ request('type') === 'whatsapp' ? 'selected' : '' }}>💬 WhatsApp Only</option>
-                <option value="both" {{ request('type') === 'both' ? 'selected' : '' }}>📞💬 Call &amp; WhatsApp</option>
-                <option value="other" {{ request('type') === 'other' ? 'selected' : '' }}>Other</option>
+                <option value="calling" {{ request('type') === 'calling' ? 'selected' : '' }}>Phone Call</option>
+                <option value="whatsapp" {{ request('type') === 'whatsapp' ? 'selected' : '' }}>WhatsApp</option>
+                <option value="both" {{ request('type') === 'both' ? 'selected' : '' }}>Call &amp; WhatsApp</option>
             </select>
 
             <!-- Filter by Status -->
