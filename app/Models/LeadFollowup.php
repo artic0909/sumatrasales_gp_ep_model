@@ -69,3 +69,4 @@ class LeadFollowup extends Model
         };
     }
 }
+

@@ -231,3 +231,4 @@ class LeadFollowupController extends Controller
         return back()->with('success', 'Follow-up log deleted successfully.');
     }
 }
+
