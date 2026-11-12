@@ -108,7 +108,7 @@
                 <select name="ad" onchange="this.form.submit()" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition max-w-[180px] truncate">
                     <option value="">All Facebook Ads</option>
                     @foreach($availableAds as $adItem)
-                        <option value="{{ $adItem->ad_name }}" {{ request('ad') == $adItem->ad_name ? 'selected' : '' }}>
+                        <option value="{{ $adItem->ad_name }}" {{ (request('ad') == $adItem->ad_name || request('ad') == $adItem->ad_id) ? 'selected' : '' }}>
                             {{ Str::limit($adItem->ad_name, 22) }}
                         </option>
                     @endforeach
@@ -141,6 +141,24 @@
             @endif
         </div>
     </form>
+
+    <!-- ACTIVE AD FILTER BANNER -->
+    @if(request('ad'))
+        <div class="px-4 py-2.5 rounded-xl bg-blue-50 border border-blue-200 text-blue-900 text-xs flex items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+                <span>Filtered by Ad: <strong>{{ request('ad') }}</strong> ({{ $leads->total() }} leads found)</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="{{ route('admin.leads.index') }}" class="px-2.5 py-1 rounded-lg bg-white hover:bg-slate-100 text-slate-700 text-[11px] font-bold border border-slate-200 transition">
+                    Clear Ad Filter
+                </a>
+                <a href="{{ route('admin.ads.index') }}" class="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold transition">
+                    &larr; Back to Meta Ads Overview
+                </a>
+            </div>
+        </div>
+    @endif
 
     <!-- BULK ACTIONS BAR (HIDDEN BY DEFAULT) -->
     <div id="bulk-action-bar" class="hidden p-3 bg-blue-50 rounded-2xl border border-blue-200 shadow-2xs items-center justify-between gap-3 animate-fade-in">

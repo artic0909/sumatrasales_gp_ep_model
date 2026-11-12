@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AuthController;
+use App\Http\Controllers\admin\AdController;
 use App\Http\Controllers\admin\ContactController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\EpController;
@@ -59,6 +60,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('/contact/{id}', [ContactController::class, 'destroy'])->name('contact.destroy');
 
         // Facebook Ad Leads & Meta Conversions API (CAPI)
+        Route::get('/ads', [AdController::class, 'index'])->name('ads.index');
+        Route::post('/ads/refresh', [AdController::class, 'refresh'])->name('ads.refresh');
         Route::get('/leads', [LeadController::class, 'index'])->name('leads.index');
         Route::post('/leads/sync-past-leads', [LeadController::class, 'syncPastLeads'])->name('leads.syncPastLeads');
         Route::get('/leads/create', [LeadController::class, 'create'])->name('leads.create');

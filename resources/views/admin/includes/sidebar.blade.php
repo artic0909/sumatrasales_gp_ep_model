@@ -88,6 +88,17 @@
             @endif
         </a>
 
+        <!-- META ADS & CAMPAIGNS -->
+        <a href="{{ route('admin.ads.index') }}" class="group flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold transition {{ str_starts_with($currentRoute, 'admin.ads.') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30 font-black' : 'text-slate-400 hover:text-white hover:bg-slate-800/60' }}">
+            <div class="flex items-center gap-3">
+                <svg class="w-4 h-4 shrink-0 text-violet-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 1 1 0-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 0 1-1.44-4.213m3.105-9.18a20.865 20.865 0 0 1 1.44-4.213c.267-.578.976-.779 1.527-.461l.657.38c.523.302.71.962.463 1.511a14.664 14.664 0 0 1-.985 2.783m0 0a18.257 18.257 0 0 1 6.84 0m-6.84 9.18a18.257 18.257 0 0 0 6.84 0M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                </svg>
+                <span>Meta Ads Overview</span>
+            </div>
+            <span class="px-1.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider bg-violet-500/20 text-violet-300">Live</span>
+        </a>
+
         <!-- FACEBOOK AD LEADS & CAPI -->
         <a href="{{ route('admin.leads.index') }}" class="group flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold transition {{ str_starts_with($currentRoute, 'admin.leads.') ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30 font-black' : 'text-slate-400 hover:text-white hover:bg-slate-800/60' }}">
             <div class="flex items-center gap-3">

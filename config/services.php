@@ -40,6 +40,7 @@ return [
         'pixel_id' => env('FB_PIXEL_ID'),
         'capi_access_token' => env('FB_CAPI_ACCESS_TOKEN'),
         'webhook_verify_token' => env('FB_WEBHOOK_VERIFY_TOKEN', 'sumatra_sales_fb_verify_token_2026'),
+        'ad_account_id' => env('FB_AD_ACCOUNT_ID'),
     ],
 
 ];
