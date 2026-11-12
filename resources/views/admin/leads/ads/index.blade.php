@@ -671,24 +671,23 @@
         let html = '<div class="relative pl-7 border-l-2 border-indigo-200 ml-3.5 space-y-4 my-2 max-h-[360px] overflow-y-auto pr-2">';
 
         followups.forEach(f => {
-           
             let channelBadge = '';
+            let channelIcon = '<svg class="w-3 h-3 text-slate-500" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>';
             let ringColor = 'border-blue-500 bg-blue-50 text-blue-700';
 
             if (f.type === 'calling') {
-       
+                channelIcon = '<svg class="w-3 h-3 text-blue-600" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>';
                 channelBadge = '<span class="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 font-bold border border-blue-200 text-[10px]">Phone Call</span>';
                 ringColor = 'border-blue-500 bg-blue-50 text-blue-700';
             } else if (f.type === 'whatsapp') {
-               
+                channelIcon = '<svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a.75.75 0 01-1.074-.865 5.94 5.94 0 00.908-3.08A7.848 7.848 0 013 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg>';
                 channelBadge = '<span class="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 font-bold border border-emerald-200 text-[10px]">WhatsApp</span>';
                 ringColor = 'border-emerald-500 bg-emerald-50 text-emerald-700';
             } else if (f.type === 'both') {
-               
+                channelIcon = '<svg class="w-3 h-3 text-purple-600" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v7.01z"/></svg>';
                 channelBadge = '<span class="px-2 py-0.5 rounded-md bg-purple-50 text-purple-700 font-bold border border-purple-200 text-[10px]">Call & WhatsApp</span>';
                 ringColor = 'border-purple-500 bg-purple-50 text-purple-700';
             } else {
-                
                 channelBadge = `<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-bold border border-slate-200 text-[10px]">${f.type_label}</span>`;
                 ringColor = 'border-slate-400 bg-slate-50 text-slate-700';
             }
@@ -708,7 +707,7 @@
                 <div id="followup-item-${f.id}" class="relative group">
                     <!-- Timeline Node Icon -->
                     <div class="absolute -left-[41px] top-1 w-6 h-6 rounded-full bg-white border-2 ${ringColor} flex items-center justify-center text-[10px] shadow-xs">
-                        <span>${channelIcon}</span>
+                        ${channelIcon}
                     </div>
 
                     <!-- Timeline Card Body -->
