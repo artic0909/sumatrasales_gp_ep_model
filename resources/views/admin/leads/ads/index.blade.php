@@ -108,6 +108,17 @@
         </div>
 
         <div class="flex items-center gap-2 w-full md:w-auto flex-wrap sm:flex-nowrap">
+            <!-- Filter by Date Range (From & To) -->
+            <div class="flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-xl focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">From:</span>
+                <input type="date" name="from_date" value="{{ request('from_date') }}" onchange="this.form.submit()" title="Filter leads from this date" class="bg-transparent text-xs text-slate-700 font-medium focus:outline-none cursor-pointer">
+            </div>
+
+            <div class="flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-xl focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">To:</span>
+                <input type="date" name="to_date" value="{{ request('to_date') }}" onchange="this.form.submit()" title="Filter leads up to this date" class="bg-transparent text-xs text-slate-700 font-medium focus:outline-none cursor-pointer">
+            </div>
+
             <!-- Filter by Status -->
             <select name="status" onchange="this.form.submit()" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition">
                 <option value="">All Review Statuses</option>
@@ -148,13 +159,32 @@
                 </select>
             </div>
 
-            @if(request()->anyFilled(['search', 'status', 'synced', 'ad', 'per_page']))
+            @if(request()->anyFilled(['search', 'status', 'synced', 'ad', 'from_date', 'to_date', 'campaign', 'campaign_id', 'per_page']))
                 <a href="{{ route('admin.leads.index') }}" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl text-xs font-bold transition">
                     Reset
                 </a>
             @endif
         </div>
     </form>
+
+    <!-- ACTIVE DATE FILTER BANNER -->
+    @if(request('from_date') || request('to_date'))
+        <div class="px-4 py-2.5 rounded-2xl bg-indigo-50 border border-indigo-200 text-indigo-900 text-xs flex items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-indigo-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" /></svg>
+                <span>
+                    Filtering by Date: 
+                    <strong>{{ request('from_date') ? \Carbon\Carbon::parse(request('from_date'))->format('M d, Y') : 'Start' }}</strong> 
+                    to 
+                    <strong>{{ request('to_date') ? \Carbon\Carbon::parse(request('to_date'))->format('M d, Y') : 'Today' }}</strong>
+                    <span class="font-black text-indigo-700 ml-1">({{ $leads->total() }} lead(s) found)</span>
+                </span>
+            </div>
+            <a href="{{ route('admin.leads.index', request()->except(['from_date', 'to_date'])) }}" class="text-[11px] font-bold text-indigo-600 hover:text-indigo-800 underline">
+                Clear Date Filter
+            </a>
+        </div>
+    @endif
 
     <!-- ACTIVE AD / CAMPAIGN FILTER BANNER -->
     @if(request('campaign') || request('ad') || request('campaign_id'))

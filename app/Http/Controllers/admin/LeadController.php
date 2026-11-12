@@ -79,6 +79,14 @@ class LeadController extends Controller
             }
         }
 
+        // Filter by Date Range (From Date & To Date)
+        if ($request->filled('from_date')) {
+            $query->whereDate('created_at', '>=', $request->from_date);
+        }
+        if ($request->filled('to_date')) {
+            $query->whereDate('created_at', '<=', $request->to_date);
+        }
+
         // Per page pagination
         $perPageInput = strtolower(trim((string) $request->input('per_page', '10')));
         if ($perPageInput === 'all') {
