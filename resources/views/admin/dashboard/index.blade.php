@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Executive Analytics & Traffic Command')
+@section('title', 'Admin Dashboard | Sumatra Sales Private Limited')
 
 @section('content')
 <div class="space-y-6">
