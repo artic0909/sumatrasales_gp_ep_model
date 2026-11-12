@@ -86,5 +86,21 @@ class Lead extends Model
         }
         return preg_replace('/[^0-9]/', '', $this->phone);
     }
+
+    /**
+     * Follow-up interactions for this lead.
+     */
+    public function followups()
+    {
+        return $this->hasMany(LeadFollowup::class, 'lead_id')->latest('followup_date');
+    }
+
+    /**
+     * Most recent follow-up log.
+     */
+    public function latestFollowup()
+    {
+        return $this->hasOne(LeadFollowup::class, 'lead_id')->latestOfMany('followup_date');
+    }
 }
 

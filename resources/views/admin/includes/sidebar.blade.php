@@ -100,7 +100,7 @@
         </a>
 
         <!-- FACEBOOK AD LEADS & CAPI -->
-        <a href="{{ route('admin.leads.index') }}" class="group flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold transition {{ str_starts_with($currentRoute, 'admin.leads.') ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30 font-black' : 'text-slate-400 hover:text-white hover:bg-slate-800/60' }}">
+        <a href="{{ route('admin.leads.index') }}" class="group flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold transition {{ (str_starts_with($currentRoute, 'admin.leads.') && !str_starts_with($currentRoute, 'admin.leads.followups')) ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30 font-black' : 'text-slate-400 hover:text-white hover:bg-slate-800/60' }}">
             <div class="flex items-center gap-3">
                 <svg class="w-4 h-4 shrink-0 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.199l-.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.999-3.199a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
@@ -108,8 +108,19 @@
                 <span>FB Ads & CAPI Leads</span>
             </div>
             @if ($newLeadsCount > 0)
-                <span class="px-2 py-0.5 rounded-full text-[10px] font-black {{ str_starts_with($currentRoute, 'admin.leads.') ? 'bg-white text-blue-700' : 'bg-blue-500/20 text-blue-300' }}">{{ $newLeadsCount }}</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-black {{ (str_starts_with($currentRoute, 'admin.leads.') && !str_starts_with($currentRoute, 'admin.leads.followups')) ? 'bg-white text-blue-700' : 'bg-blue-500/20 text-blue-300' }}">{{ $newLeadsCount }}</span>
             @endif
+        </a>
+
+        <!-- LEAD FOLLOW-UP LOGS -->
+        <a href="{{ route('admin.leads.followups.index') }}" class="group flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition {{ str_starts_with($currentRoute, 'admin.leads.followups') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30 font-black' : 'text-slate-400 hover:text-white hover:bg-slate-800/60' }}">
+            <div class="flex items-center gap-3">
+                <svg class="w-4 h-4 shrink-0 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                <span>Follow-up Logs</span>
+            </div>
+            <span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-indigo-500/20 text-indigo-300">CRM</span>
         </a>
 
         <div class="pt-3 pb-1.5 px-3">

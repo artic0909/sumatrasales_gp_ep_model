@@ -98,6 +98,10 @@ class LeadController extends Controller
             $perPage = 10;
         }
 
+        if (\Illuminate\Support\Facades\Schema::hasTable('lead_followups')) {
+            $query->withCount('followups')->with('latestFollowup');
+        }
+
         $leads = $query->latest()->paginate($perPage)->withQueryString();
 
         // Counters for quick stats

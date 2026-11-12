@@ -36,6 +36,12 @@
                 <span>Add Manual Lead</span>
             </a>
 
+            <!-- Follow-up Logs Shortcut -->
+            <a href="{{ route('admin.leads.followups.index') }}" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition inline-flex items-center gap-1.5 shadow-sm cursor-pointer" title="View all follow-up logs across all leads">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                <span>Follow-up Logs</span>
+            </a>
+
             <!-- Webhook Endpoint Info Modal Button -->
             <button type="button" onclick="document.getElementById('webhook-info-modal').classList.remove('hidden')" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition inline-flex items-center gap-1.5 cursor-pointer">
                 <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" /></svg>
@@ -249,6 +255,7 @@
                         </th>
                         <th class="py-3.5 px-4">Lead Contact</th>
                         <th class="py-3.5 px-4">Ad Attribution</th>
+                        <th class="py-3.5 px-4 text-center">Follow-ups</th>
                         <th class="py-3.5 px-4 text-center">Review Status</th>
                         <th class="py-3.5 px-4 text-center">Meta CAPI Feedback</th>
                         <th class="py-3.5 px-4 text-right">Actions</th>
@@ -329,6 +336,24 @@
                                         @endif
                                     </div>
                                 </div>
+                            </td>
+
+                            <!-- Follow-ups Column (Counting Button) -->
+                            <td class="py-3.5 px-4 text-center">
+                                @php
+                                    $followupCount = $lead->followups_count ?? ($lead->relationLoaded('followups') ? $lead->followups->count() : 0);
+                                @endphp
+                                <button type="button" 
+                                        onclick="openFollowupModal({{ $lead->id }}, '{{ addslashes($lead->name ?? 'Lead #' . $lead->id) }}', '{{ $lead->phone ?? '' }}', '{{ $lead->email ?? '' }}', '{{ $lead->status ?? 'new' }}')"
+                                        id="lead-followup-btn-{{ $lead->id }}"
+                                        class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-bold transition shadow-2xs border cursor-pointer
+                                        {{ $followupCount > 0 ? 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-indigo-200' : 'bg-slate-50 hover:bg-slate-100 text-slate-600 border-slate-200' }}"
+                                        title="Click to view follow-up history or log a new call/WhatsApp">
+                                    <span class="text-xs">📞</span>
+                                    <span id="lead-followup-count-{{ $lead->id }}" class="font-black">{{ $followupCount }}</span>
+                                    <span class="text-[10px] text-slate-400 font-semibold">{{ $followupCount === 1 ? 'log' : 'logs' }}</span>
+                                    <span class="w-4 h-4 rounded-full bg-white flex items-center justify-center text-[10px] font-black text-slate-500 shadow-2xs">+</span>
+                                </button>
                             </td>
 
                             <!-- Review Status -->
@@ -536,6 +561,401 @@
             updateBulkState();
         });
     });
+
+    // ==========================================
+    // LEAD FOLLOW-UP MODAL & REALTIME LOGIC
+    // ==========================================
+    let currentFollowupLeadId = null;
+
+    function openFollowupModal(leadId, name, phone, email, status) {
+        currentFollowupLeadId = leadId;
+
+        // Populate Lead Info in Modal Header
+        document.getElementById('modal-lead-name').textContent = name || 'Lead #' + leadId;
+        document.getElementById('modal-lead-email').textContent = email ? '• ' + email : '';
+        
+        const phoneContainer = document.getElementById('modal-lead-phone-container');
+        if (phone) {
+            const cleanPhone = phone.replace(/[^0-9]/g, '');
+            phoneContainer.innerHTML = `
+                <a href="tel:${phone}" class="hover:text-blue-600 font-mono inline-flex items-center gap-1 font-bold">
+                    <span>📞</span> <span>${phone}</span>
+                </a>
+                ${cleanPhone ? `
+                    <a href="https://wa.me/${cleanPhone}" target="_blank" class="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 font-bold border border-emerald-200 hover:bg-emerald-100 transition inline-flex items-center gap-1 text-[11px]">
+                        <span>💬</span> WhatsApp
+                    </a>
+                ` : ''}
+            `;
+        } else {
+            phoneContainer.innerHTML = '<span class="text-slate-400">No phone recorded</span>';
+        }
+
+        // Set Default Date & Time to Now
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        document.getElementById('followup-date-input').value = `${year}-${month}-${day}T${hours}:${minutes}`;
+
+        // Reset Notes & Next Date
+        document.getElementById('followup-notes-input').value = '';
+        document.getElementById('followup-next-date-input').value = '';
+        document.getElementById('followup-modal-alert').classList.add('hidden');
+
+        // Select 'calling' as default type
+        const defaultRadio = document.querySelector('input[name="followup_type"][value="calling"]');
+        if (defaultRadio) defaultRadio.checked = true;
+
+        // Show Modal
+        document.getElementById('lead-followup-modal').classList.remove('hidden');
+
+        // Fetch History
+        fetchFollowupHistory(leadId);
+    }
+
+    function closeFollowupModal() {
+        document.getElementById('lead-followup-modal').classList.add('hidden');
+        currentFollowupLeadId = null;
+    }
+
+    // Close on Escape Key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeFollowupModal();
+        }
+    });
+
+    async function fetchFollowupHistory(leadId) {
+        const historyContainer = document.getElementById('followup-history-container');
+        historyContainer.innerHTML = `
+            <div class="py-8 text-center text-slate-400">
+                <svg class="animate-spin h-5 w-5 mx-auto mb-2 text-indigo-500" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+                <span>Loading previous follow-up records...</span>
+            </div>
+        `;
+
+        try {
+            const res = await fetch(`/admin/leads/${leadId}/followups-list`, {
+                headers: { 'Accept': 'application/json' }
+            });
+            const data = await res.json();
+
+            if (data.success && data.followups && data.followups.length > 0) {
+                renderFollowupList(data.followups);
+            } else {
+                historyContainer.innerHTML = `
+                    <div class="py-8 text-center text-slate-400 bg-slate-50/50 rounded-2xl border border-dashed border-slate-200">
+                        <span class="text-2xl block mb-1">📋</span>
+                        <p class="font-bold text-slate-700 text-xs">No follow-ups recorded yet</p>
+                        <p class="text-[11px] text-slate-400">Use the form above to log your first call or WhatsApp interaction!</p>
+                    </div>
+                `;
+            }
+        } catch (err) {
+            historyContainer.innerHTML = `
+                <div class="p-3 bg-rose-50 border border-rose-200 text-rose-700 text-xs rounded-xl">
+                    Failed to load follow-up history: ${err.message}
+                </div>
+            `;
+        }
+    }
+
+    function renderFollowupList(followups) {
+        const historyContainer = document.getElementById('followup-history-container');
+        let html = '<div class="space-y-2.5 max-h-[300px] overflow-y-auto pr-1">';
+
+        followups.forEach(f => {
+            let channelBadge = '';
+            if (f.type === 'calling') {
+                channelBadge = '<span class="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 font-bold border border-blue-200 text-[10px]">📞 Phone Call</span>';
+            } else if (f.type === 'whatsapp') {
+                channelBadge = '<span class="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 font-bold border border-emerald-200 text-[10px]">💬 WhatsApp</span>';
+            } else if (f.type === 'both') {
+                channelBadge = '<span class="px-2 py-0.5 rounded-md bg-purple-50 text-purple-700 font-bold border border-purple-200 text-[10px]">📞💬 Call & WhatsApp</span>';
+            } else {
+                channelBadge = `<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-bold border border-slate-200 text-[10px]">📋 ${f.type_label}</span>`;
+            }
+
+            let statusBadge = f.status ? `<span class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-bold text-[10px] border border-slate-200">${f.status}</span>` : '';
+
+            html += `
+                <div id="followup-item-${f.id}" class="p-3 rounded-xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:border-indigo-200 transition space-y-1.5 text-xs shadow-2xs">
+                    <div class="flex items-center justify-between gap-2 flex-wrap">
+                        <div class="flex items-center gap-1.5">
+                            ${channelBadge}
+                            ${statusBadge}
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] font-bold text-slate-500">${f.followup_date}</span>
+                            <button type="button" onclick="deleteFollowup(${f.id})" class="text-slate-400 hover:text-rose-600 transition p-0.5" title="Delete record">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+                            </button>
+                        </div>
+                    </div>
+                    ${f.notes ? `<div class="text-slate-800 font-medium whitespace-pre-line text-xs pl-0.5">${escapeHtml(f.notes)}</div>` : '<div class="text-slate-400 italic text-[11px]">No discussion notes.</div>'}
+                    <div class="flex items-center justify-between text-[10px] text-slate-400 pt-1 border-t border-slate-200/50">
+                        <span>By: <strong>${escapeHtml(f.created_by_name || 'Admin')}</strong></span>
+                        ${f.next_followup_date ? `<span class="font-bold text-indigo-600">📅 Next: ${f.next_followup_date}</span>` : ''}
+                    </div>
+                </div>
+            `;
+        });
+
+        html += '</div>';
+        historyContainer.innerHTML = html;
+    }
+
+    async function submitFollowupLog(e) {
+        e.preventDefault();
+        if (!currentFollowupLeadId) return;
+
+        const btn = document.getElementById('followup-submit-btn');
+        const alertBox = document.getElementById('followup-modal-alert');
+        btn.disabled = true;
+        btn.innerHTML = '<span>Saving...</span>';
+
+        const type = document.querySelector('input[name="followup_type"]:checked')?.value || 'calling';
+        const notes = document.getElementById('followup-notes-input').value;
+        const status = document.getElementById('followup-status-input').value;
+        const followup_date = document.getElementById('followup-date-input').value;
+        const next_followup_date = document.getElementById('followup-next-date-input').value;
+
+        try {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+            const res = await fetch(`/admin/leads/${currentFollowupLeadId}/followups`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                body: JSON.stringify({
+                    type,
+                    notes,
+                    status,
+                    followup_date,
+                    next_followup_date
+                })
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                // Flash Success Message
+                alertBox.textContent = `✓ ${data.message} (${data.followup.type_label})`;
+                alertBox.classList.remove('hidden');
+
+                // Clear textarea
+                document.getElementById('followup-notes-input').value = '';
+                document.getElementById('followup-next-date-input').value = '';
+
+                // Update Row Button Counter!
+                const countBadge = document.getElementById(`lead-followup-count-${currentFollowupLeadId}`);
+                if (countBadge) {
+                    countBadge.textContent = data.count;
+                }
+                const btnEl = document.getElementById(`lead-followup-btn-${currentFollowupLeadId}`);
+                if (btnEl && data.count > 0) {
+                    btnEl.classList.remove('bg-slate-50', 'text-slate-600', 'border-slate-200');
+                    btnEl.classList.add('bg-indigo-50', 'hover:bg-indigo-100', 'text-indigo-700', 'border-indigo-200');
+                }
+
+                // Refresh history
+                fetchFollowupHistory(currentFollowupLeadId);
+            } else {
+                alert('Error: ' + (data.message || 'Could not save follow-up.'));
+            }
+        } catch (err) {
+            alert('Failed to save follow-up: ' + err.message);
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<span>Save Follow-up</span>';
+        }
+    }
+
+    async function deleteFollowup(id) {
+        if (!confirm('Are you sure you want to delete this follow-up log?')) return;
+
+        try {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+            const res = await fetch(`/admin/leads/followups/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                // Remove item from DOM
+                const item = document.getElementById(`followup-item-${id}`);
+                if (item) item.remove();
+
+                // Update Row Button Counter
+                if (currentFollowupLeadId && data.count !== undefined) {
+                    const countBadge = document.getElementById(`lead-followup-count-${currentFollowupLeadId}`);
+                    if (countBadge) countBadge.textContent = data.count;
+                }
+            } else {
+                alert('Failed to delete follow-up.');
+            }
+        } catch (err) {
+            alert('Error deleting follow-up: ' + err.message);
+        }
+    }
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+        return String(text).replace(/[&<>"']/g, function(m) { return map[m]; });
+    }
 </script>
+
+<!-- ==========================================
+     INTERACTIVE LEAD FOLLOW-UP MODAL
+=========================================== -->
+<div id="lead-followup-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs hidden animate-fade-in" aria-modal="true" role="dialog">
+    <div class="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[90vh]">
+        
+        <!-- MODAL HEADER -->
+        <div class="p-4 sm:p-5 border-b border-slate-100 bg-gradient-to-r from-slate-50 via-white to-indigo-50/40 flex items-start justify-between gap-3 shrink-0">
+            <div>
+                <div class="flex items-center gap-2">
+                    <div class="w-7 h-7 rounded-lg bg-indigo-600 text-white flex items-center justify-center shadow-xs text-sm">
+                        📞
+                    </div>
+                    <div>
+                        <h3 class="text-base font-black text-slate-900 tracking-tight" id="modal-lead-name">
+                            Lead Follow-up Log
+                        </h3>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-600 mt-1 flex-wrap" id="modal-lead-phone-container">
+                    <!-- Dynamic Phone & WhatsApp Link -->
+                </div>
+                <span class="text-[11px] text-slate-400" id="modal-lead-email"></span>
+            </div>
+
+            <button type="button" onclick="closeFollowupModal()" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-700 flex items-center justify-center transition cursor-pointer" title="Close modal">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+            </button>
+        </div>
+
+        <!-- MODAL BODY (SCROLLABLE) -->
+        <div class="p-4 sm:p-6 overflow-y-auto space-y-5">
+            
+            <!-- Success / Flash Notification -->
+            <div id="followup-modal-alert" class="hidden p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold animate-fade-in"></div>
+
+            <!-- FORM: LOG NEW FOLLOW-UP -->
+            <form onsubmit="submitFollowupLog(event)" class="p-4 rounded-2xl bg-slate-50/80 border border-slate-200 space-y-3.5">
+                <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+                    <span class="text-xs font-black uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+                        <span>Log New Interaction</span>
+                    </span>
+                    <span class="text-[10px] text-slate-400 font-semibold">Real-time counter sync</span>
+                </div>
+
+                <!-- Channel / Category Selector -->
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-700 mb-1.5 uppercase tracking-wider">
+                        Communication Channel / Category <span class="text-rose-500">*</span>:
+                    </label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <label class="relative flex items-center justify-center gap-1.5 p-2.5 rounded-xl border border-slate-200 bg-white hover:border-indigo-300 cursor-pointer has-checked:bg-blue-50 has-checked:border-blue-500 has-checked:text-blue-700 transition font-bold text-xs">
+                            <input type="radio" name="followup_type" value="calling" checked class="sr-only">
+                            <span>📞</span>
+                            <span>Phone Call</span>
+                        </label>
+                        <label class="relative flex items-center justify-center gap-1.5 p-2.5 rounded-xl border border-slate-200 bg-white hover:border-indigo-300 cursor-pointer has-checked:bg-emerald-50 has-checked:border-emerald-500 has-checked:text-emerald-700 transition font-bold text-xs">
+                            <input type="radio" name="followup_type" value="whatsapp" class="sr-only">
+                            <span>💬</span>
+                            <span>WhatsApp</span>
+                        </label>
+                        <label class="relative flex items-center justify-center gap-1.5 p-2.5 rounded-xl border border-slate-200 bg-white hover:border-indigo-300 cursor-pointer has-checked:bg-purple-50 has-checked:border-purple-500 has-checked:text-purple-700 transition font-bold text-xs">
+                            <input type="radio" name="followup_type" value="both" class="sr-only">
+                            <span>📞💬</span>
+                            <span>Both</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Discussion Notes -->
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-700 mb-1 uppercase tracking-wider">
+                        Discussion Summary / Remarks:
+                    </label>
+                    <textarea id="followup-notes-input" rows="2" placeholder="e.g. Discussed pricing for DoctorWala, customer requested callback on Monday..." class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition resize-none"></textarea>
+                </div>
+
+                <!-- Date / Time & Outcome Status Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                    <!-- Date & Time of Follow-up -->
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-600 mb-1 uppercase">Date &amp; Time:</label>
+                        <input type="datetime-local" id="followup-date-input" class="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition">
+                    </div>
+
+                    <!-- Outcome Status -->
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-600 mb-1 uppercase">Outcome Status:</label>
+                        <select id="followup-status-input" class="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition">
+                            <option value="interested">Interested</option>
+                            <option value="callback">Callback Requested</option>
+                            <option value="no_answer">No Answer / Busy</option>
+                            <option value="not_interested">Not Interested</option>
+                            <option value="converted">Converted / Closed</option>
+                        </select>
+                    </div>
+
+                    <!-- Next Follow-up (Optional) -->
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-600 mb-1 uppercase">Next Follow-up (Opt):</label>
+                        <input type="datetime-local" id="followup-next-date-input" class="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition">
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-1 flex justify-end">
+                    <button type="submit" id="followup-submit-btn" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition inline-flex items-center gap-1.5 shadow-sm cursor-pointer">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+                        <span>Save Follow-up</span>
+                    </button>
+                </div>
+            </form>
+
+            <!-- SECTION: PREVIOUS FOLLOW-UP AUDIT TIMELINE -->
+            <div class="space-y-3">
+                <div class="flex items-center justify-between pb-1 border-b border-slate-100">
+                    <h4 class="text-xs font-black uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                        <span>Follow-up History &amp; Conversation Trail</span>
+                    </h4>
+                    <a href="{{ route('admin.leads.followups.index') }}" target="_blank" class="text-[11px] font-bold text-indigo-600 hover:text-indigo-800 transition">
+                        View All Logs &rarr;
+                    </a>
+                </div>
+
+                <div id="followup-history-container">
+                    <!-- Dynamic timeline rendered via JS -->
+                </div>
+            </div>
+
+        </div>
+
+        <!-- MODAL FOOTER -->
+        <div class="p-3.5 border-t border-slate-100 bg-slate-50/50 flex items-center justify-end shrink-0">
+            <button type="button" onclick="closeFollowupModal()" class="px-4 py-1.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold transition">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
+
 @endsection
 

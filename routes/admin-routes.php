@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\EpController;
 use App\Http\Controllers\admin\GpController;
 use App\Http\Controllers\admin\InvestorController;
 use App\Http\Controllers\admin\LeadController;
+use App\Http\Controllers\admin\LeadFollowupController;
 use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\admin\SettingController;
 use Illuminate\Support\Facades\Route;
@@ -62,6 +63,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Facebook Ad Leads & Meta Conversions API (CAPI)
         Route::get('/ads', [AdController::class, 'index'])->name('ads.index');
         Route::post('/ads/refresh', [AdController::class, 'refresh'])->name('ads.refresh');
+
+        // Lead Follow-ups (must be before /leads/{id})
+        Route::get('/leads/followups', [LeadFollowupController::class, 'index'])->name('leads.followups.index');
+        Route::post('/leads/{leadId}/followups', [LeadFollowupController::class, 'store'])->name('leads.followups.store');
+        Route::get('/leads/{leadId}/followups-list', [LeadFollowupController::class, 'getFollowups'])->name('leads.followups.list');
+        Route::delete('/leads/followups/{id}', [LeadFollowupController::class, 'destroy'])->name('leads.followups.destroy');
+
         Route::get('/leads', [LeadController::class, 'index'])->name('leads.index');
         Route::post('/leads/sync-past-leads', [LeadController::class, 'syncPastLeads'])->name('leads.syncPastLeads');
         Route::get('/leads/create', [LeadController::class, 'create'])->name('leads.create');
