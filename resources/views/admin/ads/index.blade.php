@@ -72,61 +72,63 @@
         </div>
     @endif
 
-    <!-- QUICK KPI STATS -->
-    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+    <!-- QUICK COMPACT KPI STATS -->
+    <div class="grid gap-2.5" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));">
         <!-- Total Tracked Ads -->
-        <div class="flex items-center gap-2.5 px-3.5 py-3 rounded-xl bg-white border border-slate-200 shadow-2xs">
-            <div class="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center shrink-0">
-                <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" /></svg>
+        <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-white border border-slate-200/90 shadow-2xs hover:border-slate-300 transition">
+            <div class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" /></svg>
             </div>
-            <div>
-                <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Total Items</span>
-                <span class="text-base font-black text-slate-900">{{ $kpis['total_ads'] }}</span>
+            <div class="min-w-0">
+                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider block truncate">Total Items</span>
+                <span class="text-sm sm:text-base font-black text-slate-900 leading-tight">{{ $kpis['total_ads'] }}</span>
             </div>
         </div>
 
         <!-- Active Running Ads -->
-        <div class="flex items-center gap-2.5 px-3.5 py-3 rounded-xl bg-emerald-50 border border-emerald-200 shadow-2xs">
-            <div class="relative flex h-3 w-3 shrink-0">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-600"></span>
+        <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-emerald-50/80 border border-emerald-200/90 shadow-2xs">
+            <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center shrink-0">
+                <span class="relative flex h-2.5 w-2.5">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-600"></span>
+                </span>
             </div>
-            <div>
-                <span class="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">Active Running</span>
-                <span class="text-base font-black text-emerald-950">{{ $kpis['active_ads'] }}</span>
+            <div class="min-w-0">
+                <span class="text-[9px] font-bold text-emerald-700 uppercase tracking-wider block truncate">Active Running</span>
+                <span class="text-sm sm:text-base font-black text-emerald-950 leading-tight">{{ $kpis['active_ads'] }}</span>
             </div>
         </div>
 
         <!-- Total Spend -->
-        <div class="flex items-center gap-2.5 px-3.5 py-3 rounded-xl bg-violet-50 border border-violet-200 shadow-2xs">
-            <div class="w-9 h-9 rounded-xl bg-violet-100 flex items-center justify-center shrink-0">
-                <span class="text-sm font-black text-violet-700">₹</span>
+        <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-violet-50/80 border border-violet-200/90 shadow-2xs">
+            <div class="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center shrink-0">
+                <span class="text-xs font-black text-violet-700">₹</span>
             </div>
-            <div>
-                <span class="text-[10px] font-bold text-violet-700 uppercase tracking-wider block">Total Spend</span>
-                <span class="text-base font-black text-violet-950">₹{{ number_format($kpis['total_spend'], 2) }}</span>
+            <div class="min-w-0">
+                <span class="text-[9px] font-bold text-violet-700 uppercase tracking-wider block truncate">Total Spend</span>
+                <span class="text-sm sm:text-base font-black text-violet-950 leading-tight">₹{{ number_format($kpis['total_spend'], 2) }}</span>
             </div>
         </div>
 
         <!-- Total Reach & Impressions -->
-        <div class="flex items-center gap-2.5 px-3.5 py-3 rounded-xl bg-blue-50 border border-blue-200 shadow-2xs">
-            <div class="w-9 h-9 rounded-xl bg-blue-100 flex items-center justify-center shrink-0">
-                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
+        <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-blue-50/80 border border-blue-200/90 shadow-2xs">
+            <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
             </div>
-            <div>
-                <span class="text-[10px] font-bold text-blue-700 uppercase tracking-wider block">Total Reach</span>
-                <span class="text-base font-black text-blue-950">{{ number_format($kpis['total_reach']) }}</span>
+            <div class="min-w-0">
+                <span class="text-[9px] font-bold text-blue-700 uppercase tracking-wider block truncate">Total Reach</span>
+                <span class="text-sm sm:text-base font-black text-blue-950 leading-tight">{{ number_format($kpis['total_reach']) }}</span>
             </div>
         </div>
 
         <!-- CRM Leads Received -->
-        <div class="flex items-center gap-2.5 px-3.5 py-3 rounded-xl bg-indigo-50 border border-indigo-200 shadow-2xs col-span-2 sm:col-span-1">
-            <div class="w-9 h-9 rounded-xl bg-indigo-100 flex items-center justify-center shrink-0">
-                <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
+        <div class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-indigo-50/80 border border-indigo-200/90 shadow-2xs">
+            <div class="w-8 h-8 rounded-lg bg-indigo-100 flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
             </div>
-            <div>
-                <span class="text-[10px] font-bold text-indigo-700 uppercase tracking-wider block">CRM Leads</span>
-                <span class="text-base font-black text-indigo-950">{{ $kpis['total_crm_leads'] }}</span>
+            <div class="min-w-0">
+                <span class="text-[9px] font-bold text-indigo-700 uppercase tracking-wider block truncate">CRM Leads</span>
+                <span class="text-sm sm:text-base font-black text-indigo-950 leading-tight">{{ $kpis['total_crm_leads'] }}</span>
             </div>
         </div>
     </div>

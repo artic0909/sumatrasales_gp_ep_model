@@ -44,44 +44,58 @@
         </div>
     </div>
 
-    <!-- QUICK STAT PILLS -->
-    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
-        <div class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-white border border-slate-200 shadow-2xs">
-            <span class="w-2.5 h-2.5 rounded-full bg-slate-400"></span>
-            <div>
-                <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Total Leads</span>
-                <span class="text-sm font-black text-slate-900">{{ $totalLeads }}</span>
+    <!-- QUICK COMPACT STAT PILLS -->
+    <div class="grid gap-2.5" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+        <div class="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-white border border-slate-200/90 shadow-2xs hover:border-slate-300 transition">
+            <div class="w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center shrink-0">
+                <span class="w-2 h-2 rounded-full bg-slate-500"></span>
+            </div>
+            <div class="min-w-0">
+                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider block truncate">Total Leads</span>
+                <span class="text-sm sm:text-base font-black text-slate-900 leading-tight">{{ $totalLeads }}</span>
             </div>
         </div>
-        <div class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-blue-50 border border-blue-200 shadow-2xs">
-            <span class="relative flex h-2.5 w-2.5">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-600"></span>
-            </span>
-            <div>
-                <span class="text-[10px] font-bold text-blue-700 uppercase tracking-wider block">New Unreviewed</span>
-                <span class="text-sm font-black text-blue-900">{{ $newCount }}</span>
+
+        <div class="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-blue-50/80 border border-blue-200/90 shadow-2xs">
+            <div class="w-7 h-7 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+                </span>
+            </div>
+            <div class="min-w-0">
+                <span class="text-[9px] font-bold text-blue-700 uppercase tracking-wider block truncate">New Unreviewed</span>
+                <span class="text-sm sm:text-base font-black text-blue-950 leading-tight">{{ $newCount }}</span>
             </div>
         </div>
-        <div class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-emerald-50 border border-emerald-200 shadow-2xs">
-            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-            <div>
-                <span class="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">Good Leads</span>
-                <span class="text-sm font-black text-emerald-900">{{ $goodCount }}</span>
+
+        <div class="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-emerald-50/80 border border-emerald-200/90 shadow-2xs">
+            <div class="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center shrink-0">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            </div>
+            <div class="min-w-0">
+                <span class="text-[9px] font-bold text-emerald-700 uppercase tracking-wider block truncate">Good Leads</span>
+                <span class="text-sm sm:text-base font-black text-emerald-950 leading-tight">{{ $goodCount }}</span>
             </div>
         </div>
-        <div class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-rose-50 border border-rose-200 shadow-2xs">
-            <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
-            <div>
-                <span class="text-[10px] font-bold text-rose-700 uppercase tracking-wider block">Bad Leads</span>
-                <span class="text-sm font-black text-rose-900">{{ $badCount }}</span>
+
+        <div class="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-rose-50/80 border border-rose-200/90 shadow-2xs">
+            <div class="w-7 h-7 rounded-lg bg-rose-100 flex items-center justify-center shrink-0">
+                <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+            </div>
+            <div class="min-w-0">
+                <span class="text-[9px] font-bold text-rose-700 uppercase tracking-wider block truncate">Bad Leads</span>
+                <span class="text-sm sm:text-base font-black text-rose-950 leading-tight">{{ $badCount }}</span>
             </div>
         </div>
-        <div class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-indigo-50 border border-indigo-200 shadow-2xs col-span-2 sm:col-span-1">
-            <span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
-            <div>
-                <span class="text-[10px] font-bold text-indigo-700 uppercase tracking-wider block">CAPI Synced</span>
-                <span class="text-sm font-black text-indigo-900">{{ $syncedCount }}</span>
+
+        <div class="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-indigo-50/80 border border-indigo-200/90 shadow-2xs">
+            <div class="w-7 h-7 rounded-lg bg-indigo-100 flex items-center justify-center shrink-0">
+                <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+            </div>
+            <div class="min-w-0">
+                <span class="text-[9px] font-bold text-indigo-700 uppercase tracking-wider block truncate">CAPI Synced</span>
+                <span class="text-sm sm:text-base font-black text-indigo-950 leading-tight">{{ $syncedCount }}</span>
             </div>
         </div>
     </div>
