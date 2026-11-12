@@ -10,7 +10,7 @@
         <div>
             <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-violet-50 text-violet-700 text-[10px] font-black uppercase tracking-wider border border-violet-200">
                 <svg class="w-3 h-3 text-violet-600" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                <span>Meta Ads Manager &bull; {{ $adAccountId ?? 'Account Not Set in .env' }}</span>
+                <span>Meta Ads Manager &bull; {{ $adAccountId ?? 'Not Set in .env' }}</span>
             </div>
             <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-1">
                 Meta Ads Performance &amp; Lead Attribution
@@ -51,10 +51,14 @@
     @if($apiError)
         <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-start gap-3 shadow-xs">
             <svg class="w-5 h-5 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" /></svg>
-            <div class="space-y-1">
-                <p class="font-bold text-amber-950">Meta Marketing API Notice:</p>
-                <p class="text-amber-800">{{ $apiError }}</p>
-                <p class="text-[11px] text-amber-700">Displaying historical leads and cached ad data from your CRM database. Ensure your permanent System User token with <code>ads_read</code> permission is configured in <code>.env</code>.</p>
+            <div class="space-y-1.5">
+                <p class="font-bold text-amber-950">Meta Marketing API Authentication Issue:</p>
+                <p class="text-amber-800 font-mono text-[11px] bg-amber-100/70 p-2 rounded-lg border border-amber-200">{{ $apiError }}</p>
+                <div class="text-[11px] text-amber-900 space-y-1">
+                    <p class="font-bold">কেন সব বিজ্ঞাপন এখনো আসেনি?</p>
+                    <p>মেটা এপিআই থেকে সরাসরি বিজ্ঞাপন ও লাইভ স্পেন্ড দেখার জন্য আপনার ফেসবুক টোকেনে <strong>ads_read</strong> পারমিশন থাকতে হবে।</p>
+                    <p><strong>সমাধান:</strong> মেটা বিজনেস সেটিংসে গিয়ে System User (<code>crmautosync</code>) থেকে <strong>Generate Token</strong> ক্লিক করে <strong>ads_read</strong> এবং <strong>ads_management</strong> পারমিশনে টিক দিয়ে টোকেনটি জেনারেট করে <code>.env</code> ফাইলে <code>FB_CAPI_ACCESS_TOKEN</code> হিসেবে বসিয়ে দিন।</p>
+                </div>
             </div>
         </div>
     @endif
@@ -67,7 +71,7 @@
                 <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" /></svg>
             </div>
             <div>
-                <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Total Ads</span>
+                <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Total Items</span>
                 <span class="text-base font-black text-slate-900">{{ $kpis['total_ads'] }}</span>
             </div>
         </div>
@@ -79,7 +83,7 @@
                 <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-600"></span>
             </div>
             <div>
-                <span class="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">Active Ads</span>
+                <span class="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">Active Running</span>
                 <span class="text-base font-black text-emerald-950">{{ $kpis['active_ads'] }}</span>
             </div>
         </div>
@@ -118,11 +122,33 @@
         </div>
     </div>
 
+    <!-- VIEW TOGGLE TABS (Campaigns vs Individual Ads) -->
+    <div class="flex items-center justify-between border-b border-slate-200">
+        <div class="flex items-center gap-1">
+            <a href="{{ route('admin.ads.index', array_merge(request()->query(), ['view' => 'campaigns'])) }}" 
+               class="px-4 py-2 text-xs font-bold border-b-2 transition flex items-center gap-2 {{ $viewType === 'campaigns' ? 'border-violet-600 text-violet-700 font-black' : 'border-transparent text-slate-500 hover:text-slate-800' }}">
+                <span>Campaigns View</span>
+                @if($campaignsCount > 0)
+                    <span class="px-2 py-0.5 rounded-full text-[10px] {{ $viewType === 'campaigns' ? 'bg-violet-100 text-violet-700' : 'bg-slate-100 text-slate-600' }}">{{ $campaignsCount }}</span>
+                @endif
+            </a>
+            <a href="{{ route('admin.ads.index', array_merge(request()->query(), ['view' => 'ads'])) }}" 
+               class="px-4 py-2 text-xs font-bold border-b-2 transition flex items-center gap-2 {{ $viewType === 'ads' ? 'border-violet-600 text-violet-700 font-black' : 'border-transparent text-slate-500 hover:text-slate-800' }}">
+                <span>Individual Ads View</span>
+                @if($adsCount > 0)
+                    <span class="px-2 py-0.5 rounded-full text-[10px] {{ $viewType === 'ads' ? 'bg-violet-100 text-violet-700' : 'bg-slate-100 text-slate-600' }}">{{ $adsCount }}</span>
+                @endif
+            </a>
+        </div>
+    </div>
+
     <!-- SEARCH & FILTER TOOLBAR -->
     <form action="{{ route('admin.ads.index') }}" method="GET" class="p-3.5 bg-white rounded-2xl border border-slate-200/90 shadow-xs flex flex-col md:flex-row items-center justify-between gap-3">
+        <input type="hidden" name="view" value="{{ $viewType }}">
+        
         <!-- Search Keyword -->
         <div class="relative w-full md:w-80">
-            <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by Ad name, ID, or campaign..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition">
+            <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by name, ID, or campaign..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition">
             <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
         </div>
 
@@ -155,7 +181,7 @@
             @endif
 
             @if(request()->anyFilled(['search', 'status', 'lead_status', 'campaign']))
-                <a href="{{ route('admin.ads.index') }}" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl text-xs font-bold transition">
+                <a href="{{ route('admin.ads.index', ['view' => $viewType]) }}" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl text-xs font-bold transition">
                     Reset
                 </a>
             @endif
@@ -168,10 +194,10 @@
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="bg-slate-50/75 border-b border-slate-200 text-[11px] font-black uppercase tracking-wider text-slate-500">
-                        <th class="py-3 px-4">Ad Details &amp; Creative</th>
-                        <th class="py-3 px-3">Campaign &amp; Ad Set</th>
+                        <th class="py-3 px-4">Campaign / Ad Details</th>
+                        <th class="py-3 px-3">Objective &amp; Type</th>
                         <th class="py-3 px-3">Delivery Status</th>
-                        <th class="py-3 px-3 text-right">Spend &amp; Reach</th>
+                        <th class="py-3 px-3 text-right">Spend &amp; Results</th>
                         <th class="py-3 px-3 text-center">Lead Status</th>
                         <th class="py-3 px-4 text-right">Action</th>
                     </tr>
@@ -182,7 +208,7 @@
                             <!-- Ad Details & Creative -->
                             <td class="py-3.5 px-4 max-w-sm">
                                 <div class="space-y-1">
-                                    <div class="font-bold text-slate-900 group-hover:text-blue-600 transition flex items-start gap-1.5">
+                                    <div class="font-bold text-slate-900 group-hover:text-violet-600 transition flex items-start gap-1.5">
                                         <svg class="w-4 h-4 text-violet-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" /></svg>
                                         <span class="line-clamp-2" title="{{ $ad['name'] }}">{{ $ad['name'] }}</span>
                                     </div>
@@ -196,14 +222,14 @@
                                 </div>
                             </td>
 
-                            <!-- Campaign & AdSet -->
+                            <!-- Campaign / AdSet Objective -->
                             <td class="py-3.5 px-3 max-w-xs">
                                 <div class="space-y-0.5">
                                     <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-100 text-slate-700 max-w-[200px] truncate" title="{{ $ad['campaign_name'] }}">
                                         {{ $ad['campaign_name'] }}
                                     </span>
                                     <p class="text-[10px] text-slate-400 truncate max-w-[200px]" title="{{ $ad['adset_name'] }}">
-                                        AdSet: {{ $ad['adset_name'] }}
+                                        {{ $ad['adset_name'] }}
                                     </p>
                                 </div>
                             </td>
@@ -221,7 +247,7 @@
                                 @elseif(in_array($ad['effective_status'], ['PAUSED', 'CAMPAIGN_PAUSED', 'ADSET_PAUSED', 'OFF']))
                                     <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-slate-100 text-slate-600 border border-slate-200">
                                         <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
-                                        <span>Paused</span>
+                                        <span>Paused / Off</span>
                                     </span>
                                 @elseif($ad['effective_status'] === 'LOCAL_ARCHIVE')
                                     <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
@@ -234,25 +260,29 @@
                                 @endif
                             </td>
 
-                            <!-- Spend & Reach -->
+                            <!-- Spend & Results -->
                             <td class="py-3.5 px-3 text-right whitespace-nowrap">
                                 <div class="font-black text-slate-900 text-sm">
                                     ₹{{ number_format($ad['spend'], 2) }}
                                 </div>
-                                <div class="text-[10px] text-slate-400 font-medium">
+                                <div class="text-[10px] text-slate-500 font-medium space-x-1">
+                                    @if(!empty($ad['results_summary']))
+                                        <span class="font-bold text-violet-700 bg-violet-50 px-1 rounded">{{ $ad['results_summary'] }}</span>
+                                        <span>&bull;</span>
+                                    @endif
                                     <span>{{ number_format($ad['impressions']) }} Impr</span>
                                     <span>&bull;</span>
                                     <span>{{ number_format($ad['reach']) }} Reach</span>
                                 </div>
                             </td>
 
-                            <!-- Lead Status (Key Request) -->
+                            <!-- Lead Status -->
                             <td class="py-3.5 px-3 text-center whitespace-nowrap">
                                 @if($ad['is_lead_coming'])
                                     <div class="inline-flex flex-col items-center">
                                         <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-black bg-emerald-50 text-emerald-800 border border-emerald-300 shadow-2xs">
                                             <svg class="w-3 h-3 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
-                                            <span>Receiving Leads ({{ $ad['crm_leads_count'] }})</span>
+                                            <span>Receiving Leads ({{ $ad['crm_leads_count'] ?: $ad['meta_leads'] }})</span>
                                         </span>
                                         @if(!empty($ad['latest_lead_at']))
                                             <span class="text-[10px] text-slate-400 mt-0.5">
@@ -277,12 +307,12 @@
                                 @endif
                             </td>
 
-                            <!-- Action ("View Leads" button linking to admin.leads.index) -->
+                            <!-- Action ("View Leads" button) -->
                             <td class="py-3.5 px-4 text-right whitespace-nowrap">
                                 <div class="flex items-center justify-end gap-1.5">
-                                    <a href="{{ route('admin.leads.index', ['ad' => (!empty($ad['name']) && $ad['name'] !== 'Unnamed Ad' ? $ad['name'] : $ad['id'])]) }}" 
+                                    <a href="{{ route('admin.leads.index', ['search' => $ad['name']]) }}" 
                                        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition cursor-pointer"
-                                       title="View all {{ $ad['crm_leads_count'] }} leads from this specific ad in CRM">
+                                       title="View leads for this campaign in CRM">
                                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
                                         <span>View Leads</span>
                                         @if($ad['crm_leads_count'] > 0)
@@ -293,7 +323,7 @@
                                     </a>
 
                                     @if(!empty($adAccountId) && is_numeric($ad['id']))
-                                        <a href="https://adsmanager.facebook.com/adsmanager/manage/ads?act={{ str_replace('act_', '', $adAccountId) }}&filter_set={{ $ad['id'] }}" 
+                                        <a href="https://adsmanager.facebook.com/adsmanager/manage/campaigns?act={{ str_replace('act_', '', $adAccountId) }}&filter_set={{ $ad['id'] }}" 
                                            target="_blank" 
                                            class="p-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition" 
                                            title="Open in Meta Ads Manager">
@@ -310,12 +340,12 @@
                                     <div class="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
                                         <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
                                     </div>
-                                    <h3 class="font-bold text-slate-900 text-sm">No Ads Found</h3>
+                                    <h3 class="font-bold text-slate-900 text-sm">No {{ ucfirst($viewType) }} Found</h3>
                                     <p class="text-xs text-slate-500">
-                                        No ads matched your current filter or search criteria.
+                                        No items matched your current filter or search criteria.
                                     </p>
                                     @if(request()->anyFilled(['search', 'status', 'lead_status', 'campaign']))
-                                        <a href="{{ route('admin.ads.index') }}" class="inline-block mt-2 px-3.5 py-1.5 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 transition">
+                                        <a href="{{ route('admin.ads.index', ['view' => $viewType]) }}" class="inline-block mt-2 px-3.5 py-1.5 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 transition">
                                             Clear Filters
                                         </a>
                                     @endif
@@ -330,4 +360,3 @@
 
 </div>
 @endsection
-

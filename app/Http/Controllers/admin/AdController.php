@@ -23,13 +23,15 @@ class AdController extends Controller
             ?: env('FB_CAPI_ACCESS_TOKEN') 
             ?: env('FB_PAGE_ACCESS_TOKEN');
 
-        $cacheKey = 'meta_ads_list_' . md5(($actId ?? 'none') . ($accessToken ? substr($accessToken, -10) : 'none'));
+        $viewType = $request->input('view', 'campaigns'); // 'campaigns' or 'ads'
+        $cacheKey = 'meta_ads_v2_' . md5(($actId ?? 'none') . ($accessToken ? substr($accessToken, -10) : 'none'));
         $forceRefresh = $request->boolean('refresh');
 
         if ($forceRefresh) {
             Cache::forget($cacheKey);
         }
 
+        $metaCampaigns = [];
         $metaAds = [];
         $apiError = null;
 
@@ -39,43 +41,62 @@ class AdController extends Controller
             $apiError = 'Facebook Access Token is missing. Please set FB_CAPI_ACCESS_TOKEN or FB_PAGE_ACCESS_TOKEN in your .env file.';
         } else {
             $cachedResult = Cache::remember($cacheKey, now()->addMinutes(10), function () use ($actId, $accessToken) {
+                $campaignsData = [];
+                $adsData = [];
+                $errorMsg = null;
+
                 try {
-                    $response = Http::timeout(12)->get("https://graph.facebook.com/v19.0/{$actId}/ads", [
+                    // 1. Fetch Campaigns with maximum date preset insights
+                    $campaignsRes = Http::timeout(14)->get("https://graph.facebook.com/v19.0/{$actId}/campaigns", [
+                        'fields' => 'id,name,status,effective_status,objective,daily_budget,lifetime_budget,created_time,updated_time,insights.date_preset(maximum){spend,impressions,reach,clicks,cpc,cpm,actions}',
+                        'limit' => 100,
+                        'access_token' => $accessToken,
+                    ]);
+
+                    if ($campaignsRes->successful()) {
+                        $campaignsData = $campaignsRes->json('data') ?? [];
+                    } else {
+                        $errorMsg = $campaignsRes->json('error.message') ?? 'Failed to fetch campaigns from Meta Marketing API';
+                        Log::warning('[Meta Campaigns API Error] ' . $campaignsRes->body());
+                    }
+
+                    // 2. Fetch Individual Ads with maximum date preset insights
+                    $adsRes = Http::timeout(14)->get("https://graph.facebook.com/v19.0/{$actId}/ads", [
                         'fields' => 'id,name,status,effective_status,campaign_id,campaign{id,name},adset_id,adset{id,name},created_time,updated_time,insights.date_preset(maximum){spend,impressions,reach,clicks,cpc,cpm,actions}',
                         'limit' => 100,
                         'access_token' => $accessToken,
                     ]);
 
-                    if ($response->successful()) {
-                        return [
-                            'success' => true,
-                            'data' => $response->json('data') ?? [],
-                            'error' => null,
-                        ];
+                    if ($adsRes->successful()) {
+                        $adsData = $adsRes->json('data') ?? [];
+                    } elseif (!$errorMsg) {
+                        $errorMsg = $adsRes->json('error.message') ?? 'Failed to fetch ads from Meta Marketing API';
+                        Log::warning('[Meta Ads API Error] ' . $adsRes->body());
                     }
 
-                    $err = $response->json('error.message') ?? 'Failed to fetch ads from Meta API';
-                    Log::warning('[Meta Ads API Error] ' . $response->body());
                     return [
-                        'success' => false,
-                        'data' => [],
-                        'error' => $err,
+                        'success' => !empty($campaignsData) || !empty($adsData),
+                        'campaigns' => $campaignsData,
+                        'ads' => $adsData,
+                        'error' => (!empty($campaignsData) || !empty($adsData)) ? null : $errorMsg,
                     ];
                 } catch (\Throwable $e) {
-                    Log::warning('[Meta Ads API Exception] ' . $e->getMessage());
+                    Log::warning('[Meta API Exception] ' . $e->getMessage());
                     return [
                         'success' => false,
-                        'data' => [],
+                        'campaigns' => [],
+                        'ads' => [],
                         'error' => $e->getMessage(),
                     ];
                 }
             });
 
-            $metaAds = $cachedResult['data'] ?? [];
+            $metaCampaigns = $cachedResult['campaigns'] ?? [];
+            $metaAds = $cachedResult['ads'] ?? [];
             $apiError = $cachedResult['error'] ?? null;
         }
 
-        // Fetch local Lead database statistics aggregated by ad_id and ad_name
+        // Fetch local Lead database statistics aggregated by campaign_name, ad_name, ad_id
         $localLeadStats = Lead::selectRaw('
             COALESCE(ad_id, "") as ad_id,
             COALESCE(ad_name, "") as ad_name,
@@ -89,6 +110,8 @@ class AdController extends Controller
 
         $leadsByAdId = [];
         $leadsByAdName = [];
+        $leadsByCampaignName = [];
+
         foreach ($localLeadStats as $stat) {
             if (!empty($stat->ad_id)) {
                 $leadsByAdId[(string)$stat->ad_id] = $stat;
@@ -96,85 +119,170 @@ class AdController extends Controller
             if (!empty($stat->ad_name)) {
                 $leadsByAdName[trim($stat->ad_name)] = $stat;
             }
+            if (!empty($stat->campaign_name)) {
+                $campKey = trim($stat->campaign_name);
+                if (!isset($leadsByCampaignName[$campKey])) {
+                    $leadsByCampaignName[$campKey] = (object)[
+                        'total_leads' => 0,
+                        'good_leads' => 0,
+                        'latest_lead_at' => null,
+                    ];
+                }
+                $leadsByCampaignName[$campKey]->total_leads += (int)$stat->total_leads;
+                $leadsByCampaignName[$campKey]->good_leads += (int)$stat->good_leads;
+                if (!$leadsByCampaignName[$campKey]->latest_lead_at || $stat->latest_lead_at > $leadsByCampaignName[$campKey]->latest_lead_at) {
+                    $leadsByCampaignName[$campKey]->latest_lead_at = $stat->latest_lead_at;
+                }
+            }
         }
 
-        // Process Meta Ads and enrich with CRM stats
-        $processedAds = [];
-        foreach ($metaAds as $ad) {
-            $adId = (string)($ad['id'] ?? '');
-            $adName = (string)($ad['name'] ?? 'Unnamed Ad');
-            $status = strtoupper($ad['status'] ?? 'UNKNOWN');
-            $effectiveStatus = strtoupper($ad['effective_status'] ?? $status);
-
-            // Insights
-            $insights = $ad['insights']['data'][0] ?? [];
-            $spend = (float)($insights['spend'] ?? 0);
-            $impressions = (int)($insights['impressions'] ?? 0);
-            $reach = (int)($insights['reach'] ?? 0);
-            $clicks = (int)($insights['clicks'] ?? 0);
-            $cpc = (float)($insights['cpc'] ?? 0);
-
-            // Extract Meta Leads action count if available
+        // Helper function to extract Meta results / leads count from actions
+        $extractMetaActions = function($insights) {
             $metaLeads = 0;
+            $resultsSummary = '';
             if (!empty($insights['actions'])) {
                 foreach ($insights['actions'] as $action) {
                     $actionType = $action['action_type'] ?? '';
+                    $val = (int)($action['value'] ?? 0);
                     if (in_array($actionType, ['lead', 'onsite_conversion.lead_grouped', 'leadgen_grouped'])) {
-                        $metaLeads += (int)($action['value'] ?? 0);
+                        $metaLeads += $val;
+                    }
+                    if (empty($resultsSummary)) {
+                        if ($actionType === 'lead') {
+                            $resultsSummary = number_format($val) . ' Meta leads';
+                        } elseif ($actionType === 'video_view') {
+                            $resultsSummary = number_format($val) . ' ThruPlays';
+                        } elseif ($actionType === 'onsite_conversion.messaging_conversation_started_7d') {
+                            $resultsSummary = number_format($val) . ' Chats';
+                        } elseif (str_contains($actionType, 'click')) {
+                            $resultsSummary = number_format($val) . ' Clicks';
+                        }
                     }
                 }
             }
+            return [$metaLeads, $resultsSummary];
+        };
 
-            // Cross reference with CRM Leads
-            $crmStat = $leadsByAdId[$adId] ?? ($leadsByAdName[trim($adName)] ?? null);
-            $crmLeadsCount = $crmStat ? (int)$crmStat->total_leads : 0;
-            $crmGoodLeadsCount = $crmStat ? (int)$crmStat->good_leads : 0;
-            $latestLeadAt = $crmStat ? $crmStat->latest_lead_at : null;
+        // Determine which list to process: Campaigns or Ads
+        // If view is 'campaigns' or if metaAds is empty but metaCampaigns has data, show Campaigns
+        $itemsToProcess = [];
+        $isShowingCampaigns = ($viewType === 'campaigns') || (!empty($metaCampaigns) && empty($metaAds));
 
-            $processedAds[] = [
-                'id' => $adId,
-                'name' => $adName,
-                'status' => $status,
-                'effective_status' => $effectiveStatus,
-                'campaign_id' => $ad['campaign']['id'] ?? ($ad['campaign_id'] ?? null),
-                'campaign_name' => $ad['campaign']['name'] ?? 'General Campaign',
-                'adset_id' => $ad['adset']['id'] ?? null,
-                'adset_name' => $ad['adset']['name'] ?? 'Default AdSet',
-                'created_time' => $ad['created_time'] ?? null,
-                'spend' => $spend,
-                'impressions' => $impressions,
-                'reach' => $reach,
-                'clicks' => $clicks,
-                'cpc' => $cpc,
-                'meta_leads' => $metaLeads,
-                'crm_leads_count' => $crmLeadsCount,
-                'crm_good_leads_count' => $crmGoodLeadsCount,
-                'latest_lead_at' => $latestLeadAt,
-                'is_lead_coming' => ($crmLeadsCount > 0),
-                'is_local_only' => false,
-            ];
+        if ($isShowingCampaigns && !empty($metaCampaigns)) {
+            foreach ($metaCampaigns as $camp) {
+                $id = (string)($camp['id'] ?? '');
+                $name = (string)($camp['name'] ?? 'Unnamed Campaign');
+                $status = strtoupper($camp['status'] ?? 'UNKNOWN');
+                $effectiveStatus = strtoupper($camp['effective_status'] ?? $status);
+
+                $insights = $camp['insights']['data'][0] ?? [];
+                $spend = (float)($insights['spend'] ?? 0);
+                $impressions = (int)($insights['impressions'] ?? 0);
+                $reach = (int)($insights['reach'] ?? 0);
+                $clicks = (int)($insights['clicks'] ?? 0);
+                $cpc = (float)($insights['cpc'] ?? 0);
+
+                [$metaLeads, $resultsSummary] = $extractMetaActions($insights);
+
+                // CRM leads lookup (by campaign name or ad name)
+                $crmStat = $leadsByCampaignName[trim($name)] ?? ($leadsByAdName[trim($name)] ?? null);
+                $crmLeadsCount = $crmStat ? (int)$crmStat->total_leads : 0;
+                $crmGoodLeadsCount = $crmStat ? (int)$crmStat->good_leads : 0;
+                $latestLeadAt = $crmStat ? $crmStat->latest_lead_at : null;
+
+                $itemsToProcess[] = [
+                    'id' => $id,
+                    'name' => $name,
+                    'type' => 'CAMPAIGN',
+                    'status' => $status,
+                    'effective_status' => $effectiveStatus,
+                    'campaign_id' => $id,
+                    'campaign_name' => $name,
+                    'adset_name' => $camp['objective'] ?? 'Ad Campaign',
+                    'created_time' => $camp['created_time'] ?? null,
+                    'spend' => $spend,
+                    'impressions' => $impressions,
+                    'reach' => $reach,
+                    'clicks' => $clicks,
+                    'cpc' => $cpc,
+                    'meta_leads' => $metaLeads,
+                    'results_summary' => $resultsSummary,
+                    'crm_leads_count' => $crmLeadsCount,
+                    'crm_good_leads_count' => $crmGoodLeadsCount,
+                    'latest_lead_at' => $latestLeadAt,
+                    'is_lead_coming' => ($crmLeadsCount > 0 || $metaLeads > 0),
+                    'is_local_only' => false,
+                ];
+            }
+        } elseif (!empty($metaAds)) {
+            foreach ($metaAds as $ad) {
+                $id = (string)($ad['id'] ?? '');
+                $name = (string)($ad['name'] ?? 'Unnamed Ad');
+                $status = strtoupper($ad['status'] ?? 'UNKNOWN');
+                $effectiveStatus = strtoupper($ad['effective_status'] ?? $status);
+
+                $insights = $ad['insights']['data'][0] ?? [];
+                $spend = (float)($insights['spend'] ?? 0);
+                $impressions = (int)($insights['impressions'] ?? 0);
+                $reach = (int)($insights['reach'] ?? 0);
+                $clicks = (int)($insights['clicks'] ?? 0);
+                $cpc = (float)($insights['cpc'] ?? 0);
+
+                [$metaLeads, $resultsSummary] = $extractMetaActions($insights);
+
+                $crmStat = $leadsByAdId[$id] ?? ($leadsByAdName[trim($name)] ?? ($leadsByCampaignName[trim($ad['campaign']['name'] ?? '')] ?? null));
+                $crmLeadsCount = $crmStat ? (int)$crmStat->total_leads : 0;
+                $crmGoodLeadsCount = $crmStat ? (int)$crmStat->good_leads : 0;
+                $latestLeadAt = $crmStat ? $crmStat->latest_lead_at : null;
+
+                $itemsToProcess[] = [
+                    'id' => $id,
+                    'name' => $name,
+                    'type' => 'AD',
+                    'status' => $status,
+                    'effective_status' => $effectiveStatus,
+                    'campaign_id' => $ad['campaign']['id'] ?? null,
+                    'campaign_name' => $ad['campaign']['name'] ?? 'General Campaign',
+                    'adset_name' => $ad['adset']['name'] ?? 'Default AdSet',
+                    'created_time' => $ad['created_time'] ?? null,
+                    'spend' => $spend,
+                    'impressions' => $impressions,
+                    'reach' => $reach,
+                    'clicks' => $clicks,
+                    'cpc' => $cpc,
+                    'meta_leads' => $metaLeads,
+                    'results_summary' => $resultsSummary,
+                    'crm_leads_count' => $crmLeadsCount,
+                    'crm_good_leads_count' => $crmGoodLeadsCount,
+                    'latest_lead_at' => $latestLeadAt,
+                    'is_lead_coming' => ($crmLeadsCount > 0 || $metaLeads > 0),
+                    'is_local_only' => false,
+                ];
+            }
         }
 
-        // Merge any local ads that weren't returned by Meta API
-        $existingAdIds = collect($processedAds)->pluck('id')->filter()->all();
-        $existingAdNames = collect($processedAds)->pluck('name')->map(fn($n) => trim($n))->filter()->all();
+        // Merge any local CRM leads groups that haven't been matched
+        $existingNames = collect($itemsToProcess)->pluck('name')->map(fn($n) => trim($n))->filter()->all();
+        $existingIds = collect($itemsToProcess)->pluck('id')->filter()->all();
 
         foreach ($localLeadStats as $stat) {
-            $hasIdMatch = !empty($stat->ad_id) && in_array((string)$stat->ad_id, $existingAdIds);
-            $hasNameMatch = !empty($stat->ad_name) && in_array(trim($stat->ad_name), $existingAdNames);
+            $hasIdMatch = !empty($stat->ad_id) && in_array((string)$stat->ad_id, $existingIds);
+            $hasNameMatch = !empty($stat->ad_name) && in_array(trim($stat->ad_name), $existingNames);
+            $hasCampMatch = !empty($stat->campaign_name) && in_array(trim($stat->campaign_name), $existingNames);
 
-            if ($hasIdMatch || $hasNameMatch) {
+            if ($hasIdMatch || $hasNameMatch || $hasCampMatch) {
                 continue;
             }
 
-            $processedAds[] = [
-                'id' => $stat->ad_id ?: ('local-' . substr(md5($stat->ad_name), 0, 10)),
-                'name' => $stat->ad_name ?: 'Unknown Facebook Ad',
+            $displayName = $stat->ad_name ?: ($stat->campaign_name ?: 'Direct / Offline Lead Ads');
+            $itemsToProcess[] = [
+                'id' => $stat->ad_id ?: ('crm-' . substr(md5($displayName), 0, 8)),
+                'name' => $displayName,
+                'type' => 'CRM_RECORD',
                 'status' => 'LOCAL_ARCHIVE',
                 'effective_status' => 'LOCAL_ARCHIVE',
                 'campaign_id' => null,
                 'campaign_name' => $stat->campaign_name ?: 'Direct / Offline Lead Ads',
-                'adset_id' => null,
                 'adset_name' => 'Historical Leads',
                 'created_time' => null,
                 'spend' => 0,
@@ -183,6 +291,7 @@ class AdController extends Controller
                 'clicks' => 0,
                 'cpc' => 0,
                 'meta_leads' => (int)$stat->total_leads,
+                'results_summary' => $stat->total_leads . ' Leads',
                 'crm_leads_count' => (int)$stat->total_leads,
                 'crm_good_leads_count' => (int)$stat->good_leads,
                 'latest_lead_at' => $stat->latest_lead_at,
@@ -191,30 +300,29 @@ class AdController extends Controller
             ];
         }
 
-        $adsCollection = collect($processedAds);
+        $itemsCollection = collect($itemsToProcess);
 
-        // Overall Global KPIs before filtering
+        // Overall Global KPIs
         $kpis = [
-            'total_ads' => $adsCollection->count(),
-            'active_ads' => $adsCollection->where('effective_status', 'ACTIVE')->count(),
-            'total_spend' => $adsCollection->sum('spend'),
-            'total_impressions' => $adsCollection->sum('impressions'),
-            'total_reach' => $adsCollection->sum('reach'),
-            'total_crm_leads' => $adsCollection->sum('crm_leads_count'),
-            'ads_with_leads' => $adsCollection->where('is_lead_coming', true)->count(),
+            'total_ads' => $itemsCollection->count(),
+            'active_ads' => $itemsCollection->where('effective_status', 'ACTIVE')->count(),
+            'total_spend' => $itemsCollection->sum('spend'),
+            'total_impressions' => $itemsCollection->sum('impressions'),
+            'total_reach' => $itemsCollection->sum('reach'),
+            'total_crm_leads' => Lead::count(),
+            'ads_with_leads' => $itemsCollection->where('is_lead_coming', true)->count(),
         ];
 
         // Available campaigns for dropdown filter
-        $availableCampaigns = $adsCollection->pluck('campaign_name')->unique()->filter()->values();
+        $availableCampaigns = $itemsCollection->pluck('campaign_name')->unique()->filter()->values();
 
         // Apply Search
         if ($request->filled('search')) {
             $search = strtolower(trim($request->search));
-            $adsCollection = $adsCollection->filter(function ($item) use ($search) {
+            $itemsCollection = $itemsCollection->filter(function ($item) use ($search) {
                 return str_contains(strtolower($item['name']), $search)
                     || str_contains(strtolower((string)$item['id']), $search)
-                    || str_contains(strtolower($item['campaign_name']), $search)
-                    || str_contains(strtolower($item['adset_name']), $search);
+                    || str_contains(strtolower($item['campaign_name']), $search);
             });
         }
 
@@ -222,13 +330,13 @@ class AdController extends Controller
         if ($request->filled('status')) {
             $status = strtoupper($request->status);
             if ($status === 'ACTIVE') {
-                $adsCollection = $adsCollection->where('effective_status', 'ACTIVE');
+                $itemsCollection = $itemsCollection->where('effective_status', 'ACTIVE');
             } elseif ($status === 'PAUSED') {
-                $adsCollection = $adsCollection->filter(function ($item) {
+                $itemsCollection = $itemsCollection->filter(function ($item) {
                     return in_array($item['effective_status'], ['PAUSED', 'CAMPAIGN_PAUSED', 'ADSET_PAUSED', 'OFF']);
                 });
             } elseif ($status === 'ARCHIVED') {
-                $adsCollection = $adsCollection->filter(function ($item) {
+                $itemsCollection = $itemsCollection->filter(function ($item) {
                     return in_array($item['effective_status'], ['ARCHIVED', 'DELETED', 'LOCAL_ARCHIVE']);
                 });
             }
@@ -237,30 +345,33 @@ class AdController extends Controller
         // Apply Lead Coming Filter
         if ($request->filled('lead_status')) {
             if ($request->lead_status === 'coming') {
-                $adsCollection = $adsCollection->where('is_lead_coming', true);
+                $itemsCollection = $itemsCollection->where('is_lead_coming', true);
             } elseif ($request->lead_status === 'none') {
-                $adsCollection = $adsCollection->where('is_lead_coming', false);
+                $itemsCollection = $itemsCollection->where('is_lead_coming', false);
             }
         }
 
         // Apply Campaign Filter
         if ($request->filled('campaign')) {
-            $adsCollection = $adsCollection->where('campaign_name', $request->campaign);
+            $itemsCollection = $itemsCollection->where('campaign_name', $request->campaign);
         }
 
-        // Sort: Active ads first, then ads with highest CRM leads
-        $ads = $adsCollection->sortByDesc(function ($item) {
-            $activeWeight = ($item['effective_status'] === 'ACTIVE') ? 1000000 : 0;
-            return $activeWeight + ($item['crm_leads_count'] * 100) + $item['spend'];
+        // Sort: Active items first, then items with highest spend/leads
+        $items = $itemsCollection->sortByDesc(function ($item) {
+            $activeWeight = ($item['effective_status'] === 'ACTIVE') ? 10000000 : 0;
+            return $activeWeight + ($item['crm_leads_count'] * 1000) + $item['spend'];
         })->values();
 
         return view('admin.ads.index', [
-            'ads' => $ads,
+            'ads' => $items,
             'kpis' => $kpis,
             'apiError' => $apiError,
             'adAccountId' => $actId,
             'availableCampaigns' => $availableCampaigns,
             'hasToken' => !empty($accessToken),
+            'viewType' => $isShowingCampaigns ? 'campaigns' : 'ads',
+            'campaignsCount' => count($metaCampaigns),
+            'adsCount' => count($metaAds),
         ]);
     }
 
@@ -276,10 +387,9 @@ class AdController extends Controller
             ?: env('FB_CAPI_ACCESS_TOKEN') 
             ?: env('FB_PAGE_ACCESS_TOKEN');
 
-        $cacheKey = 'meta_ads_list_' . md5(($actId ?? 'none') . ($accessToken ? substr($accessToken, -10) : 'none'));
+        $cacheKey = 'meta_ads_v2_' . md5(($actId ?? 'none') . ($accessToken ? substr($accessToken, -10) : 'none'));
         Cache::forget($cacheKey);
 
         return redirect()->route('admin.ads.index')->with('success', 'Meta Ads performance data refreshed successfully.');
     }
 }
-
